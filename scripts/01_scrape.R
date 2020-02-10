@@ -187,8 +187,14 @@ plan(sequential)
 future_map2(attachments$url, attachments$path, 
             scrape,
             delay = 3.6*2,
-            .progress = TRUE)
+            .progress = TRUE) %>% 
+    unlist() %>% 
+    all()
 
+
+## Output ----
+write_rds(comments, str_c(files_folder, prefix, 'comments.Rds'))
+write_rds(attachments, str_c(files_folder, prefix, 'attachments.Rds'))
 
 ## TODOs:  use pdftools and officer packages for text extraction
 

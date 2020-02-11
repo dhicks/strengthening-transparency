@@ -40,10 +40,18 @@ toc()
 ## Very short documents -> some scanned docs need OCR
 ## Two remaining:  
 ## one that's totally blank; one that's a handwritten postcard
+message('Checking short docs')
 attach_text %>%
     mutate(len = str_length(text)) %>%
     filter(len < 100) %>%
     select(filename, ext, len)
 
+# attach_text %>% 
+#     mutate(len = str_length(text)) %>% 
+#     ggplot(aes(len)) +
+#     geom_histogram(binwidth = .25) +
+#     scale_x_log10()
 
-## TODO:  more error checking; write output; Makefile
+
+## Write output ----
+write_rds(attach_text, str_c(data_folder, prefix, 'attachments.Rds'))

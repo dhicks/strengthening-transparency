@@ -4,6 +4,10 @@ R := ../R
 all: $(data)/03_tokens.Rds; 
 
 
+## NB This step is fragile.  03 caches the annotated text 
+## of each document (comment/attachment).  If the document text is 
+## modified but the cached version remains, 03 won't pick up the 
+## change. 
 $(data)/03_tokens.Rds: 03_nlp.R \
 					   $(data)/01_comments.Rds \
 					   $(data)/02_attachments.Rds

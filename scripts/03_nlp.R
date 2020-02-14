@@ -44,7 +44,8 @@ comb_df = bind_rows(comments_df, attachments_df) %>%
     ## EDA indicates long texts are either thousands of identical comments
     ## or regulatory documents
     mutate(len = str_length(text)) %>% 
-    filter(len < 1e6, len > 0)
+    filter(len < 1e6, len > 0) %>% 
+    mutate(row_id = row_number())
 
 
 ## Parse with spaCy ----
@@ -79,14 +80,17 @@ annotate = function(doc_id, text,
 }
 # annotate(comb_df$doc_id[[1]], comb_df$text[[1]])
 
+
 ## Maybe ~2k sec if everything needs to be annotated from scratch
-## ~40 sec to load all the Rds files
+## ~50 sec to load all the Rds files
 tic()
 tokens_df = comb_df %>% 
     # head(100) %>% 
-    mutate(tokens = map2(doc_id, text, annotate, 
-                         verbose = TRUE, force = FALSE)) %>% 
-    select(-text)
+    select(doc_id, text) %>% 
+    pmap_dfr(annotate, .id = 'row_id') %>% 
+    mutate(row_id = as.integer(row_id)) %>% 
+    inner_join(comb_df, ., by = 'row_id') %>% 
+    select(comment_id, doc_id, sid:relation)
 toc()
 
 

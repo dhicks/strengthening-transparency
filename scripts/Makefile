@@ -1,7 +1,13 @@
 data := ../data
 R := ../R
 
-all: $(data)/03_tokens.Rds; 
+all: $(wildcard $(data)/04_*.Rds);
+
+
+$(data)/04_*.Rds: 04_vocab.R \
+				  $(R)/H.R \
+				  $(data)/03_tokens.Rds
+	Rscript 04_vocab.R
 
 
 ## NB This step is fragile.  03 caches the annotated text 

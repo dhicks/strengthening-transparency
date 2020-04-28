@@ -40,12 +40,16 @@ toc()
 # toc()
 
 ## Adjective-noun bigrams
+## Where the nouns are 'science' and 'health'
 ## ~9 sec
 ## These look great
 tic()
-adj_bigrams = filter(tokens, upos == 'ADJ') %>% 
+adj_bigrams = tokens %>% 
+    filter(upos %in% c('ADJ')) %>% 
     select(comment_id, doc_id, sid, tid, lemma, tid_source) %>% 
-    inner_join(filter(tokens, upos == 'NOUN'),
+    inner_join(filter(tokens, 
+                      upos == 'NOUN', 
+                      token %in% c('science', 'health')),
               by = c('comment_id', 'doc_id', 'sid', 
                             'tid_source' = 'tid')) %>% 
     mutate(bigram = str_c(lemma.x, '_', lemma.y)) %>% 
@@ -72,13 +76,18 @@ toc()
 
 
 ## EDA ----
-## 105k bigrams
+## 555 science-health bigrams
+## 265 with H > 0
 nrow(adj_h)
+adj_h %>% 
+    filter(H > 0) %>% 
+    nrow()
 
 # ggplot(adj_h, aes(n, delta_H, color = ndH)) +
-#     geom_point(alpha = .5) +
+#     geom_point(aes(label = bigram), alpha = .5) +
 #     scale_x_log10() +
 #     scale_color_viridis_c()
+# plotly::ggplotly()
 # 
 # ggplot(adj_h, aes(ndH)) +
 #     geom_density(color = 'blue') +
@@ -86,27 +95,46 @@ nrow(adj_h)
 #     geom_hline(yintercept = .99)
 
 
+## Bigram your_science shows up twice, in 2 almost-identical comments
+## The comment contains "PLEASE ENTER YOUR COMMENT HERE" followed 
+## immediately (w/out space) by the content of the comment: 
+## "end secret science now! Regards, Juliet Winkour"
+## The POS tagger evidently choked on this, interpreting YOUR as an 
+## adjective modifying "science." 
+## Because this document also gets the secret_science bigram, your_science appears on the top side. 
+# adj_bigrams %>% 
+#     filter(bigram == 'your_science') %>% 
+#     inner_join(tokens, by = 'comment_id') %>% 
+#     view()
+
+
 ## Vocabulary selection ----
-vocab_5h = adj_h %>% 
-    arrange(desc(ndH)) %>% 
-    head(5e2) %>% 
+vocab_sh = adj_h %>% 
+    filter(H > 0) %>%
     pull(bigram)
-vocab_1k = adj_h %>% 
-    arrange(desc(ndH)) %>% 
-    head(1e3) %>% 
-    pull(bigram)
-vocab_5k = adj_h %>% 
-    arrange(desc(ndH)) %>% 
-    head(5e3) %>% 
-    pull(bigram)
+
+# vocab_5h = adj_h %>% 
+#     arrange(desc(ndH)) %>% 
+#     head(5e2) %>% 
+#     pull(bigram)
+# vocab_1k = adj_h %>% 
+#     arrange(desc(ndH)) %>% 
+#     head(1e3) %>% 
+#     pull(bigram)
+# vocab_5k = adj_h %>% 
+#     arrange(desc(ndH)) %>% 
+#     head(5e3) %>% 
+#     pull(bigram)
 
 
 ## Write output ----
 write_rds(adj_bigrams, str_c(data_folder, prefix, 'adj_bigrams.Rds'))
 write_rds(adj_h, str_c(data_folder, prefix, 'adj_h.Rds'))
 
-list('vocab_5h' = vocab_5h, 
-     'vocab_1k' = vocab_1k, 
-     'vocab_5k' = vocab_5k) %>% 
+lst(# vocab_5h, 
+    # vocab_1k, 
+    # vocab_5k,
+    vocab_sh
+    ) %>% 
     iwalk(~ write_rds(.x, path = str_c(data_folder, prefix, 
                                       .y, '.Rds')))

@@ -4,8 +4,7 @@ R := ../R
 all: $(wildcard $(data)/04_*.Rds);
 
 
-$(data)/04_*.Rds: 04_vocab.R \
-				  $(R)/H.R \
+$(data)/04_*.Rds: $(R)/H.R \
 				  $(data)/03_tokens.Rds
 	Rscript 04_vocab.R
 

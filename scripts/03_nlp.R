@@ -95,5 +95,6 @@ toc()
 
 
 ## Write output ----
+write_rds(comb_df, file.path(data_folder, str_c(prefix, 'text.Rds')))
 write_rds(tokens_df, str_c(data_folder, prefix, 'tokens.Rds'))
 

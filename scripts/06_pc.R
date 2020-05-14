@@ -9,14 +9,13 @@ library(tictoc)
 library(assertthat)
 
 
-
 data_folder = file.path('..', 'data')
-prefix = '05_'
+prefix = '06_'
 
 ## Load data ----
-vocab = read_rds(file.path(data_folder, '04_vocab_sh.Rds'))
+vocab = read_rds(file.path(data_folder, '05_vocab_sh.Rds'))
 
-dtm = read_rds(file.path(data_folder, '04_adj_bigrams.Rds')) %>% 
+dtm = read_rds(file.path(data_folder, '05_adj_bigrams.Rds')) %>% 
     filter(bigram %in% vocab)
 
 dtm %>% 
@@ -151,7 +150,7 @@ docs_of_interest = pc %>%
     tidy(matrix = 'v') %>%
     filter(PC == 1L,
            !column %in% sierra_club) %>%
-    top_and_bottom(column, value, 100)
+    top_and_bottom(column, value, 150)
 
 pc %>% 
     tidy(matrix = 'v') %>% 
@@ -167,5 +166,16 @@ pc %>%
     scale_color_brewer(palette = 'Set1') +
     coord_cartesian(clip = 'off')
 
-write_csv(docs_of_interest, file.path(data_folder, 
+docs_of_interest %>% 
+    select(value, side, comment = column) %>% 
+    write_csv(file.path(data_folder, 
                                       str_c(prefix, 'docs.csv')))
+
+## Simple random sample of 100 docs
+set.seed(2020-05-09)
+dtm %>% 
+    count(comment_id) %>% 
+    sample_n(100) %>% 
+    select(comment_id) %>% 
+    write_csv(file.path(data_folder, 
+                        str_c(prefix, 'simple_sample.csv')))

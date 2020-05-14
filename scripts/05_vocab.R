@@ -6,7 +6,7 @@ source('../R/H.R')
 library(tictoc)
 
 data_folder = '../data/'
-prefix = '04_'
+prefix = '05_'
 
 ## Load data ----
 ## ~20 sec
@@ -128,6 +128,12 @@ vocab_sh = adj_h %>%
 
 
 ## Write output ----
+## Total word counts
+tokens %>% 
+    filter(!upos %in% c('PUNCT', 'SPACE', 'NUM')) %>% 
+    count(comment_id) %>% 
+    write_rds(str_c(data_folder, prefix, 'word_counts.Rds'))
+
 write_rds(adj_bigrams, str_c(data_folder, prefix, 'adj_bigrams.Rds'))
 write_rds(adj_h, str_c(data_folder, prefix, 'adj_h.Rds'))
 

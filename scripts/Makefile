@@ -1,12 +1,20 @@
 data := ../data
+out := ../out
 R := ../R
 
-all: $(wildcard $(data)/04_*.Rds);
+all: pipeline eda;
 
 
-$(data)/04_*.Rds: $(R)/H.R \
+pipeline: $(wildcard $(data)/05_*.Rds)
+$(data)/05_*.Rds: $(R)/H.R \
 				  $(data)/03_tokens.Rds
-	Rscript 04_vocab.R
+	Rscript 05_vocab.R
+
+eda: $(out)/04_eda.html
+$(out)/04_eda.html: $(data)/03_tokens.Rds \
+					$(data)/03_text.Rds \
+					04_eda.R
+	Rscript -e "rmarkdown::render('04_eda.R', output_dir = file.path('..', 'out'))"
 
 
 ## NB This step is fragile.  03 caches the annotated text 

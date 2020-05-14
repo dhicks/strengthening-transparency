@@ -1,3 +1,4 @@
+## Principal components / latent semantic analysis of science and health bigrams
 library(tidyverse)
 theme_set(theme_minimal())
 
@@ -29,7 +30,7 @@ df = dtm %>%
     group_by(bigram) %>% 
     summarize(df = n()) %>% 
     ungroup()
-h = read_rds(file.path(data_folder, '04_adj_h.Rds'))
+h = read_rds(file.path(data_folder, '05_adj_h.Rds'))
 
 
 ## Roughly 2426 comments are nearly identical, and seem to be based on a form letter campaign by the Sierra Club

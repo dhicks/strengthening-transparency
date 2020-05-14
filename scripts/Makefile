@@ -7,16 +7,15 @@ all: pipeline eda;
 pipeline: $(wildcard $(data)/06_*.csv)
 eda: $(out)/04_eda.html
 
-## TODO:  
-## - script that confirms comments in both csvs and Excel files are the same
-
 ## NB The 06 Excel files are manually coded from the 06 CSV files
+## 07 tests that the comment IDs match
 $(data)/06_*.csv: $(data)/05_vocab_sh.Rds \
 				  $(data)/05_adj_bigrams.Rds \
 				  $(data)/05_adj_h.Rds \
 				  $(data)/03_text.Rds \
 				  06_pc.R
 	Rscript 06_pc.R
+	Rscript 07_check_output.R
 
 
 $(data)/05_*.Rds: $(R)/H.R \

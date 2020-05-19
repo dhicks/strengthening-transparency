@@ -1,4 +1,7 @@
 ## Principal components / latent semantic analysis of science and health bigrams
+## TODO: send plots, etc., to out
+## TODO: write PC model to data
+## TODO: clean up commented code, etc.
 library(tidyverse)
 theme_set(theme_minimal())
 
@@ -11,6 +14,7 @@ library(assertthat)
 
 
 data_folder = file.path('..', 'data')
+output_folder = file.path('..', 'out')
 prefix = '06_'
 
 ## Load data ----
@@ -68,40 +72,44 @@ toc()
 
 ## Scree plot ----
 ## 1 PC explains almost half of the variance!  5 explain about 80%
-tidy(pc, matrix = 'd') %>% 
+scree_cum = tidy(pc, matrix = 'd') %>% 
     ggplot(aes(PC, cumulative)) +
     geom_point() +
     geom_line(group = 1L) +
-    ylim(0, 1)
+    ylim(0, 1) +
+    labs(y = 'cumulative variance explained')
+# scree_cum
+# scree_cum + xlim(0, 5)
+ggsave(file.path(output_folder, str_c(prefix, 'scree_cum.png')), 
+       scree_cum)
 
-last_plot() +
-    xlim(0, 5)
-
-tidy(pc, matrix = 'd') %>% 
+scree = tidy(pc, matrix = 'd') %>% 
     ggplot(aes(PC, std.dev^2)) +
     geom_point() +
     geom_line(group = 1L)
+# scree
+# scree + xlim(0, 5)
+ggsave(file.path(output_folder, str_c(prefix, 'scree.png')), 
+       scree)
 
-last_plot() +
-    xlim(0, 5)
 
-
-## All bigrams, PC 1 and 2 ----
-# pc %>% 
-#     tidy() %>% 
-#     filter(PC %in% c(1L, 2L)) %>% 
-#     mutate(value_trans = sqrt(abs(value)) * if_else(value < 0, -1, 1)) %>% 
-#     select(-value) %>% 
-#     pivot_wider(names_from = PC, names_prefix = 'pc', 
-#                 values_from = value_trans) %>% 
-#     left_join(h, by = c('row' = 'bigram')) %>% 
-#     mutate(noun = {row %>% 
-#             str_extract('_.*') %>% 
-#             str_remove('^_')}) %>% 
-#     ggplot(aes(pc1, pc2, color = noun)) +
-#     geom_point(aes(size = log10(n), 
-#                    label = row)) +
-#     scale_color_brewer(palette = 'Set1')
+## Biplots, PC 1 and 2 ----
+biplot = pc %>%
+    tidy() %>%
+    filter(PC %in% c(1L, 2L)) %>%
+    mutate(value_trans = sqrt(abs(value)) * if_else(value < 0, -1, 1)) %>%
+    pivot_wider(names_from = PC, names_prefix = 'pc',
+                id_cols = row,
+                values_from = value_trans) %>%
+    left_join(h, by = c('row' = 'bigram')) %>%
+    mutate(noun = {row %>%
+            str_extract('_.*') %>%
+            str_remove('^_')}) %>%
+    ggplot(aes(pc1, pc2, color = noun)) +
+    geom_point(aes(size = log10(n),
+                   label = row)) +
+    scale_color_brewer(palette = 'Set1')
+# biplot
 # plotly::ggplotly()
 
 
@@ -124,20 +132,43 @@ pc %>%
     tidy() %>% 
     filter(PC == 1L) %>% 
     top_and_bottom(row, value, 20) %>% 
+    select(side, bigram = row, score = value) %>% 
+    mutate(bigram = str_replace(bigram, '_', ' ')) %>% 
+    knitr::kable(format = 'markdown', 
+                 digits = 2, 
+                 caption = 'Top and bottom 20 bigrams, first principal component.') %>% 
+    write_lines(file.path(output_folder, 
+                          str_c(prefix, 'top_bottom.md')))
+
+tb_plot = pc %>% 
+    tidy() %>% 
+    filter(PC == 1L) %>% 
+    top_and_bottom(row, value, 20) %>% 
     # left_join(h, by = c('row' = 'bigram')) %>% 
     left_join(df, by = c('row' = 'bigram')) %>% 
     mutate(row = str_replace(row, '_', ' '),
            term = fct_rev(fct_inorder(row)), 
-           value_trans = sqrt(abs(value)) * sign(value)) %>% 
-    ggplot(aes(term, value_trans, color = side)) +
+           value_trans = sqrt(abs(value)) * sign(value), 
+           noun = case_when(str_detect(term, ' science') ~ 'science', 
+                            str_detect(term, ' health') ~ 'health', 
+                            TRUE ~ NA_character_)) %>% 
+    ggplot(aes(term, value_trans, color = noun)) +
     geom_point(aes(size = df)) +
     geom_segment(aes(xend = term, yend = 0)) +
     scale_color_brewer(palette = 'Set1') +
     scale_size(trans = 'log10') +
     coord_flip() +
+    facet_grid(rows = vars(side), scales = 'free_y', 
+               as.table = FALSE) +
+    theme_bw() +
     labs(x = 'bigram', 
-         y = 'loading (square-root scale)', 
-         size = 'document frequency')
+         y = 'score (square-root scale)', 
+         size = 'document frequency', 
+         title = 'Top and bottom terms', 
+         subtitle = 'First principal component')
+tb_plot
+ggsave(file.path(output_folder, str_c(prefix, 'top_bottom.png')), 
+       height = 6, width = 6, scale = 1.5)
 # plotly::ggplotly()
 
 ## Extreme documents along the first PC ----
@@ -147,25 +178,40 @@ pc %>%
 #            !column %in% sierra_club) %>%
 #     top_and_bottom(column, value, 25)
 
+## Top and bottom 150 documents 
+## (actually returns many more on bottom due to ties)
 docs_of_interest = pc %>%
     tidy(matrix = 'v') %>%
     filter(PC == 1L,
            !column %in% sierra_club) %>%
     top_and_bottom(column, value, 150)
 
-pc %>% 
+count(docs_of_interest, side)
+
+load_dist = pc %>% 
     tidy(matrix = 'v') %>% 
     filter(PC == 1L) %>% 
     mutate(sierra_club = column %in% sierra_club) %>% 
     ggplot(aes(value)) +
     geom_density() +
-    geom_rug(data = ~filter(.x, sierra_club),
-             outside = TRUE,
-             alpha = 1) +
-    geom_rug(data = docs_of_interest, 
-             aes(color = side)) +
-    scale_color_brewer(palette = 'Set1') +
-    coord_cartesian(clip = 'off')
+    # geom_rug(data = ~filter(.x, sierra_club),
+    #          outside = TRUE,
+    #          alpha = 1) +
+    geom_point(data = ~ filter(.x, sierra_club), 
+               aes(y = 0, color = 'Sierra club'),
+               shape = '|', size = 4) +
+    # geom_rug(data = docs_of_interest, 
+    #          aes(color = side)) +
+    geom_point(data = docs_of_interest, 
+               aes(y = 5, color = side), 
+               shape = '|', size = 4) +
+    scale_color_brewer(palette = 'Set1', 
+                       guide = guide_legend(reverse = TRUE)) +
+    labs(color = 'document set', 
+         x = 'loading')
+# load_dist
+ggsave(file.path(output_folder, str_c(prefix, 'loading_distribution.png')), 
+       load_dist)
 
 docs_of_interest %>% 
     select(value, side, comment = column) %>% 

@@ -1,7 +1,4 @@
 ## Principal components / latent semantic analysis of science and health bigrams
-## TODO: send plots, etc., to out
-## TODO: write PC model to data
-## TODO: clean up commented code, etc.
 library(tidyverse)
 theme_set(theme_minimal())
 
@@ -166,7 +163,7 @@ tb_plot = pc %>%
          size = 'document frequency', 
          title = 'Top and bottom terms', 
          subtitle = 'First principal component')
-tb_plot
+# tb_plot
 ggsave(file.path(output_folder, str_c(prefix, 'top_bottom.png')), 
        height = 6, width = 6, scale = 1.5)
 # plotly::ggplotly()
@@ -213,6 +210,7 @@ load_dist = pc %>%
 ggsave(file.path(output_folder, str_c(prefix, 'loading_distribution.png')), 
        load_dist)
 
+## CSVs for coding ----
 docs_of_interest %>% 
     select(value, side, comment = column) %>% 
     write_csv(file.path(data_folder, 
@@ -226,3 +224,7 @@ dtm %>%
     select(comment_id) %>% 
     write_csv(file.path(data_folder, 
                         str_c(prefix, 'simple_sample.csv')))
+
+## Write out PC model ----
+write_rds(pc, file.path(data_folder, str_c(prefix, 
+                                           'pc.Rds')))

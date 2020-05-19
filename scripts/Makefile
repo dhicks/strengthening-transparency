@@ -9,11 +9,11 @@ eda: $(out)/04_eda.html
 
 ## NB The 06 Excel files are manually coded from the 06 CSV files
 ## 07 tests that the comment IDs match
-$(data)/06_*.csv $(out)/05_*.png: $(data)/05_vocab_sh.Rds \
-								  $(data)/05_adj_bigrams.Rds \
-								  $(data)/05_adj_h.Rds \
-								  $(data)/03_text.Rds \
-								  06_pc.R
+$(data)/06_*.csv $(data)/06_*.Rds $(out)/05_*.png: $(data)/05_vocab_sh.Rds \
+								  				   $(data)/05_adj_bigrams.Rds \
+								  				   $(data)/05_adj_h.Rds \
+								  				   $(data)/03_text.Rds \
+								  				   06_pc.R
 	Rscript 06_pc.R
 	Rscript 07_check_output.R
 

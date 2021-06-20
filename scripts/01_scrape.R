@@ -1,230 +1,129 @@
-#' This script retrieves all comments and selected attachments for a given Regulations.gov docket.  Beyond the dependencies in the first code block, it also uses two external command-line tools, pdftotext <http://www.foolabs.com/xpdf/download.html> and pandoc <http://pandoc.org/>.  
-#' 
-#' Note that this script assumes that a Regulations.gov API key is declared in `api_key.R`, as `api_key = '123foo'`.
-
 library(tidyverse)
-library(lubridate)
-# library(stringr)
-library(xml2)
-
-# library(foreach)
-# library(doSNOW)
 library(furrr)
-plan(multisession, workers = 3)
-
 library(tictoc)
 
-source('../R/scrape.R')
+## Package with functions for accessing the API
+## devtools::install(file.path('..', 'reg.gov.api'))
+library(reg.gov.api)
 
-prefix = '01_'
-rpp = 1000 ## number of results per page in API search
-
-## Top-level parameters ----
-## Docket of interest
-## https://www.regulations.gov/docket?D=EPA-HQ-OA-2018-0259
-docket_id = 'EPA-HQ-OA-2018-0259'
-
-## Folders
-files_folder = '../data/'
-if (!file.exists(files_folder)) {
-    dir.create(files_folder)
-}
-
-doc_ids_folder = str_c(files_folder, prefix, 'doc_id/')
-if (!file.exists(doc_ids_folder)) {
-    dir.create(doc_ids_folder)
-}
-docs_folder = str_c(files_folder, prefix, 'docs/')
-if (!file.exists(docs_folder)) {
-    dir.create(docs_folder)
-}
-attachments_folder = str_c(files_folder, prefix, 'attachments/')
-if (!file.exists(attachments_folder)) {
-    dir.create(attachments_folder)
-}
-
-## API key
-## http://regulationsgov.github.io/developers/key/
 source('api_key.R')
 
+prefix = '01_'
 
-## Retrieve IDs ----
-## for the public submissions in the docket
-base_query = str_c('https://api.data.gov/regulations/v3/documents.xml', 
-                   '?', 
-                   'api_key=', api_key, '&', 
-                   'dct=PS', '&', 
-                   'dktid=', docket_id)
+data_folder = file.path('..', 'data')
+attachments_folder = file.path(data_folder,
+                               str_c(prefix, 'attachments'))
 
-total_docs_query = str_c(base_query, '&',
-                         'countsOnly=1' ## how many results?
-)
-total_docs_resp = read_xml(total_docs_query)
-total_docs = total_docs_resp %>% 
-    xml_find_first('//recordCount') %>%
-    xml_text() %>% 
-    as.numeric()
-
-## Paging to get doc IDs
-num_pages = ceiling(total_docs / rpp)
-offsets = (1:num_pages - 1)*rpp
-names(offsets) = str_pad(1:num_pages, 3, pad = '0')
-
-doc_id_queries = str_c(base_query, '&',
-                       'rpp=', rpp, '&', ## get up to 1k docs
-                       'po=', offsets) %>% 
-    set_names(names(offsets))
-doc_id_files = str_c(doc_ids_folder, 
-                     names(offsets), 
-                     '.xml')
-
-# scrape(doc_id_queries[[1]], doc_id_files[[1]])
-future_map2_lgl(doc_id_queries, doc_id_files, scrape, 
-                .progress = TRUE) %>% 
-    all()
-
-parse_doc_ids = function(doc_ids_file) {
-    doc_ids_file %>% 
-        read_xml() %>% 
-        xml_find_all('//documentId') %>% 
-        xml_text()
-}
-doc_ids = future_map(doc_id_files, parse_doc_ids, 
-                     .progress = TRUE) %>% 
-    simplify() %>% 
-    as_vector(.type = 'chr')
+docket_id = 'EPA-HQ-OA-2018-0259'
 
 
-## Scrape each document ---- 
-# doc_id = doc_ids[155]
-doc_files = str_c(docs_folder, doc_ids, '.xml')
-doc_queries = str_c('https://api.data.gov/regulations/v3/document.xml', 
-                    '?', 
-                    'api_key=', api_key, '&', 
-                    'documentId=', doc_ids)
+# Step 1: Get all documents for the docketId ----
+message('Step 1: Get all documents in the docket')
 
-## NB Running this in parallel will trigger rate-limiting
+docs = docket_id %>%
+    doc_list() %>%
+    filter(documentType %in% c('Rule', 'Proposed Rule')) %>%
+    select(id,
+           objectid = objectId,
+           type = documentType,
+           title = title) %>%
+    as_tibble()
+
+
+# Step 2: Get all comments for each document using objectId ----
+
+# Step 2a: Get number of comments for each document ----
+message('Step 2a: Number of comments for each document')
+# comment_counts('090000648320bc9e')
+
+docs = docs %>%
+    mutate(comments = map_int(objectid, comment_counts)) %>%
+    filter(comments > 0)
+
+
+## 2b: Page through each block ----
+message('Step 2b: Page through blocks of comments')
+# foo = get_blocks('090000648320bc9e', total_comments = 9292, verbose = FALSE)
+# foo = get_blocks(docs$objectid[1], docs$comments[1])
+
+plan(multisession, workers = 4)
+comments = with(docs, 
+                map2_dfr(objectid, comments, get_blocks)) %>%
+    filter(!duplicated(.))
+
+
+## Step 3: Scrape and parse each comment (metadata+text) ----
+## Step 3a: Scrape ----
+message('3a: Scrape comment metadata + text')
+
+# scrape_comment('EPA-HQ-OA-2018-0259-4769', verbose = TRUE)
+# scrape_comment('EPA-HQ-OA-2018-0259-1111')
+
+## NB API rate limit is 1k queries/hour
 # plan(sequential)
-plan(multisession, workers = 1)
-future_map2_lgl(doc_queries, doc_files, scrape, 
-                delay = 3600/1000,
-                .progress = TRUE
-) %>% 
-    all()
+json_files = comments %>%
+    # head() %>%
+    pull(id) %>%
+    map_chr(scrape_comment,
+            delay = 3600/1000,
+            verbose = FALSE)
 
-parse_comments = function(doc_file) {
-    response = read_xml(doc_file)
-    
-    doc_id = response %>% 
-        xml_find_first('./documentId') %>% 
-        xml_text()
-    
-    comment_text = response %>%
-        xml_find_first('//comment') %>%
-        xml_text()
-    date = response %>%
-        xml_find_first('//receivedDate') %>%
-        xml_text %>%
-        ymd_hms %>%
-        round_date(unit = 'day')
-    
-    attachments = response %>%
-        xml_find_all('//attachment')
-    attachment_urls = attachments %>%
-        xml_find_first('fileFormats') %>%
-        xml_text()
-    if (length(attachment_urls) == 0) {
-        attachments = NA
-        attachment_urls = as.character(NA)
-    }
-    ## Don't get rate-limited
-    # Sys.sleep(1)
-    
-    regs_gov_url = str_c(
-        'https://www.regulations.gov/document?D=',
-        doc_id
-    )
-    return(tibble(comment_id = doc_id,
-           url = regs_gov_url,
-           comment_text,
-           date,
-           attachment_urls = list(attachment_urls)))
-}
 
-# parse_comments(doc_files[[1]]) %>% view()
+## Step 3b: Parse ----
+message('3b: Parse comments')
 
-plan(multisession, workers = 3)
-## ~20 sec
+# parser('../data/01_comments/EPA-HQ-OA-2018-0259-1010.json') %>%
+#     unnest(attachments) %>%
+# view()
+# parser(json_files[1], verbose = FALSE) %>%
+#     unnest(attachments) %>%
+#     select(url, format)
+# parser('../data/01_comments/EPA-HQ-OA-2018-0259-0445.json') %>%
+#     unnest(attachments) %>%
+#     select(url, format)
+
+plan(multisession, workers = 6)
 tic()
-comments = future_map_dfr(doc_files, parse_comments, 
-                                 .progress = TRUE)
+parsed = future_map_dfr(json_files,
+                        parser,
+                        verbose = FALSE,
+                        .progress = TRUE)
 toc()
 
 
-## Scrape attachments ----
-#' Identify attachments to download
-attachments_unfltd = comments %>%
-    select(comment_id, url = attachment_urls) %>% 
-    unnest(url) %>%
-    filter(!is.na(url)) %>% 
-    mutate(type = str_match(url, 'contentType=([^&]*)')[,2], 
-           attachment_num = str_match(url, 'attachmentNumber=([0-9]+)')[,2], 
-           filename = str_c(comment_id, '-', attachment_num), 
-           url = str_c(url, '&api_key=', api_key))
+## Step 4: Scrape attachments ----
+message('4: Scrape attachments')
 
-count(attachments_unfltd, type)
+attachments = parsed %>%
+    filter(n_attachments > 0) %>%
+    unnest(attachments) %>%
+    filter(!is.na(url),
+           format %in% c('docx', 'doc', 'pdf', 'txt')) %>%
+    select(comment_id = id,
+           objectId, attachment_id,
+           docOrder, url, format) %>%
+    mutate(file = str_c(comment_id, '-', docOrder, '.', format),
+           path = file.path(attachments_folder, file))
 
-attachments = attachments_unfltd %>% 
-    filter(type %in% c('pdf', 'msw12', 'msw8', 'crtext')) %>% 
-    mutate(ext = case_when(type == 'pdf' ~ 'pdf', 
-                           type == 'msw12' ~ 'docx', 
-                           type == 'msw8' ~ 'doc', 
-                           type == 'crtext' ~ 'txt'), 
-           path = str_c(attachments_folder, 
-                        filename, '.', ext))
+message(nrow(attachments), ' total attachments')
+attachments %>%
+    filter(!file.exists(path)) %>%
+    nrow() %>%
+    message(' attachments to download')
 
 plan(sequential)
-future_map2(attachments$url, attachments$path, 
+tic()
+future_map2(attachments$url, attachments$path,
             scrape,
             delay = 3.6*2,
-            .progress = TRUE) %>% 
-    unlist() %>% 
+            .progress = TRUE) %>%
+    unlist() %>%
     all()
+toc()
 
 
-## Output ----
-write_rds(comments, str_c(files_folder, prefix, 'comments.Rds'))
-write_rds(attachments, str_c(files_folder, prefix, 'attachments.Rds'))
-
-## TODOs:  use pdftools and officer packages for text extraction
-
-#'             ## Convert to text
-#'             txt_version = str_c(files_folder, '/', 
-#'                                 attachment$filename, '.', 'txt')
-#'             if (!file.exists(txt_version)) {
-#'                 if (attachment$ext == 'pdf') {
-#'                     ## pdftotext: 
-#'                     ## <http://www.foolabs.com/xpdf/download.html>
-#'                     system2('pdftotext', dl_version, txt_version)
-#'                 } else if (attachment$ext == 'docx') {
-#'                     ## Pandoc
-#'                     system2('pandoc', c(dl_version, 
-#'                                         '-o', txt_version))
-#'                 } else if (attachment$ext == 'doc') {
-#'                     warning(str_c('Cannot convert ', 
-#'                                   attachment$filename,
-#'                                   ' from doc to txt automatically'))
-#'                 } else {
-#'                     stop('Unknown file type')
-#'                 }
-#'             }
-#'         }
-#' 
-#' 
-#' save(comments, file = '1_comments.Rdata')
-#' comments %>%
-#'     select(-comment_text, -attachment_urls) %>%
-#'     write_excel_csv('1_comment_metadata.csv')
-#' 
-#' sessionInfo()
-#' 
+## Step 5: Write output ----
+write_rds(parsed, file.path(data_folder,
+                            str_c(prefix, 'comments.Rds')))
+write_rds(attachments, file.path(data_folder,
+                                 str_c(prefix, 'attachments.Rds')))

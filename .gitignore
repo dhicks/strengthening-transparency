@@ -3,3 +3,4 @@ misc/
 .DS_Store
 scripts/api_key.R
 
+.Rproj.user

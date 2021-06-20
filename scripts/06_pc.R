@@ -23,7 +23,7 @@ dtm = read_rds(file.path(data_folder, '05_adj_bigrams.Rds')) %>%
 dtm %>% 
     count(comment_id, bigram) %>% 
     nrow() %>% 
-    all_equal(nrow(dtm)) %>% 
+    identical(nrow(dtm)) %>% 
     assert_that(msg = "dtm doesn't have 1 row per comment-bigram")
 
 ## Document frequency and H

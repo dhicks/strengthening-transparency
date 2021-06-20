@@ -1,18 +1,23 @@
 ## EDA of parsed comments
 library(tidyverse)
+library(lubridate)
 theme_set(theme_minimal())
 
 data_folder = '../data/'
 words_filter = quos(! upos %in% c('PUNCT', 'SPACE', 'SYM', 'X', 'NUM'))
 
 ## Read data ----
+meta = read_rds(file.path(data_folder, '01_comments.Rds'))
+
 text = read_rds(file.path(data_folder, '03_text.Rds'))
 tokens = read_rds(str_c(data_folder, '03_tokens.Rds'))
 
 
 ## How many comments? ----
 ## 9292
-count(tokens, comment_id) %>% 
+nrow(meta)
+text %>% 
+    count(comment_id) %>% 
     nrow()
 
 ## Distinct terms? 
@@ -31,6 +36,17 @@ filter(tokens, upos == 'X')
 filter(tokens, upos == 'SYM') %>% 
     count(token) %>% 
     arrange(desc(n))
+
+## Comment posting date ----
+meta %>% 
+    mutate(date = date(date), 
+           month = round_date(date, unit = 'month')) %>% 
+    # count(month) %>% 
+    ggplot(aes(month)) +
+    geom_freqpoly(binwidth = 30) +
+    geom_rug(aes(date)) +
+    scale_x_date(date_breaks = '4 months')
+    
 
 ## Distribution of comment length ----
 ## In tokens, dropping punctuation, spaces, symbols, unknown

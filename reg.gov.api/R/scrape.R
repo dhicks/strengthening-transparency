@@ -25,6 +25,10 @@ scrape = function(url,
         if (delay > 0) {
             Sys.sleep(delay)
         }
+    } else {
+        if (verbose) {
+            message(dl_target, ' already exists')
+        }
     }
     return(invisible(dl_target))
 }

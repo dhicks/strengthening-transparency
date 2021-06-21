@@ -1,6 +1,8 @@
+## NB parallelly <= 1.25.0: <https://github.com/HenrikBengtsson/future/issues/511>
 library(tidyverse)
 library(furrr)
 library(tictoc)
+library(assertthat)
 
 ## Package with functions for accessing the API
 ## devtools::install(file.path('..', 'reg.gov.api'))
@@ -26,7 +28,8 @@ docs = docket_id %>%
     select(id,
            objectid = objectId,
            type = documentType,
-           title = title) %>%
+           title = title, 
+           posted = postedDate) %>%
     as_tibble()
 
 
@@ -45,12 +48,28 @@ docs = docs %>%
 message('Step 2b: Page through blocks of comments')
 # foo = get_blocks('090000648320bc9e', total_comments = 9292, verbose = FALSE)
 # foo = get_blocks(docs$objectid[1], docs$comments[1])
+# reg.gov.api:::get_comment_page('090000648320bc9e', verbose = TRUE)
+# debugonce(reg.gov.api:::get_block)
+# foo = reg.gov.api:::get_block('090000648320bc9e', verbose = TRUE)
+# debugonce(get_blocks)
+# get_blocks('090000648320bc9e', total_comments = 500, verbose = FALSE) %>%
+#     filter(!duplicated(.))
 
 plan(multisession, workers = 4)
+tic()
 comments = with(docs, 
-                map2_dfr(objectid, comments, get_blocks)) %>%
+                map2_dfr(objectid, comments, get_blocks, verbose = FALSE)) %>%
     filter(!duplicated(.))
+toc()
+plan(sequential)
 
+assert_that(are_equal(nrow(comments), 
+                      docs %>% 
+                          pull(comments) %>% 
+                          sum()), 
+            msg = 'Number of retrieved comments doesn\'t matching expected number')
+assert_that(are_equal(nrow(comments), 22390L), 
+            msg = 'Number of retrieved comments doesn\'t match reproducibility check')
 
 ## Step 3: Scrape and parse each comment (metadata+text) ----
 ## Step 3a: Scrape ----

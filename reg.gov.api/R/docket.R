@@ -62,12 +62,12 @@ comment_counts = function(doc_id) {
 #'
 #' @param doc_id API document identifier, eg, `'090000648320bc9e'`
 #' @param page_num Page of results to retrieve
-#' @param lastModDate If not `NULL`, only comments modified on or after this date-time will be included in search results. Used for paging through blocks of 5000 comments.
+#' @param lastdate If not `NULL`, only comments modified on or after this date-time will be included in search results. Used for paging through blocks of 5000 comments.
 #' @param verbose Display the API query
 #' @return A data frame containing the comment metadata
 get_comment_page = function(doc_id,
                             page_num = 1L,
-                            lastModDate = NULL,
+                            lastdate = NULL,
                             verbose = FALSE) {
     api_key_check()
 
@@ -77,9 +77,9 @@ get_comment_page = function(doc_id,
                                         'page[number]=', page_num, '&',
                                         'sort=lastModifiedDate,documentId', '&',
                                         'api_key=', api_key)
-    if (!is.null(lastModDate)) {
+    if (!is.null(lastdate)) {
         comment_page_query = stringr::str_c(comment_page_query, '&',
-                                            'filter[lastModifiedDate][ge]=', lastModDate)
+                                            'filter[lastModifiedDate][ge]=', lastdate)
     }
 
     if (verbose) {
@@ -92,7 +92,8 @@ get_comment_page = function(doc_id,
 
     dataf = content$data %>%
         dplyr::rename_with(~ stringr::str_remove_all(., 'attributes.')) %>%
-        tibble::as_tibble()
+        tibble::as_tibble() %>%
+        dplyr::mutate(comment_on = doc_id)
 
     return(dataf)
 }
@@ -101,13 +102,13 @@ get_comment_page = function(doc_id,
 #' Get metadata for a block of 5000 comments
 #'
 #' @param doc_id API document identifier, eg, `'090000648320bc9e'`
-#' @param lastModDate If not `NULL`, only comments modified on or after this date-time will be included in search results. Used for paging through blocks of 5000 comments.
+#' @param lastdate If not `NULL`, only comments posted on or after this date-time will be included in search results. Used for paging through blocks of 5000 comments.
 #' @param block_size Number of comments in the block.  Used to determine how many pages need to be retrieved.
 #' @param max_page Maximum number of pages to be retrieved; here mainly for debugging purposes
 #' @param verbose Passed down to `get_comment_page`
 #' @return A data frame containing the comment metadata
 get_block = function(doc_id,
-                     lastModDate = NULL,
+                     lastdate = NULL,
                      block_size = 5000,
                      max_pages = 20,
                      verbose = FALSE) {
@@ -116,7 +117,7 @@ get_block = function(doc_id,
     dataf = furrr::future_map_dfr(1:num_pages,
                                   ~get_comment_page(doc_id,
                                                     .,
-                                                    lastModDate,
+                                                    lastdate,
                                                     verbose = verbose),
                                   .progress = TRUE,
                                   .options = furrr::furrr_options(globals = 'api_key',
@@ -128,9 +129,7 @@ get_block = function(doc_id,
 
 #' Subtract 5 hours and add 1 second to a date-time character string
 #'
-#' This function is used by `get_blocks` to page through the blocks of 5000 comments:  get the date-time for the last comment of the previous block, add 1 second, and use that as the threshold for the next block.  However, the API reports date-times in the format `YYYY-MM-DDTHH:mm:ssZ`, using UTC, while the query language only accepts the format `YYYY-MM-DD HH:mm:ss` using Eastern time.
-#'
-#' @note API documentation doesn't specify whether this is Eastern Standard Time or whether it might be daylight savings (depending on when the comment was submitted, etc.)
+#' This function is used by `get_blocks` to page through the blocks of 5000 comments:  get the date-time for the last comment of the previous block, add 1 second, and use that as the threshold for the next block.  However, the API reports date-times in the format `YYYY-MM-DDTHH:mm:ssZ`, using UTC, while the query language only accepts the format `YYYY-MM-DD HH:mm:ss` using Eastern time(America/New York).
 #'
 #' @param json_date The date-time character string
 #' @return A date-time character string, formatted as required by the API
@@ -138,7 +137,7 @@ wrangle_date = function(json_date)
 {
     json_date %>%
         lubridate::ymd_hms() %>%
-        {. - lubridate::duration(5, 'hours') + lubridate::duration(1, 'second')} %>%
+        lubridate::with_tz(tzone = 'America/New_York') %>%
         as.character()
 }
 

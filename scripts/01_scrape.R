@@ -84,6 +84,7 @@ json_files = comments %>%
     # head() %>%
     pull(id) %>%
     map_chr(scrape_comment,
+            scrape_folder = file.path(data_folder, str_c(prefix, 'comments')),
             delay = 3600/1000,
             verbose = FALSE)
 

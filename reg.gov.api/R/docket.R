@@ -192,9 +192,7 @@ get_blocks = function(doc_id,
 #' @return Path to the scraped comment (invisible)
 #' @export
 scrape_comment = function(comment_id,
-                          scrape_folder = file.path(data_folder,
-                                                    str_c(prefix,
-                                                          'comments')),
+                          scrape_folder,
                           ...) {
     comment_query = str_c('https://api.regulations.gov/v4/comments/',
                           comment_id, '?',

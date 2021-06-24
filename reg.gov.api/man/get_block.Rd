@@ -6,7 +6,7 @@
 \usage{
 get_block(
   doc_id,
-  lastModDate = NULL,
+  lastdate = NULL,
   block_size = 5000,
   max_pages = 20,
   verbose = FALSE
@@ -15,7 +15,7 @@ get_block(
 \arguments{
 \item{doc_id}{API document identifier, eg, `'090000648320bc9e'`}
 
-\item{lastModDate}{If not `NULL`, only comments modified on or after this date-time will be included in search results. Used for paging through blocks of 5000 comments.}
+\item{lastdate}{If not `NULL`, only comments posted on or after this date-time will be included in search results. Used for paging through blocks of 5000 comments.}
 
 \item{block_size}{Number of comments in the block.  Used to determine how many pages need to be retrieved.}
 

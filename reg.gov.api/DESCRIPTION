@@ -18,4 +18,8 @@ Imports:
     tibble,
     furrr,
     lubridate,
-    tools
+    tools,
+    assertthat,
+    readr,
+    pdftools
+    

@@ -105,10 +105,11 @@ message('3b: Parse comments')
 plan(multisession, workers = 6)
 tic()
 parsed = future_map_dfr(json_files,
-                        parser,
+                        reg.gov.api:::parser,
                         verbose = FALSE,
                         .progress = TRUE)
 toc()
+plan(sequential)
 
 
 ## Step 4: Scrape attachments ----
@@ -138,7 +139,9 @@ future_map2(attachments$url, attachments$path,
             delay = 3.6*2,
             .progress = TRUE) %>%
     unlist() %>%
-    all()
+    negate(is.na)() %>% 
+    all() %>% 
+    assert_that(msg = 'Error in scraping attachments')
 toc()
 
 

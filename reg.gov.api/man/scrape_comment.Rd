@@ -4,11 +4,7 @@
 \alias{scrape_comment}
 \title{Scrape the data for a comment}
 \usage{
-scrape_comment(
-  comment_id,
-  scrape_folder = file.path(data_folder, str_c(prefix, "comments")),
-  ...
-)
+scrape_comment(comment_id, scrape_folder, ...)
 }
 \arguments{
 \item{comment_id}{ID of the comment to scrape}

@@ -2,6 +2,8 @@
 
 export(comment_counts)
 export(doc_list)
+export(extract_text)
 export(get_blocks)
+export(parser)
 export(scrape)
 export(scrape_comment)

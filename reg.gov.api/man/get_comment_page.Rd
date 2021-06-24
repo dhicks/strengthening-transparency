@@ -4,14 +4,14 @@
 \alias{get_comment_page}
 \title{Get a single page of metadata with 250 comments}
 \usage{
-get_comment_page(doc_id, page_num = 1L, lastModDate = NULL, verbose = FALSE)
+get_comment_page(doc_id, page_num = 1L, lastdate = NULL, verbose = FALSE)
 }
 \arguments{
 \item{doc_id}{API document identifier, eg, `'090000648320bc9e'`}
 
 \item{page_num}{Page of results to retrieve}
 
-\item{lastModDate}{If not `NULL`, only comments modified on or after this date-time will be included in search results. Used for paging through blocks of 5000 comments.}
+\item{lastdate}{If not `NULL`, only comments modified on or after this date-time will be included in search results. Used for paging through blocks of 5000 comments.}
 
 \item{verbose}{Display the API query}
 }

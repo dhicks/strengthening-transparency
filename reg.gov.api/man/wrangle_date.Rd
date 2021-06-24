@@ -13,8 +13,5 @@ wrangle_date(json_date)
 A date-time character string, formatted as required by the API
 }
 \description{
-This function is used by `get_blocks` to page through the blocks of 5000 comments:  get the date-time for the last comment of the previous block, add 1 second, and use that as the threshold for the next block.  However, the API reports date-times in the format `YYYY-MM-DDTHH:mm:ssZ`, using UTC, while the query language only accepts the format `YYYY-MM-DD HH:mm:ss` using Eastern time.
-}
-\note{
-API documentation doesn't specify whether this is Eastern Standard Time or whether it might be daylight savings (depending on when the comment was submitted, etc.)
+This function is used by `get_blocks` to page through the blocks of 5000 comments:  get the date-time for the last comment of the previous block, add 1 second, and use that as the threshold for the next block.  However, the API reports date-times in the format `YYYY-MM-DDTHH:mm:ssZ`, using UTC, while the query language only accepts the format `YYYY-MM-DD HH:mm:ss` using Eastern time(America/New York).
 }

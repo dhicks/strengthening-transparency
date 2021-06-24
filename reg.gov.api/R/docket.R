@@ -213,6 +213,7 @@ scrape_comment = function(comment_id,
 #' @param file The scraped comment JSON file
 #' @param verbose Print the path to the file being parsed
 #' @return A data frame with the comment metadata and text.  If the comment has any attachments, metadata for these are given in the nested data frame `attachments`.
+#' @export
 parser = function (file, verbose = FALSE) {
     null_to_na_recurse <- function(obj) {
         if (is.list(obj)) {
@@ -238,17 +239,17 @@ parser = function (file, verbose = FALSE) {
                                    'title',
                                    'comment',
                                    'docAbstract')] %>%
-        as_tibble() %>%
-        mutate(id = json$data$id)
+        tibble::as_tibble() %>%
+        dplyr::mutate(id = json$data$id)
 
     included = json$included
     if (length(included) > 1) {
         attachments = included  %>%
-            as_tibble() %>%
-            rename_all(stringr::str_remove_all, 'attributes.') %>%
-            mutate(fileFormats = map(fileFormats, as_tibble)) %>%
-            unnest(fileFormats) %>%
-            transmute(attachment_id = id,
+            tibble::as_tibble() %>%
+            dplyr::rename_all(stringr::str_remove_all, 'attributes.') %>%
+            dplyr::mutate(fileFormats = purrr::map(fileFormats, as_tibble)) %>%
+            tidyr::unnest(fileFormats) %>%
+            dplyr::transmute(attachment_id = id,
                       docOrder,
                       url = get0('fileUrl', ifnotfound = NA),
                       format = tools::file_ext(url),

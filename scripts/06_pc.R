@@ -21,24 +21,10 @@ sample_n = 200 # how many docs to draw from top / bottom
 set.seed(2024-01-12)
 
 ## Load data ----
-
 text = open_dataset(here(data_dir, '03_text.parquet'))
 dtm = open_dataset(here(data_dir, '05_bigrams.parquet'))
 
-# dtm |> 
-#     count(comment_id, bigram) |> 
-#     nrow() |> 
-#     identical(nrow(dtm)) |> 
-#     assert_that(msg = "dtm doesn't have 1 row per comment-bigram")
-# 
-# ## Document frequency and H
-# df = dtm |> 
-#     group_by(bigram) |> 
-#     summarize(df = n()) |> 
-#     ungroup()
-# h = read_rds(file.path(data_dir, '05_adj_h.Rds'))
-
-
+## Pre-processing ----
 ## 2427 comments are nearly identical, and seem to be based on a form letter campaign by the Sierra Club
 ## See <https://angeles.sierraclub.org/news/blog/2018/05/stop_pruitts_quest_help_industrial_polluters>
 ## We leave these in for fitting the model, but exclude them when identifying documents at the top and bottom of the first PC
@@ -59,11 +45,12 @@ dtm |>
 
 ## How many comments? 
 ## 15,819, out of: 
-## 17,810 that use "science" or "health" as a noun 
-## 22,390 in the whole corpus
+##   17,810 (89%) that use "science" or "health" as a noun 
+##   22,390 (71%) in the whole corpus
 dtm |> 
     pull(comment_id) |> 
     n_distinct()
+
 
 ## Principal components ----
 ## We're trying to cluster *comments*, not terms, 
@@ -80,6 +67,11 @@ vocab = dtm |>
     collect() |> 
     cast_sparse(bigram, comment_id, n) |> 
     rownames()
+
+
+## Write out PC model ----
+write_rds(pc, here(data_dir, '06_pc.Rds'))
+
 
 ## Scree plot ----
 ## 1 PC explains almost 60% of the variance
@@ -108,6 +100,7 @@ row_xwalk = tibble(bigram = vocab) |>
 ## Columns are comments
 col_xwalk = tibble(comment_id = names(pc$center)) |> 
     mutate(column = row_number())
+
 
 ## Biplots, PC 1 and 2 ----
 ## Very large values make this difficult to interpret
@@ -140,7 +133,7 @@ top_and_bottom = function(dataf, value_var, n) {
         arrange(desc({{ value_var}} ), .by_group = TRUE)
 }
 
-## Validate top_and_bottom
+## Validate top_and_bottom()
 assert_that(
     {
         all.equal(
@@ -209,9 +202,10 @@ ggsave(here(output_dir, '06_top_bottom.png'),
        height = 6, width = 6, scale = 1.5)
 # plotly::ggplotly()
 
+
 ## Extreme documents along the first PC ----
 ## Top and bottom 200 documents 
-## (actually returns quite a few more on bottom due to ties)
+## (actually returns quite a few more on one side due to ties)
 docs_of_interest_tb = pc |>
     tidy(matrix = 'v') |>
     filter(PC == 1L) |> 
@@ -264,31 +258,34 @@ pc |>
 ggsave(here(output_dir, '06_loading_distribution.png'), 
        height = 4, width = 8, bg = 'white')
 
-## CSVs for coding ----
-TODO: start here
-- export to Excel
 
+## Excel sheets for coding ----
 set.seed(2024-01-12)
 out_df = docs_of_interest |> 
     select(comment_id) |> 
+    ## Shuffle rows
     sample_frac() |> 
     mutate(url = build_url(comment_id)) |> 
+    ## Add ~150 words of text from each document
     left_join(text, by = 'comment_id', copy = TRUE) |> 
     select(comment_id, url, doc_id, text) |> 
     mutate(text = str_trunc(text, 150*5)) |> 
     group_by(comment_id, url) |> 
     summarize(text = str_c(text, collapse = '\n\n')) |> 
-    ungroup()
-class(out_df$url) = 'hyperlink'
+    ungroup() |> 
+    ## Space for coding
+    mutate(support = '', 
+           notes = '')
 
-TODO: 
-- turn into openxlsx worksheet
-- setColWidths(): https://ycphs.github.io/openxlsx/reference/setColWidths.html
+## openxlsx is rather clunky but we can do all the formatting here
+wb = out_df |> 
+    mutate(url = magrittr::set_class(url, 'hyperlink')) |> 
+    buildWorkbook(asTable = TRUE, zoom = 180)
+setColWidths(wb, 1, 1:5, widths = c(25, 10, 70, 10, 25))
+valign = createStyle(valign = 'top', wrapText = TRUE)
+addStyle(wb, 1, valign, rows = 1:1000, cols = 1:5, 
+         gridExpand = TRUE, stack = TRUE)
+saveWorkbook(wb, here(output_dir, 
+                      glue('06_docs_{today()}.xlsx')), 
+             overwrite = FALSE)
 
-write.xlsx(out_df, 'foo.xlsx', asTable = TRUE)
-
-
-
-## Write out PC model ----
-write_rds(pc, file.path(data_dir, str_c(prefix, 
-                                        'pc.Rds')))

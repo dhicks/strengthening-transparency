@@ -1,7 +1,7 @@
 ## Principal components / latent semantic analysis of science and health bigrams
 library(tidyverse)
 theme_set(theme_minimal())
-library(openxlsx)
+library(openxlsx2)
 
 library(tidytext)
 library(broom) # PCA tidiers
@@ -11,6 +11,7 @@ library(arrow)
 library(assertthat)
 library(here)
 library(tictoc)
+library(xfun) # for strip_html()
 
 source(here('R', 'build_url.R'))
 
@@ -24,19 +25,41 @@ set.seed(2024-01-12)
 text = open_dataset(here(data_dir, '03_text.parquet'))
 dtm = open_dataset(here(data_dir, '05_bigrams.parquet'))
 
-## Pre-processing ----
-## 2427 comments are nearly identical, and seem to be based on a form letter campaign by the Sierra Club
+## Exclude form letters ----
+## 2,427 comments are nearly identical, and seem to be based on a form letter campaign by the Sierra Club
 ## See <https://angeles.sierraclub.org/news/blog/2018/05/stop_pruitts_quest_help_industrial_polluters>
-## We leave these in for fitting the model, but exclude them when identifying documents at the top and bottom of the first PC
+## We leave these in for fitting the model, but exclude them from manual coding to save time (they're negative)
 sierra_club = here(data_dir, '03_text.parquet') |> 
     open_dataset() |> 
     filter(str_detect(text, 
-                      'Medical records and health data are largely kept confidential to protect patients') |
+                      fixed('Medical records and health data are largely kept confidential to protect patients', 
+                            ignore_case = TRUE)) |
                str_detect(text, 
-                          'Medical science has repeatedly proven that smog')) |> 
+                          fixed('Medical science has repeatedly proven that smog', 
+                                ignore_case = TRUE))) |> 
     pull(comment_id, as_vector = TRUE)
 
+## And another 4,523 nearly identical comments
+form2 = here(data_dir, '03_text.parquet') |> 
+    open_dataset() |> 
+    filter(str_detect(text, 
+                      fixed('As someone who believes that our air, water, and food should be protected', 
+                            ignore_case = TRUE))) |> 
+    pull(comment_id, as_vector = TRUE)
 
+## 1,925
+form3 = here(data_dir, '03_text.parquet') |> 
+    open_dataset() |> 
+    filter(str_detect(text, 
+                      fixed('I am writing to strongly oppose the Environmental Protection Agency', 
+                            ignore_case = TRUE))) |> 
+    pull(comment_id, as_vector = TRUE)
+
+## Total 8,875 form comments to exclude
+form_letters = c(sierra_club, form2, form3)
+
+
+## Pre-processing ----
 ## How many terms? 
 ## 347 adjective-noun bigrams w/ noun == health or science
 dtm |> 
@@ -119,7 +142,7 @@ pc |>
     geom_point(aes(label = bigram)) +
     scale_color_brewer(palette = 'Set1')
 # biplot
-plotly::ggplotly()
+# plotly::ggplotly()
 
 
 ## Top and bottom terms for PC 1 ----
@@ -164,7 +187,7 @@ bigram_tbl = pc |>
     left_join(row_xwalk) |> 
     select(side, bigram, score = value) |> 
     mutate(bigram = str_replace(bigram, '_', ' '))
-if (interactive()) view(bigram_tbl)
+# view(bigram_tbl)
 
 bigram_tbl |> 
     knitr::kable(format = 'markdown', 
@@ -210,7 +233,7 @@ docs_of_interest_tb = pc |>
     tidy(matrix = 'v') |>
     filter(PC == 1L) |> 
     left_join(col_xwalk) |> 
-    filter(!comment_id %in% sierra_club) |>
+    filter(!comment_id %in% form_letters) |>
     top_and_bottom(value, sample_n)
 
 set.seed(2024-01-11)
@@ -218,7 +241,8 @@ docs_of_interest_ran = pc |>
     tidy(matrix = 'v') |> 
     filter(PC == 1L) |> 
     left_join(col_xwalk) |> 
-    filter(!comment_id %in% sierra_club) |> 
+    filter(!comment_id %in% form_letters, 
+           !comment_id %in% docs_of_interest_tb$comment_id) |> 
     slice_sample(n = 2*sample_n) |> 
     mutate(side = 'random')
 
@@ -232,24 +256,25 @@ pc |>
     tidy(matrix = 'v') |> 
     filter(PC == 1L) |> 
     left_join(col_xwalk) |> 
-    mutate(sierra_club = comment_id %in% sierra_club) |> 
+    mutate(form_letters = comment_id %in% form_letters) |> 
     ggplot(aes(value)) +
     geom_density() +
-    geom_point(data = ~ filter(.x, sierra_club), 
-               aes(y = 0, color = 'Sierra club'),
-               shape = '|', size = 4) +
+    geom_point(data = ~ filter(.x, form_letters), 
+               aes(color = 'form letters'),
+               y = 0,
+               shape = '|', size = 2, alpha = .5) +
     geom_point(data = filter(docs_of_interest, 
                              side != 'random'), 
                aes(color = side),
-               y = 6, 
-               shape = '|', size = 4) +
+               y = 10, 
+               shape = '|', size = 2, alpha = .5) +
     geom_point(data = filter(docs_of_interest, 
                              side == 'random'), 
                aes(color = side), 
                y = 20,
-               shape = '|', size = 4) +
-    geom_point(y = -16, color = 'black', alpha = .01,
-               shape = '|', size = 4) +
+               shape = '|', size = 2, alpha = .5) +
+    geom_point(y = -10, color = 'black', alpha = .01,
+               shape = '|', size = 2) +
     scale_color_brewer(palette = 'Set1', 
                        guide = guide_legend(reverse = TRUE)) +
     labs(color = 'document set', 
@@ -263,29 +288,32 @@ ggsave(here(output_dir, '06_loading_distribution.png'),
 set.seed(2024-01-12)
 out_df = docs_of_interest |> 
     select(comment_id) |> 
+    ## Add ~150 words of text from each document
+    left_join(text, by = 'comment_id', copy = TRUE) |> 
+    select(comment_id, doc_id, text) |> 
+    mutate(text = str_trunc(text, 150*5)) |> 
+    group_by(comment_id) |> 
+    summarize(text = str_c(text, collapse = '\n\n')) |> 
+    ungroup() |> 
     ## Shuffle rows
     sample_frac() |> 
     mutate(url = build_url(comment_id)) |> 
-    ## Add ~150 words of text from each document
-    left_join(text, by = 'comment_id', copy = TRUE) |> 
-    select(comment_id, url, doc_id, text) |> 
-    mutate(text = str_trunc(text, 150*5)) |> 
-    group_by(comment_id, url) |> 
-    summarize(text = str_c(text, collapse = '\n\n')) |> 
-    ungroup() |> 
+    select(comment_id, url, text) |> 
     ## Space for coding
     mutate(support = '', 
            notes = '')
 
 ## openxlsx is rather clunky but we can do all the formatting here
-wb = out_df |> 
-    mutate(url = magrittr::set_class(url, 'hyperlink')) |> 
-    buildWorkbook(asTable = TRUE, zoom = 180)
-setColWidths(wb, 1, 1:5, widths = c(25, 10, 70, 10, 25))
-valign = createStyle(valign = 'top', wrapText = TRUE)
-addStyle(wb, 1, valign, rows = 1:1000, cols = 1:5, 
-         gridExpand = TRUE, stack = TRUE)
-saveWorkbook(wb, here(output_dir, 
-                      glue('06_docs_{today()}.xlsx')), 
-             overwrite = FALSE)
+wb_workbook() |> 
+    wb_add_worksheet() |> 
+    wb_add_data_table(x = {out_df |> 
+            mutate(url = magrittr::set_class(url, 'hyperlink'), 
+                   text = strip_html(text)) |> 
+            as.data.frame()}) |> 
+    wb_set_sheetview(zoom_scale = 180) |>
+    wb_set_col_widths(cols = 1:5, widths = c(25, 10, 70, 10, 25)) |>
+    wb_add_cell_style(dims = glue('A1:E{nrow(out_df)}'), 
+                      vertical = 'top', wrap_text = TRUE) |> 
+    wb_save(file = here(output_dir, glue('06_docs_{today()}.xlsx')), 
+            overwrite = FALSE)
 

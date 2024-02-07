@@ -60,6 +60,10 @@ nrow(comb_df)
 # toc()
 # spacy_finalize()
 
+## <https://stackoverflow.com/questions/17227294/removing-html-tags-from-a-string-in-r/17227415#17227415>
+strip_html <- function(htmlString) {
+    return(gsub("<.*?>", " ", htmlString))
+}
 
 annotate = function(comment_id, 
                     doc_id, 
@@ -67,6 +71,7 @@ annotate = function(comment_id,
                     target_folder = ann_dir, 
                     verbose = TRUE,
                     force = FALSE) {
+    text = strip_html(text)
     len = str_length(text)
     if (len == 0L) {
         stop(str_c('Length-0 string in ', doc_id))

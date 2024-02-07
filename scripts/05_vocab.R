@@ -69,8 +69,8 @@ toc()
 
 
 ## EDA ----
-## 684 science-health bigrams
-## 347 with H > 0
+## 630 science-health bigrams
+## 332 with H > 0
 nrow(bigrams_h)
 bigrams_h |> 
     filter(H > 0) |> 
@@ -86,7 +86,7 @@ plotly::ggplotly()
 
 
 ## Vocabulary selection ----
-## 347 adjective-noun science or health bigrams
+## 332 adjective-noun science or health bigrams
 vocab = bigrams_h |> 
     filter(H > 0) |>
     pull(bigram)
@@ -95,9 +95,9 @@ bigrams_fltd = bigrams |>
     filter(bigram %in% vocab) |> 
     collect()
 
-## 44,486 comment-bigram pairs
+## 44,326 comment-bigram pairs
 nrow(bigrams_fltd)
-## 15,819 comments
+## 15,846 comments
 n_distinct(bigrams_fltd$comment_id)
 
 ## 75% of comments have 6 or fewer bigrams; 

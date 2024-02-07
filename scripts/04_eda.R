@@ -26,7 +26,7 @@ text |>
     n_distinct()
 
 ## Distinct terms? 
-## 326,503
+## 272,422
 count(tokens, lemma) |> 
     pull(lemma) |> 
     n_distinct()
@@ -42,6 +42,7 @@ tokens |>
 tokens |> 
     filter(pos == 'PROPN') |> 
     count(lemma) |> 
+    head(20) |> 
     collect()
 
 ## X is unclassifiable URLs, etc.
@@ -77,7 +78,7 @@ meta |>
     filter(receiveDate < '2018-02-01') |> 
     inner_join(collect(text), by = c('id' = 'comment_id')) |> 
     pull(text) |> 
-    str_trunc(1000)
+    str_trunc(500)
     
 
 ## Distribution of comment length ----
@@ -98,9 +99,9 @@ dtm |>
 # plotly::ggplotly()
 
 ## 5% of docs are shorter than 23 words
-## 95% are shorter than 492 words
-## Max runs 620k words
-## median 231 words
+## 95% are shorter than 495 words
+## Max runs 468k words
+## median 236 words
 dtm |> 
     group_by(comment_id) |> 
     summarize(n = sum(n)) |> 
@@ -144,37 +145,37 @@ slice(mean_idf, 11:20)
 
 
 ## Science and health ----
-## 1404 terms based on "scien"
+## 995 terms based on "scien"
 ## Most common is "science" as a noun, followed by "scientific" as adjective and "scientist" as noun
 tokens |> 
     filter(str_detect(lemma, 'scien')) |> 
     count(lemma, pos) |> 
     arrange(desc(n)) |> 
-    collect()
+    collect() #|> view()
 
-## 17,024 comments use "science" as a noun
+## 16,980 comments use "science" as a noun
 tokens |> 
     filter(str_detect(lemma, 'science'), pos == 'NOUN') |> 
     count(comment_id) |> 
     collect() |> 
     nrow()
 
-## 588 terms based on "health"
-## Most common by far is "health" as a noun (76k instances), followed distantly by healthy (940 instances)
+## 352 terms based on "health"
+## Most common by far is "health" as a noun (76k instances), followed distantly by healthy (929 instances)
 tokens |> 
     filter(str_detect(lemma, 'health')) |> 
     count(lemma, pos) |> 
     arrange(desc(n)) |> 
     collect()
 
-## 15,375 comments use "health" as a noun
+## 15,419 comments use "health" as a noun
 tokens |> 
     filter(str_detect(lemma, 'health'), pos == 'NOUN') |> 
     count(comment_id) |> 
     collect() |> 
     nrow()
 
-## 17,810 use either "health" or "science" as a noun
+## 17,809 use either "health" or "science" as a noun
 tokens |> 
     filter(str_detect(lemma, 'science|health'), pos == 'NOUN') |> 
     count(comment_id) |> 

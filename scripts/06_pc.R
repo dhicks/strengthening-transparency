@@ -58,17 +58,18 @@ form3 = here(data_dir, '03_text.parquet') |>
 ## Total 8,875 form comments to exclude
 form_letters = c(sierra_club, form2, form3)
 
+write_rds(form_letters, here(data_dir, '06_form_letters.Rds'))
 
 ## Pre-processing ----
 ## How many terms? 
-## 347 adjective-noun bigrams w/ noun == health or science
+## 332 adjective-noun bigrams w/ noun == health or science
 dtm |> 
     pull(bigram) |> 
     n_distinct()
 
 ## How many comments? 
-## 15,819, out of: 
-##   17,810 (89%) that use "science" or "health" as a noun 
+## 15,846, out of: 
+##   17,809 (89%) that use "science" or "health" as a noun 
 ##   22,390 (71%) in the whole corpus
 dtm |> 
     pull(comment_id) |> 

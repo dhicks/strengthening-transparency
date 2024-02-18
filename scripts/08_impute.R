@@ -11,6 +11,8 @@ library(tidymodels)
 library(textrecipes)
 library(themis)
 
+
+
 data_dir = here('data')
 
 ## Load data ----
@@ -102,29 +104,29 @@ set.seed(2024-01-26)
 splits = initial_split(text_sample, prop = 3/4, strata = support)
 
 train = training(splits)
-test = testing(splits)
+# test = testing(splits)
 
 ## Check sizes and overlap
 train |> 
     pull(comment_id) |> 
     n_distinct()
-test |> 
-    pull(comment_id) |> 
-    n_distinct()
+# test |> 
+#     pull(comment_id) |> 
+#     n_distinct()
 
 train |> 
     count(comment_id, support) |> 
     count(support) |> 
     mutate(share = n / sum(n))
-test |> 
-    count(comment_id, support) |> 
-    count(support) |> 
-    mutate(share = n / sum(n))
+# test |> 
+#     count(comment_id, support) |> 
+#     count(support) |> 
+#     mutate(share = n / sum(n))
 
-intersect(train$comment_id, test$comment_id) |> 
-    length() |> 
-    identical(0L) |> 
-    assert_that(msg = 'Comment overlap in train and test sets')
+# intersect(train$comment_id, test$comment_id) |> 
+#     length() |> 
+#     identical(0L) |> 
+#     assert_that(msg = 'Comment overlap in train and test sets')
 
 
 ## Resampling ----
@@ -222,8 +224,8 @@ lasso_workflow = workflow() |>
                                          save_workflow = TRUE), 
                   metrics = metric_set(bal_accuracy, 
                                        accuracy, 
-                                       sensitivity, 
-                                       specificity))
+                                       specificity, 
+                                       sensitivity))
     toc()
 }
 
@@ -232,7 +234,11 @@ autoplot(lasso_tuning)
 
 collect_notes(lasso_tuning)
 
-collect_metrics(lasso_tuning)
+collect_metrics(lasso_tuning) |> 
+    pivot_wider(id_cols = penalty, 
+                names_from = .metric, 
+                values_from = mean) |> 
+    view()
 
 ## Best for balanced accuracy should also be best for specificity
 show_best(lasso_tuning, metric = 'bal_accuracy')
@@ -252,7 +258,18 @@ lasso_model = fit_best(lasso_tuning,
                        metric = 'bal_accuracy', 
                        verbose = TRUE)
 
+## training specificity (accuracy on "support")
+augment(lasso_model, new_data = train) |> 
+    filter(support == 'support') |> 
+    count(.pred_class) |> 
+    mutate(share = n/sum(n))
+
+augment(lasso_model, new_data = train) |> 
+    specificity(support, .pred_class)
+    
+
 ## - assess on test data
+# test = testing(splits)
 augment(lasso_model, new_data = test) |> 
     bal_accuracy(support, .pred_class)
 augment(lasso_model, new_data = test) |> 
@@ -261,4 +278,4 @@ augment(lasso_model, new_data = test) |>
 #     filter(support == 'support') |> 
 #     view()
 
-## - next script: generate predictions for full corpus
+## - generate predictions for full corpus

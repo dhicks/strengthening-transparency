@@ -84,6 +84,15 @@ bigrams_h |>
     scale_color_viridis_c()
 plotly::ggplotly()
 
+## 405 science, 225 health
+bigrams_h |> 
+    mutate(noun = str_split_i(bigram, '_', 2)) |> 
+    count(noun)
+
+bigrams_h |> 
+    filter(H > 0) |> 
+    mutate(noun = str_split_i(bigram, '_', 2)) |> 
+    count(noun)
 
 ## Vocabulary selection ----
 ## 332 adjective-noun science or health bigrams

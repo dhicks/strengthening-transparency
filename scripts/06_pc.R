@@ -237,6 +237,8 @@ docs_of_interest_tb = pc |>
     filter(!comment_id %in% form_letters) |>
     top_and_bottom(value, sample_n)
 
+count(docs_of_interest_tb, side)
+
 set.seed(2024-01-11)
 docs_of_interest_ran = pc |> 
     tidy(matrix = 'v') |> 

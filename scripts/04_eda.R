@@ -18,12 +18,17 @@ tokens = open_dataset(here(data_dir, '03_annotations'))
 
 
 ## How many comments? ----
-## 22,390 before filtering long/small comments
+## 22,390 attachments
 nrow(meta)
-## 20,787
+## 20,787 comments
 text |> 
     pull(comment_id, as_vector = TRUE) |> 
     n_distinct()
+
+text |>
+    count(comment_id) |>
+    pull(n) |> 
+    summary()
 
 ## Distinct terms? 
 ## 272,422

@@ -57,17 +57,18 @@ assert_that(identical(
 
 ## IRR using Krippendorff's alpha
 ## Initial IRR (completely independent, no review) was 0.86
+## After one round of revisions, 0.941
 coding_df |> 
     select(starts_with('support')) |> 
     t() |> 
     kripp.alpha()
 
+## After one round, discordance on only 32 comments
 coding_df |>
     select(comment_id, mode,
            starts_with('support'), starts_with('notes'),
            identical) |>
-    filter(!identical) |>
-    view()
+    filter(!identical) |> view()
 
 # TODO: coding against PCA
 

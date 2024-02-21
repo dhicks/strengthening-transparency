@@ -1,4 +1,5 @@
 library(tidyverse)
+library(magrittr)
 
 library(readxl)
 library(here)
@@ -17,15 +18,17 @@ data_dir = here('data')
 
 ## Load data ----
 ## Form letters
-form_letters = read_rds(here(data_dir, '06_form_letters.Rds'))
+form_letters = read_rds(here(data_dir, 
+                             '06_form_letters.Rds'))
 
 ## Manual coding results
-coded_df = read_excel(here(data_dir, '06_docs_2024-01-16_DJH.xlsx')) |> 
-    filter(!is.na(support)) |> 
+coded_df = here(data_dir, '07_coding.Rds') |> 
+    read_rds() |> 
+    mutate(mode = map_chr(mode, str_flatten)) %T>%
+    {print(count(., mode))} |> 
     mutate(support = case_when(
-        support == 'n' ~ 'oppose', 
-        support == 'y' ~ 'support', 
-        support == 'NA' ~ NA_character_,
+        mode == 'n' ~ 'oppose', 
+        mode == 'y' ~ 'support', 
         TRUE ~ NA_character_), 
         support = as_factor(support))
 
@@ -47,24 +50,6 @@ identical(n_distinct(comments), length(comments)) |>
 
 message(glue('{length(comments)} manually coded documents'))
 
-# ## Document-term matrix on full corpus
-# ## NB already tokenized and lemmatized
-# dtm_corpus = open_dataset(here(data_dir, '03_annotations')) |> 
-#     filter(pos %in% c('NOUN', 'PROPN', 'VERB', 'ADJ')) |> 
-#     count(comment_id, lemma)
-# 
-# dtm_sample = dtm_corpus |> 
-#     filter(comment_id %in% c(comments, form_letters)) |> 
-#     left_join(coded_df, by = 'comment_id') |> 
-#     mutate(support = if_else(comment_id %in% form_letters, 
-#                              'oppose', 
-#                              support)) |> 
-#     select(comment_id, support, lemma, n) |> 
-#     collect()
-# 
-# ## sample: 9688 docs
-# n_distinct(dtm_sample$comment_id)
-
 ## Document text
 get_text = function(...) {
     open_dataset(here(data_dir, '03_text.parquet')) |> 
@@ -84,7 +69,7 @@ text_sample = get_text(comment_id %in% c(comments, form_letters)) |>
                              support)) |>
     filter(!is.na(support)) |> 
     mutate(support = as_factor(support)) |> 
-    select(comment_id, support, text = text.x)
+    select(comment_id, support, text)
 
 assert_that(identical(
     n_distinct(text_sample$comment_id), 
@@ -104,33 +89,35 @@ set.seed(2024-01-26)
 splits = initial_split(text_sample, prop = 3/4, strata = support)
 
 train = training(splits)
-# test = testing(splits)
+test = testing(splits)
 
 ## Check sizes and overlap
 train |> 
     pull(comment_id) |> 
     n_distinct()
-# test |> 
-#     pull(comment_id) |> 
-#     n_distinct()
+test |>
+    pull(comment_id) |>
+    n_distinct()
 
 train |> 
     count(comment_id, support) |> 
     count(support) |> 
     mutate(share = n / sum(n))
-# test |> 
-#     count(comment_id, support) |> 
-#     count(support) |> 
-#     mutate(share = n / sum(n))
+test |>
+    count(comment_id, support) |>
+    count(support) |>
+    mutate(share = n / sum(n))
 
-# intersect(train$comment_id, test$comment_id) |> 
-#     length() |> 
-#     identical(0L) |> 
-#     assert_that(msg = 'Comment overlap in train and test sets')
+intersect(train$comment_id, test$comment_id) |>
+    length() |>
+    identical(0L) |>
+    assert_that(msg = 'Comment overlap in train and test sets')
+
+rm(test)
 
 
 ## Resampling ----
-## 7237 -> 5789/90 + 1448/47
+## 7237 -> 5792+1/1449-1
 set.seed(2024-01-12)
 folds = vfold_cv(train, strata = support, v = 5)
 
@@ -247,7 +234,7 @@ show_best(lasso_tuning, metric = 'specificity')
 select_best(lasso_tuning, metric = 'bal_accuracy')
 
 
-## Finalize ----
+## Finalize model ----
 ## - finalize the workflow w/ best hyperparameters
 # lasso_final = finalize_workflow(lasso_workflow, 
 #                                select_best(lasso_tuning, 
@@ -266,16 +253,50 @@ augment(lasso_model, new_data = train) |>
 
 augment(lasso_model, new_data = train) |> 
     specificity(support, .pred_class)
-    
+
+oppose_dist = function(augmented_df) {
+    ggplot(augmented_df, aes(.pred_oppose)) +
+        geom_density() +
+        geom_rug()
+}
+
+augment(lasso_model, new_data = train) |> 
+    oppose_dist()
 
 ## - assess on test data
-# test = testing(splits)
+test = testing(splits)
+## 96% balanced accuracy
 augment(lasso_model, new_data = test) |> 
     bal_accuracy(support, .pred_class)
+## 94% specificity
 augment(lasso_model, new_data = test) |> 
     specificity(support, .pred_class)
-# augment(lasso_model, new_data = test) |> 
-#     filter(support == 'support') |> 
+# augment(lasso_model, new_data = test) |>
+#     filter(support == 'support') |>
 #     view()
 
-## - generate predictions for full corpus
+augment(lasso_model, new_data = test) |> 
+    oppose_dist()
+
+write_rds(lasso_model, here(data_dir, '08_lasso_model.Rds'))
+
+## Full corpus predictions ----
+full_corpus = augment(lasso_model, new_data = get_text())
+
+count(full_corpus, .pred_class) |> 
+    mutate(share = n / sum(n))
+
+oppose_dist(full_corpus)
+
+threshold = .2
+full_corpus |> 
+    filter(.pred_oppose > 1-threshold | .pred_oppose < threshold) |> 
+    count(.pred_class) |> 
+    mutate(share = n / sum(n))
+
+## Interesting that the unclassifiable comments tends to be comment extension period requests
+# full_corpus |>
+#     filter(.pred_oppose > .4, .pred_oppose < .6) |>
+#     view()
+
+write_parquet(full_corpus, here(data_dir, '08_imputed.parquet'))

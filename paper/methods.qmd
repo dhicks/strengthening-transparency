@@ -46,3 +46,6 @@ We initially explored the use of a random forest model with the `ranger` package
 Based on tuning results, we selected a penalty of $\lambda = 0.0385662$ and fit the logistic lasso on the full training data.  This model had a balanced accuracy of 96% and a specificity of 94% on the testing data.  We then used this model to impute dichotomous supporting/opposing codes to the *[full]* corpus of 20.8k comments, without carrying over manual comments.  After imputation, the corpus contained 14,995 opposing comments (72%) and 5,792 supporting comments (28%).  To allow for ambiguous comments, we filtered down to comments where the model was more than 80% confident in its classification (predicted probability of opposition was either greater than 80% or less than 20%).  This filtered subset contained 14,101 opposing comments (74%) and 4,876 supporting comments (26%), for a total of 18,977 (91% of the comments run through imputation).  
 
 
+## Text analysis
+
+

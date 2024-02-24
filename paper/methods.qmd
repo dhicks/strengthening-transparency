@@ -1,3 +1,13 @@
+---
+format:
+  pdf:
+    mainfont: "Times New Roman"
+    fontsize: "12pt"
+    geometry: 
+      - "margin = 1in"
+    linestretch: 1.5
+---
+
 ## Corpus assembly
 
 The US General Services Administration receives and publishes public comments on proposed rules using the website Regulations.gov.  Commenters may submit comments by online form, email, or physical mail, and electronic formats allow commenters to include a number of attachments.  Attachments are typically detailed comments or to include journal articles, reports, etc., as supporting evidence.  
@@ -33,7 +43,7 @@ Having achieved a very high degree of concordance, we moved on to the next stage
 
 ## Imputation
 
-To take advantage of the scale of the ST corpus, we used machine learning to impute or estimate support or opposition across *[all]* 20,787 comments, using the `tidymodels` framework *[software versions]*.  
+To take advantage of the scale of the ST corpus, we used a machine learning model to impute or estimate support or opposition across *[all]* 20,787 comments, using the `tidymodels` framework *[software versions]*.  
 
 To assemble the input data, we combined the manually coded comments with the 8.9k form letter comments, treating all of the latter as opposed to ST.  Because ambiguous comments were extremely rare (33/814), we removed them from data, and defined the classification task with a dichotomous "support" or "oppose" variable designated `support`.  Overall, this gave us 9,655 documents, of which 9,499 (98%) opposed ST.  We constructed 3-1 training-testing splits (7,241 and 2,258, respectively) stratified on `support`: 123/7241 = 1.7% supported ST in the training set, and 33/2258 = 1.4% support ST in the testing set.  The training set was further split for 5-fold cross-validation (5792 and 1449 or 5793 and 1448), again stratifying on `support`.  
 
@@ -47,5 +57,19 @@ Based on tuning results, we selected a penalty of $\lambda = 0.0385662$ and fit 
 
 
 ## Text analysis
+
+Text analysis was conducted as reported in the main text, with code written in R *[version]* and making extensive use of the `tidyverse` suite *[version]*. 
+
+
+## Data and code availability
+
+The full data collection and analysis code is available at *[github]*.  To facilitate reproduction and reuse, *[separate data repo]*  
+
+- raw ST scrape results? 
+- 03 raw text and annotation files
+- 06 manual coding
+- 08 fitted model and imputed dataset
+
+
 
 

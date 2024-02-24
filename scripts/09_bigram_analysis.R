@@ -168,23 +168,44 @@ p_df |>
     imap(llr_plot) |> 
     wrap_plots(nrow = 1, guides = 'collect')
 
+# opts = options(pillar.sigfig = 10)
+## For manual, medians are identical bc the median bigram appears in 1 opposing doc and no supporting docs
+p_df |> 
+    map(llr) |> 
+    mapped(~ {.x |> 
+            extract_noun() |> 
+            group_by(noun) |> 
+            summarize(llr = median(llr))})
+p_df$manual |> 
+    complete(support, bigram, fill = list(df = 0)) |> 
+    group_by(support) |> 
+    summarize(df = median(df))
+log1kp(1/622) - log1kp(0)
+# options(opts)
+
 llr_by_noun_plot = function(llr_df, title) {
     llr_df |> 
         extract_noun() |> 
         mutate(bigram = fct_reorder(bigram, llr)) |> 
         ggplot(aes(noun, y = llr, color = noun)) +
-        geom_violin() +
-        geom_sina(aes(label = bigram)) +
+        geom_violin(scale = 'width') +
+        geom_sina(aes(label = bigram), scale = 'width') +
+        # stat_summary(fun = median,
+        #              geom = 'crossbar', 
+        #              color = 'black') +
         geom_hline(yintercept = 0) +
-        scale_color_brewer(palette = 'Set1') +
-        labs(y = 'log likelihood ratio\n←opposition                                 support→') +
+        scale_color_brewer(palette = 'Set1', 
+                           guide = 'none') +
+        labs(y = 'log likelihood ratio\n←support                                 oppose→') +
         ggtitle(title)
 }
 
 p_df |> 
     map(llr) |> 
     imap(llr_by_noun_plot) |> 
-    wrap_plots(nrow = 1, guides = 'collect')
+    wrap_plots(nrow = 1, guides = 'collect') +
+    plot_layout(axis_titles = 'collect')
+
 ## TODO: feed in the combined plot
 plotly::ggplotly()
 

@@ -18,11 +18,19 @@ if (!file.exists(word_vec_file)) {
         mutate(token = str_c(lemma, '_', pos)) |> 
         select(comment_id, doc_id, sentence_id, token)
     
+    ## 20,787 comments
+    ann |> 
+        pull(comment_id) |> 
+        n_distinct()
+    
     ## Unigram probabilities ----
     unigram_p = ann |> 
         count(token) |> 
         collect() |> 
         mutate(p = n / sum(n))
+    
+    ## 78,744
+    nrow(unigram_p)
     
     ## Co-occurrence probabilities and PMI ---
     coocc_p = ann |> 
@@ -35,6 +43,11 @@ if (!file.exists(word_vec_file)) {
         filter(n > 20) |> 
         mutate(p = n / sum(n)) |> 
         as_arrow_table()
+    
+    ## 8,364
+    c(pull(coocc_p, item1), 
+      pull(coocc_p, item2)) |> 
+        n_distinct()
     
     pmi = coocc_p |> 
         left_join(unigram_p, 
@@ -104,7 +117,7 @@ get_variants = function(pattern, n = 10, filter_pos = TRUE) {
 ## Actually do the searching ----
 ## Science: 'scien'
 ## no synonyms that need to be included
-## exclude: conscience, epascientificresearchtransperancyplan.pdf
+## exclude: conscience, epascientificresearchtransperancyplan.pdf, Strengthening Transparency in Regulatory Science
 ## scientifically_ADV is most similar to right_ADV, correctly_ADV, importantly_ADV
 get_variants('scien', n = 5) |> view(title = 'scien')
 

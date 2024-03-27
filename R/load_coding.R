@@ -39,5 +39,6 @@ mapped = function(input, f) {
 }
 mapped2 = function(input1, input2, f) {
     map2(input1, input2, f) |> 
-        bind_rows(.id = 'coding')
+        bind_rows(.id = 'coding') |> 
+        mutate(coding = fct_inorder(coding))
 }

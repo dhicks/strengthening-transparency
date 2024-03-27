@@ -1,18 +1,22 @@
 library(tidyverse)
-theme_set(theme_minimal())
+
+theme_set(theme_bw())
 library(ggforce)
 library(patchwork)
+library(gt)
+
 library(here)
 library(arrow)
+library(glue)
 
-extract_noun = function(df, in_col = bigram, out_col = noun) {
-    mutate(df, {{ out_col }} := str_split_i({{ in_col }}, '_', -1))
-}
+source(here('R', 'tab_out.R'))
+source(here('R', 'extract_noun.R'))
 
 ## TODO: write out plots throughout
 
 ## Load data ----
 data_dir = here('data')
+out_dir = here('out')
 source(here('R', 'load_coding.R'))
 
 coded = list(manual = load_manual_coding(), 
@@ -20,16 +24,6 @@ coded = list(manual = load_manual_coding(),
              imputed = load_imputed_full())
 
 map(coded, nrow)
-
-## Number of docs by support
-## Here we only want number of docs *w/ bigrams*
-# count_docs = function(coded_df) {
-#     count(coded_df, support, name = 'n_docs')
-# }
-# # n_docs = count_docs(coding)
-# n_docs = map(coded, count_docs)
-# 
-# mapped(n_docs, ~ mutate(.x, share = n_docs / sum(n_docs)))
 
 
 ## Load bigrams ----
@@ -53,30 +47,96 @@ n_docs = map(bigrams, ~ {.x |>
         distinct(comment_id, support) |> 
         count(support, name = 'n_docs')})
 
+## table: number of docs by support
+n_docs_tab = bind_rows(n_docs, .id = 'dataset') |> 
+    group_by(dataset) |> 
+    mutate(perc = n_docs / sum(n_docs)) |> 
+    ungroup() |> 
+    pivot_wider(names_from = support, values_from = c(n_docs, perc)) |> 
+    rowwise() |> 
+    mutate(total = sum(c_across(starts_with('n_docs')))) |> 
+    ungroup() |> 
+    gt(rowname_col = 'dataset') |> 
+    fmt_percent(starts_with('perc'), decimals = 0) |> 
+    fmt_integer(c(starts_with('n_doc'), total)) |> 
+    cols_merge(columns = ends_with('oppose'), 
+               pattern = '{1} ({2})') |> 
+    cols_merge(columns = ends_with('support'), 
+               pattern = '{1} ({2})') |> 
+    cols_label(n_docs_oppose ~ 'oppose', 
+               n_docs_support ~ 'support') |> 
+    tab_header('Document counts, by coding method and opposition/support')
+n_docs_tab
+tab_out(n_docs_tab, '09_n_docs')
+
 ## Noun analysis ----
 ## Pr(bigram is "science" | doc support)
-## TODO: medians
-noun_plot = function(bigrams_df, title) {
+noun_analysis = function(bigrams_df) {
     bigrams_df |> 
         count(support, comment_id, noun) |> 
-        complete(support, comment_id, noun, fill = list(n = 0L)) |> 
+        complete(nesting(support, comment_id), noun, fill = list(n = 0L)) |> 
         group_by(comment_id) |> 
         mutate(share = n / sum(n)) |> 
-        ungroup() |> 
+        ungroup()
+}
+
+bigram_noun_tab = map(bigrams, noun_analysis) |> 
+    bind_rows(.id = 'dataset') |> 
+    mutate(dataset = fct_inorder(dataset)) |> 
+    group_by(dataset, noun, support) |> 
+    summarize(n_docs = n_distinct(comment_id),
+              across(share, 
+                     lst(mean, median))) |> 
+    ungroup() |> 
+    pivot_wider(names_from = 'noun', 
+                values_from = starts_with('share')) |> 
+    gt(groupname_col = 'dataset', 
+       rowname_col = 'support') |> 
+    fmt_integer(n_docs) |> 
+    cols_label(n_docs = 'N') |> 
+    fmt_percent(c(contains('mean'), contains('median')), 
+                decimals = 1) |> 
+    tab_spanner('health', 
+                columns = ends_with('health')) |> 
+    cols_label(share_mean_health ~ 'mean', 
+               share_median_health ~ 'median') |> 
+    tab_spanner('science', 
+                columns = ends_with('science')) |> 
+    cols_label(share_mean_science ~ 'mean', 
+               share_median_science ~ 'median') |> 
+    tab_stub_indent(rows = everything(),
+                    indent = 5) |> 
+    tab_header('Bigram noun distribution, by coding method and noun') |> 
+    tab_footnote('Pr(bigram noun is X | support)')
+bigram_noun_tab
+tab_out(bigram_noun_tab, '09_bigram_noun_tab')
+
+noun_plot = function(bigrams_df, title) {
+    bigrams_df |> 
+        noun_analysis() |> 
         filter(noun == 'health') |>
         ggplot(aes(support, share, color = support)) +
         geom_violin(scale = 'width') +
         geom_sina(scale = 'width', alpha = .3) +
+        stat_summary(geom = 'crossbar', fun = 'median', color = 'black',
+                     show.legend = FALSE) +
         scale_y_continuous(name = 'share of bigrams that are health',
                            labels = scales::percent_format()) +
+        scale_color_brewer(palette = 'Dark2', guide = 'none') +
         ggtitle(title)
 }
-# bigrams[['manual']] |>
-#     noun_plot('test')
+bigrams[['manual']] |>
+    noun_plot('test')
 
 imap(bigrams, noun_plot) |> 
-    wrap_plots(nrow = 1, guides = 'collect')
+    wrap_plots(nrow = 1, guides = 'collect') +
+    plot_layout(axes = 'collect') +
+    plot_annotation('Bigram noun distribution') 
 
+ggsave(here(out_dir, '09_bigram_noun_plot.png'), 
+       height = 3, width = 6, bg = 'white', scale = 1.5)
+
+## Bigram noun occurrence ----
 ## Pr(doc contains health/sci bigram | support)
 noun_occurrence = function(bigram_df, doc_count_df) {
     bigram_df |> 
@@ -88,17 +148,48 @@ noun_occurrence = function(bigram_df, doc_count_df) {
 # debugonce(noun_occurrence)
 # noun_occurrence(bigrams$manual, n_docs$manual)
 
+noun_occ_tab = mapped2(bigrams, n_docs, noun_occurrence) |> 
+    pivot_wider(names_from = 'noun', 
+                values_from = c(n, p)) |> 
+    gt(groupname_col = 'coding', 
+       rowname_col = 'support') |> 
+    fmt_integer(starts_with('n')) |> 
+    cols_label(n_docs = 'total') |> 
+    fmt_percent(c(contains('p')), 
+                decimals = 0) |> 
+    cols_merge(c(n_health, p_health), 
+               pattern = '{1} ({2})') |> 
+    cols_label(n_health ~ 'health') |> 
+    cols_merge(c(n_science, p_science), 
+               pattern = '{1} ({2})') |> 
+    cols_label(n_science ~ 'science') |> 
+    tab_stub_indent(rows = everything(),
+                    indent = 5) |> 
+    tab_header('Bigram noun occurrence, by coding method and noun') |> 
+    tab_footnote('Pr(doc contains bigram noun | support)')
+noun_occ_tab
+tab_out(noun_occ_tab, '09_noun_occ_tab')
+
 mapped2(bigrams, n_docs, noun_occurrence) |> 
-    ggplot(aes(support, p, color = noun)) +
-    geom_point(aes(shape = coding), 
-               size = 2, 
+    mutate(group = interaction(coding, support)) |> 
+    ggplot(aes(support, p, group = group)) +
+    geom_path(color = 'black', alpha = .25,
+              position = position_dodge(width = .2)) +
+    geom_point(aes(color = noun, shape = coding), 
+               size = 2,
                position = position_dodge(width = .2)) +
     # facet_wrap(vars(coding)) +
     # scale_x_discrete(position = 'top') +
     scale_y_continuous(labels = scales::percent_format(), 
-                       name = 'occurrence of bigrams by noun')
+                       name = 'occurrence of bigram noun') +
+    scale_color_brewer(palette = 'Set1') +
+    ggtitle('Bigram noun occurrence')
 
-## Bigram analysis ----
+ggsave(here(out_dir, '09_noun_occurrence.png'), 
+       height = 4, width = 5, bg = 'white')
+
+
+## Most/least common bigrams ----
 ## Pr(doc contains bigram | support)
 bigram_occurrence = function(bigram_df, doc_count_df) {
     bigram_df |> 
@@ -153,20 +244,28 @@ p_df |>
 llr_plot = function(llr_df, title, n = 15) {
     llr_df |> 
         top_and_bottom(llr, n) |> 
+        mutate(side = case_when(
+            side == 'top' ~ 'oppose', 
+            side == 'bottom' ~ 'support')) |> 
         mutate(bigram = fct_reorder(bigram, llr), 
                side = fct_inorder(side)) |> 
         extract_noun() |> 
         ggplot(aes(bigram, ymax = llr, color = noun)) +
-        geom_linerange(ymin = 0) +
+        geom_linerange(ymin = 0, linewidth = 1) +
         coord_flip() +
         facet_wrap(vars(side), ncol = 1, scales = 'free_y') +
         scale_color_brewer(palette = 'Set1') +
-        ggtitle(title)
+        labs(x = '', y = 'log likelihood ratio', title = title)
 }
 p_df |> 
     map(llr) |> 
     imap(llr_plot) |> 
-    wrap_plots(nrow = 1, guides = 'collect')
+    wrap_plots(nrow = 1, guides = 'collect') +
+    plot_layout(axes = 'collect') +
+    plot_annotation('Top bigrams, by log likelihood ratio', 
+                    caption = 'log(x + 10^-5)')
+ggsave(here(out_dir, '09_llr_top.png'), 
+       height = 7, width = 8, bg = 'white', scale = 1.25)
 
 # opts = options(pillar.sigfig = 10)
 ## For manual, medians are identical bc the median bigram appears in 1 opposing doc and no supporting docs
@@ -203,11 +302,17 @@ llr_by_noun_plot = function(llr_df, title) {
 p_df |> 
     map(llr) |> 
     imap(llr_by_noun_plot) |> 
+    map(~ .x + scale_y_continuous(limits = c(-4, 4))) |> 
     wrap_plots(nrow = 1, guides = 'collect') +
-    plot_layout(axis_titles = 'collect')
+    plot_layout(axis_titles = 'collect') +
+    plot_annotation('Distribution of log likelihood ratios',
+                    caption = 'log(x + 10^-5)')
+ggsave(here(out_dir, '09_llr.png'), 
+       height = 4, width = 6, scale = 1.5, bg = 'white')
+
 
 ## TODO: feed in the combined plot
-plotly::ggplotly()
+# plotly::ggplotly()
 
 
 ## KWIC ----

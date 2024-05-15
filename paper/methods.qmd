@@ -66,7 +66,7 @@ To analyze the corpus for these possibilities, we implemented a lightweight vari
 
 Specifically, we first filtered the spaCy annotated unigrams (from 20,787 comments) to those that were tagged as adjectives, nouns, verbs, and adverbs, since we judged these to be the most likely to contain keyword matches.  Tokens were defined as a combination of a word lemma (standardized word form) and part of speech tag, such as `scientifically_ADV`.  This resulted in 78,744 tokens.  Marginal occurrence probabilities (across the entire corpus annotated with spaCy) were calculated for each token.  Two tokens were determined to co-occur if they occurred in the same sentence (as identified by spaCy) in the same comment/attachment.  Co-occurrences were filtered at 20; that is, if a pair of tokens had 20 or fewer co-occurrences, this was treated as 0 co-occurrences.  After filtering, 8,364 tokens had at least one non-zero occurrence.  Co-occurrence / joint probabilities were calculated, and these were combined with marginal probabilities to calculate pointwise mutual information (pmi): 
 
-\[ pmi(x, y) = \log \frac{p(x, y)}{p(x) p(y) }\]
+$$ pmi(x, y) = \log \frac{p(x, y)}{p(x) p(y) }$$
 
 We then calculated the partial SVD of this pmi matrix using the `irlba` package *[version]*, selecting 256 dimensions.  This resulted in a 8,364 $\times$ 256 embedding matrix, with rows representing tokens and columns representing dimensions of the embedding space.  
 

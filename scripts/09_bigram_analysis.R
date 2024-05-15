@@ -12,7 +12,38 @@ library(glue)
 source(here('R', 'tab_out.R'))
 source(here('R', 'extract_noun.R'))
 
-## TODO: write out plots throughout
+build_n_docs_tab = function(dl, has_missing = FALSE) {
+    dl |> 
+        map(~ {.x |> 
+                distinct(comment_id, support) |> 
+                count(support, name = 'n_docs')}) |> 
+        map(collect) |> 
+        bind_rows(.id = 'coding') |> 
+        group_by(coding) |> 
+        mutate(perc = n_docs / sum(n_docs)) |> 
+        ungroup() |> 
+        pivot_wider(names_from = support, 
+                    values_from = c(n_docs, perc), 
+                    values_fill = 0L) |> 
+        rowwise() |> 
+        mutate(total = sum(c_across(starts_with('n_docs')))) |> 
+        ungroup() |> 
+        gt(rowname_col = 'coding') |> 
+        fmt_percent(starts_with('perc'), decimals = 0) |> 
+        fmt_integer(c(starts_with('n_doc'), total)) |> 
+        cols_merge(columns = ends_with('oppose'), 
+                   pattern = '{1} ({2})') |> 
+        cols_merge(columns = ends_with('support'), 
+                   pattern = '{1} ({2})') %>% 
+        {if (has_missing) {
+            cols_merge(., 
+                       columns = any_of(ends_with('NA')),
+                       pattern = '{1} ({2})')}
+            else {identity(.)}} |>
+        cols_label(n_docs_oppose ~ 'oppose',
+                   n_docs_support ~ 'support',
+                   any_of('n_docs_NA') ~ 'neither')
+}
 
 ## Load data ----
 data_dir = here('data')
@@ -25,6 +56,11 @@ coded = list(manual = load_manual_coding(),
 
 map(coded, nrow)
 
+
+n_docs_tab = build_n_docs_tab(coded, 
+                              has_missing = TRUE)
+n_docs_tab
+tab_out(n_docs_tab, '09_n_docs')
 
 ## Load bigrams ----
 load_bigrams = function(coded_df) {
@@ -43,31 +79,9 @@ bigrams |>
             pull(comment_id) |> 
             n_distinct()})
 
-n_docs = map(bigrams, ~ {.x |> 
-        distinct(comment_id, support) |> 
-        count(support, name = 'n_docs')})
-
-## table: number of docs by support
-n_docs_tab = bind_rows(n_docs, .id = 'dataset') |> 
-    group_by(dataset) |> 
-    mutate(perc = n_docs / sum(n_docs)) |> 
-    ungroup() |> 
-    pivot_wider(names_from = support, values_from = c(n_docs, perc)) |> 
-    rowwise() |> 
-    mutate(total = sum(c_across(starts_with('n_docs')))) |> 
-    ungroup() |> 
-    gt(rowname_col = 'dataset') |> 
-    fmt_percent(starts_with('perc'), decimals = 0) |> 
-    fmt_integer(c(starts_with('n_doc'), total)) |> 
-    cols_merge(columns = ends_with('oppose'), 
-               pattern = '{1} ({2})') |> 
-    cols_merge(columns = ends_with('support'), 
-               pattern = '{1} ({2})') |> 
-    cols_label(n_docs_oppose ~ 'oppose', 
-               n_docs_support ~ 'support') |> 
-    tab_header('Document counts, by coding method and opposition/support')
+n_docs_tab = build_n_docs_tab(bigrams)
 n_docs_tab
-tab_out(n_docs_tab, '09_n_docs')
+tab_out(n_docs_tab, '09_n_docs_bigrams')
 
 ## Noun analysis ----
 ## Pr(bigram is "science" | doc support)
@@ -140,21 +154,24 @@ ggsave(here(out_dir, '09_bigram_noun_plot.png'),
 ## Pr(doc contains health/sci bigram | support)
 noun_occurrence = function(bigram_df, doc_count_df) {
     bigram_df |> 
-        distinct(support, comment_id, noun) |> 
-        count(support, noun) |> 
-        left_join(doc_count_df, by = 'support') |> 
+        group_by(support) |> 
+        mutate(n_docs = n_distinct(comment_id)) |> 
+        ungroup() |> 
+        distinct(n_docs, support, comment_id, noun) |> 
+        count(n_docs, support, noun) |> 
         mutate(p = n / n_docs)
 }
 # debugonce(noun_occurrence)
-# noun_occurrence(bigrams$manual, n_docs$manual)
+# noun_occurrence(bigrams$manual)
 
-noun_occ_tab = mapped2(bigrams, n_docs, noun_occurrence) |> 
+noun_occ_tab = mapped(bigrams, 
+                       noun_occurrence) |> 
     pivot_wider(names_from = 'noun', 
                 values_from = c(n, p)) |> 
     gt(groupname_col = 'coding', 
        rowname_col = 'support') |> 
     fmt_integer(starts_with('n')) |> 
-    cols_label(n_docs = 'total') |> 
+    cols_label(n_docs = 'N') |> 
     fmt_percent(c(contains('p')), 
                 decimals = 0) |> 
     cols_merge(c(n_health, p_health), 
@@ -165,12 +182,12 @@ noun_occ_tab = mapped2(bigrams, n_docs, noun_occurrence) |>
     cols_label(n_science ~ 'science') |> 
     tab_stub_indent(rows = everything(),
                     indent = 5) |> 
-    tab_header('Bigram noun occurrence, by coding method and noun') |> 
-    tab_footnote('Pr(doc contains bigram noun | support)')
+    # tab_header('Bigram noun occurrence, by coding method and noun') |> 
+    tab_footnote('Pr(doc contains bigram noun | support); bigram documents only')
 noun_occ_tab
 tab_out(noun_occ_tab, '09_noun_occ_tab')
 
-mapped2(bigrams, n_docs, noun_occurrence) |> 
+mapped(bigrams, noun_occurrence) |> 
     mutate(group = interaction(coding, support)) |> 
     ggplot(aes(support, p, group = group)) +
     geom_path(color = 'black', alpha = .25,
@@ -191,16 +208,18 @@ ggsave(here(out_dir, '09_noun_occurrence.png'),
 
 ## Most/least common bigrams ----
 ## Pr(doc contains bigram | support)
-bigram_occurrence = function(bigram_df, doc_count_df) {
+bigram_occurrence = function(bigram_df) {
     bigram_df |> 
+        group_by(support) |> 
+        mutate(n_docs = n_distinct(comment_id)) |> 
+        ungroup() |> 
         ## NB one-hot encoding / doc frequency
-        distinct(support, comment_id, bigram) |> 
-        count(support, bigram, name = 'df') |> 
-        left_join(doc_count_df, by = 'support') |> 
+        distinct(n_docs, support, comment_id, bigram) |> 
+        count(n_docs, support, bigram, name = 'df') |> 
         mutate(p = df / n_docs)
 }
 # bigram_occurrence(bigrams$manual, n_docs$manual)
-p_df = map2(bigrams, n_docs, bigram_occurrence)
+p_df = map(bigrams, bigram_occurrence)
 
 bigram_top_n = function(pr_bigram, n = 10) {
     pr_bigram |> 
@@ -221,6 +240,31 @@ mapped(p_df, bigram_top_n)
 #     coord_flip() +
 #     facet_wrap(vars(coding))
 
+p_df |> 
+    bind_rows(.id = 'coding') |> 
+    mutate(coding = fct_inorder(coding)) |> 
+    group_by(coding, support) |> 
+    top_n(15, p) |> 
+    arrange(coding, support, desc(p)) |> 
+    extract_noun() |> 
+    mutate(bigram_wi = tidytext::reorder_within(bigram, p, 
+                                                list(coding, support))) |> 
+    ggplot(aes(bigram_wi, ymax = p, color = noun)) +
+    geom_linerange(ymin = 0, linewidth = 1) +
+    tidytext::scale_x_reordered(name = '') +
+    scale_y_continuous(labels = scales::percent_format(), 
+                       name = 'bigram occurrence\n(relative document frequency)') +
+    coord_flip() +
+    ggh4x::facet_grid2(rows = vars(support), 
+                       cols = vars(coding), 
+                       scales = 'free_y', 
+                       independent = 'y') +
+    scale_color_brewer(palette = 'Set1') +
+    labs(title = 'Bigram occurrence, by coding and support')
+ggsave(here(out_dir, '09_occurrence.png'), 
+       height = 3, width = 6, bg = 'white', scale = 2)
+
+
 ## Likelihood ratio ----
 log1kp = function(x, k = 5) {
     log10(x + 10^-k)
@@ -228,16 +272,16 @@ log1kp = function(x, k = 5) {
 
 source(here('R', 'top_and_bottom.R'))
 
-llr = function(pr_bigram) {
+llr = function(pr_bigram, k = 5) {
     pr_bigram |> 
         pivot_wider(id_cols = bigram, 
                     names_from = support,
                     values_from = p, 
                     values_fill = 0) |> 
-        mutate(llr = log1kp(oppose) - log1kp(support))
+        mutate(llr = log1kp(oppose, k) - log1kp(support, k))
 }
 p_df |> 
-    map(llr) |> 
+    map(~ llr(.x, k = 5)) |> 
     map(~ top_and_bottom(.x, llr, 10))
 
 ## Top and bottom plot
@@ -253,7 +297,7 @@ llr_plot = function(llr_df, title, n = 15) {
         ggplot(aes(bigram, ymax = llr, color = noun)) +
         geom_linerange(ymin = 0, linewidth = 1) +
         coord_flip() +
-        facet_wrap(vars(side), ncol = 1, scales = 'free_y') +
+        facet_grid(vars(side), ncol = 1, scales = 'free_y') +
         scale_color_brewer(palette = 'Set1') +
         labs(x = '', y = 'log likelihood ratio', title = title)
 }

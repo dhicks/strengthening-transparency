@@ -1,0 +1,173 @@
+---
+title: "The aims of science and an open science controversy at USEPA"
+authors:
+  - name: "Daniel J. Hicks"
+    email: "dhicks4@ucmerced.edu"
+    affiliations: 
+      - id: ucm
+        name: "University of California, Merced"
+        city: "Merced"
+        country: "CA, USA"
+    orcid: "0000-0001-7945-4416"
+    corresponding: true
+  - name: "Emilio J. C. Lobato"
+    affiliations:
+      - ref: ucm
+    orcid: "*[todo]*"
+  - name: "Cosmo Campbell"
+    affiliations:
+      - ref: ucm
+  - name: "Joseph Dad"
+    affiliations:
+      - ref: ucm
+  
+abstract: "abstract"
+
+acknowledgments: "acknowledgments"
+
+format:
+  html:
+    toc: true
+    number-sections: true
+  pdf:
+    toc: true
+    number-sections: true
+    link-citations: true
+    pdf-engine: "lualatex"
+    mainfont: "Times New Roman"
+    fontsize: "12pt"
+    geometry: 
+      - "margin = 1in"
+    linestretch: 1.5
+
+crossref:
+  fig-prefix: ""
+  tbl-prefix: ""
+
+execute:
+  eval: true
+  echo: false
+  warning: true
+  message: false
+---
+
+<!-- 
+BJPS submission guidelines: 
+<https://www.journals.uchicago.edu/journals/bjps/instruct> 
+
+"strict 24 page limit," though not including references
+-->
+
+```{r}
+library(readr)
+library(gt)
+library(here)
+
+out_dir = here('out')
+```
+
+# Introduction
+
+*[todo]*
+
+
+# Methods overview
+
+*[todo]*
+Details of methods are discussed in @sec-methods. 
+
+
+# Results
+
+Table @tbl-n-docs shows the number of comments in the corpus, across the three coding methods and by support or opposition to ST; table @tbl-n-docs-1 shows counts for the whole corpus, while table @tbl-n-docs-2 shows counts for comments containing science or health bigrams.  In the whole corpus, opposing comments substantially outnumbered supporting comments, by a ratio of 3- or 4-to-1.  Also in the whole corpus, the ML classifier had a somewhat higher rate of supporting comments (~27%) than we identified with manual coding (19%).  In the filtered and imputed coding, most supporting comments did not use science or health bigrams.  
+
+```{r}
+#| eval: true
+#| label: "tbl-n-docs"
+#| tbl-cap: "Document counts, by coding method and opposition/support"
+#| tbl-subcap:
+#|   - "Whole corpus"
+#|   - "Comments with science/health bigrams"
+#| layout-cols: 2
+read_rds(here(out_dir, '09_n_docs.Rds'))
+read_rds(here(out_dir, '09_n_docs_bigrams.Rds'))
+```
+
+In the manual coding, the 33 "neither" comments were almost all procedural requests to extend the public comment period, with a few comments discussing an issue that was brought up as an example in the first NPR (the linear no-threshold model for radiation hazard) that we did not consider relevant to our analysis.  Because the ML classifier was not trained on these 33 "neither" comments, it forced all such comments into either the "support" or the "oppose" category.  Notably, the comments that were dropped by the "low confidence" filter (the "filtered" coding) are generally procedural requests to extend the public comment period.  
+
+
+## Bigram analysis
+
+Figure @fig-bigram-occurrence shows the 15 most common bigrams (both science and health) by ST support (rows of panels) across the three codings (columns of panels). Three bigrams occur in the majority of opposing comments, across all codings: "public health," "available science" (short for "best available science"), and "good science." Other common bigrams used by opponents include "human health," "environmental health," "reliable science," and "medical science."  
+
+![15 most common adjective-noun bigrams, by support for ST (rows of panels) and codings (columns of panels). Science bigrams in blue, health bigrams in red.  Relative document frequency is based only on comments containing science/health bigrams.](../out/09_occurrence.png){#fig-bigram-occurrence} 
+
+Among supporting comments that use bigrams, they are less consistent in which bigrams they use:  no bigrams appear in the majority of comments.  The most common bigram is "secret science," followed by "regulatory science," "good science," and "public health"; though these three occur in fewer than 25% of comments.  
+
+There are also notable differences in the overall tone of the adjectives in supporters' and opponents' top bigrams.  Supporters seem to express skepticism or cynicism about the quality of scientific research: science is described as secret, secretive, phony, false, fake, shady, or deceptive.  In the context of these skeptical assessments, seemingly-positive valence bigrams — such as real, true, verifiable, and sound science — might be used as privatives, that is, expressing the idea that actually-existing science is *not* real, true, verifiable, or sound.  A skeptical or cynical assessment of science would provide support for ST insofar as open data would make science less secretive and phony and more verifiable and true, etc.  @HicksOpenScienceReplication2023 argued that there is no empirical evidence of a replication crisis in environmental epidemiology [though see @BagiletEstimatingSmallEffects], and that ST's open data requirements would not mitigate widespread irreplicability even if it were a problem in that field. 
+
+Table @tbl-noun-occ and figure @fig-noun-occ examine the occurrence of bigrams, aggregated by noun, for supporters and opponents.  For both supporters and opponents, almost all comments (~90% or more) that use bigrams use at least one science bigram.  For health bigrams and opponents, this is similar: almost all opponents use at least one health bigram.  But health bigrams are rare among supporters, with at most 26% of supportive comments (that use bigrams) using at least one health bigram.  
+
+```{r}
+#| eval: true
+#| label: "tbl-noun-occ"
+#| tbl-cap: "Bigram noun occurrence, by coding method and noun"
+read_rds(here(out_dir, '09_noun_occ_tab.Rds'))
+```
+
+![Bigram noun occurrence, by coding method and noun, only comments containing science/health bigrams. Vertical lines connect the two nouns for a given coding and support.](../out/09_noun_occurrence.png){#fig-noun-occ}
+
+This analysis indicates that supporters put much more emphasis on science than health in their comments on ST; while opponents emphasize science and health roughly equally. 
+
+## Keyword analysis
+
+The bigram analysis is limited to documents that contain adjective-noun bigrams, as identified by the NLP parser.  To expand this analysis, we switch to a keyword search of the entire corpus.  Table @tbl-keyword shows the occurrence of hits for five keyword searches, corresponding to science, health/medicine, the environment and ecology, business and the economy, and regulation. 
+
+```{r}
+#| eval: true
+#| label: "tbl-keyword"
+#| tbl-cap: "Keyword occurrence, by coding method and support. Footnotes indicate regular expressions used for search."
+read_rds(here(out_dir, '11_keyword_tab.Rds'))
+```
+
+In the bigram analysis, both supporters and opponents almost always used at least one science bigram.  This is still the case in the manually coding; but the rate is somewhat lower for supporters in the two imputed codings, ~65%.  Opponents are also likely to use health (~95%), environment (77% or more), and regulation (~70%) keywords.  By contrast, supporters are unlikely to use any keywords except science (and a slight majority for regulation keywords in the manual coding).  
+
+We were surprised that supporters were unlikely to use business or regulation keywords, since we expected that they might support ST on the grounds that it would reduce regulation and thereby promote economic growth or business development.  To get a better sense of how supporters of ST were commenting, we calculated the log likelihood ratio for supporters and opponents for all (cleaned and lemmatized) unigram tokens in the corpus; see figure @fig-token-llr.  This use of log likelihood ratio identifies distinctive or characteristic terms, which have a relatively high likelihood of appearing on one side and a relatively low likelihood on the other. 
+
+![15 most distinctive terms (unigrams) for supporters and opponents, by coding. Terms in the top half are distinctive to opponents of ST; terms in the bottom half are distinctive to supporters.](../out/11_llr.png){#fig-token-llr} 
+
+The magnitude of log likelihood ratios here reinforces the finding, from the bigram analysis, that supporters are less consistent in their language than opponents.  The most distinctive terms among supporters appear to correspond to the phrase "please stop/end/show your secret science," variations of which were common in the manual coding.  The tokens "regulation" (manual), "burdensome" (filtered, imputed), "regulate" (imputed), and "small" (all three) might correspond to concerns that burdensome regulations harm small businesses.  For opponents, the most distinctive term in all three codings is "health," and "protect" is second or third.  
+
+These distinctive terms indicate not just what each side is saying about ST, but also what the other side is *not* saying.  Opponents do not deploy the "secret science" framing used by supporters, and supporters do not talk about USEPA's mission to protect human health and the environment. 
+
+
+# Discussion
+
+## Two views of the aims of science
+
+We argue that the results above can be fruitfully understood in terms of *[Hicks']* account of two views of the aims of science.  Specifically, we claim that supporters deployed the narrow view, while opponents deployed the broad view.  On the narrow view of supporters of ST, science has only epistemic aims.  The practical applications of science are at best irrelevant to the standards for good scientific research, and allowing such applications to shape things like data collection and analysis is comparable to — indeed, *is* — research misconduct.  The narrow view's exclusive focus on epistemic aims provides argumentative support for truth-promoting practices, such as those promoted by the open science movement, wherever it is feasible to do so.  Deployment of the narrow view explains why supporters said a great deal about science, but almost nothing about public health and the environment, and even very little about business and the economy.  All of these aspects of environmental policy are irrelevant to the standards for good scientific research. 
+
+By contrast, opponents deployed the broad view, on which science has both epistemic and practical aims.  Specifically, they appealed to the practical aims of protecting human health and the environment, raising concerns that ST's open data requirements would frustrate the pursuit of these aims, and was therefore "anti-science" *[Hicks]*.  In this way, the broad view provides an argumentative challenge to ST.  Deployment of the broad view explains why opponents talked about public health and the environment almost as frequently as science itself.  
+
+Deployment of the broad view might also explain why opponents said relatively little about business and the economy.  On Hicks' theory of value, protecting human health and the environment are aims of environmental public health, but the impacts of regulation on the economy are still accidents, and thus irrelevant to the standards of good scientific research.  @HicksValuesDisclosuresTrust2022 provide survey evidence that, in the context of chemical regulation, members of the public put more trust in a scientist who discloses public health values than one who does not disclose values or discloses economic values. 
+
+As an alternative to the aims approach, our findings might be interpreted in terms of inductive risk, and specifically differences between supporters and opponents in the relative importance of over- vs. under-regulation *[cites]*.  That is, supporters of ST might put more weight on over-regulation and preventable economic harms; while opponents of ST might put more weight on under-regulation and preventable disease and loss of life due to pollution.  
+
+An inductive risk framing might work well for opponents, who are very likely to talk about public health, the environment, and ecology.  But it does not seem to fit supporters, who talk about the economy about as often as they talk about the environment, and are less likely than not to talk about regulation.  We therefore take the aims approach to be a better fit for analyzing this particular controversy.  
+
+
+## The views as interpretive frames, not beliefs
+
+
+
+
+## The role of advocacy organizations
+
+*[Starbird: participatory disinformation]*
+
+
+\appendix
+
+# Methods {#sec-methods}
+
+{{< include methods.qmd >}}

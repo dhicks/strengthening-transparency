@@ -1,6 +1,7 @@
 ## EDA of parsed comments
 library(tidyverse)
 theme_set(theme_minimal())
+library(patchwork)
 library(here)
 library(arrow)
 
@@ -64,14 +65,23 @@ filter(tokens, pos == 'SYM') |>
 
 ## Comment posting date ----
 ## Two waves: (1) May-August 2018, (2) March-May 2020
-meta |> 
+date_gg = meta |> 
     mutate(month = round_date(date, unit = 'month'), 
            week = round_date(date, unit = 'week')) |> 
     collect() |> 
     ggplot(aes(week)) +
-    geom_bar() +
-    scale_x_date(date_breaks = '4 months') +
-    scale_y_log10()
+    geom_bar(fill = 'blue', color = 'transparent') +
+    geom_vline(xintercept = ym('2018-01',
+                               '2019-01',
+                               '2020-01'), 
+               alpha = .4) +
+    scale_x_date(date_breaks = '4 months', 
+                 date_minor_breaks = '2 months',
+                 date_labels = '%Y-%m') +
+    scale_y_sqrt() +
+    labs(x = 'date', 
+         y = 'submission count\n(weekly total)')
+date_gg
 
 ## first date was 22 May 2017; final date was 8 Dec 2020
 summary(meta$date)
@@ -84,7 +94,7 @@ meta |>
     inner_join(collect(text), by = c('id' = 'comment_id')) |> 
     pull(text) |> 
     str_trunc(500)
-    
+
 
 ## Distribution of comment length ----
 ## In tokens; dropping punctuation, spaces, symbols, unknown
@@ -92,16 +102,27 @@ dtm = tokens |>
     filter(!!!words_filter) |> 
     count(comment_id, lemma)
 
-dtm |> 
+ecdf_gg = dtm |> 
     group_by(comment_id) |> 
     summarize(n = sum(n)) |> 
     collect() |> 
     ggplot(aes(n)) +
     stat_ecdf() +
-    geom_rug(alpha = .01) +
-    scale_x_log10()
+    geom_rug(alpha = 1) +
+    scale_x_log10(labels = scales::label_log()) +
+    scale_y_continuous(labels = scales::label_percent(accuracy = 1)) +
+    labs(x = 'comment length', 
+         y = 'cumulative frequency')
+ecdf_gg
 
 # plotly::ggplotly()
+
+date_gg + ecdf_gg +
+    plot_layout(ncol = 1) +
+    plot_annotation(tag_levels = 'a')
+
+ggsave(here('out', '04_date_ecdf.png'), 
+       height = 4, width = 5, bg = 'white', scale = 1.5)
 
 ## 5% of docs are shorter than 23 words
 ## 95% are shorter than 495 words

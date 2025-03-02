@@ -297,7 +297,7 @@ llr_plot = function(llr_df, title, n = 15) {
         ggplot(aes(bigram, ymax = llr, color = noun)) +
         geom_linerange(ymin = 0, linewidth = 1) +
         coord_flip() +
-        facet_grid(vars(side), ncol = 1, scales = 'free_y') +
+        facet_grid(vars(side), scales = 'free_y') +
         scale_color_brewer(palette = 'Set1') +
         labs(x = '', y = 'log likelihood ratio', title = title)
 }
@@ -310,6 +310,15 @@ p_df |>
                     caption = 'log(x + 10^-5)')
 ggsave(here(out_dir, '09_llr_top.png'), 
        height = 7, width = 8, bg = 'white', scale = 1.25)
+
+p_df$filtered |> 
+    llr() |> 
+    llr_plot('', n = 10) +
+    labs(title = 'Top bigrams, by log likelihood ratio', 
+            caption = 'log(x + 10^-5)')
+
+ggsave(here(out_dir, '09_llr_top_filtered.png'), 
+       height =  4, width = 6, bg = 'white')
 
 # opts = options(pillar.sigfig = 10)
 ## For manual, medians are identical bc the median bigram appears in 1 opposing doc and no supporting docs

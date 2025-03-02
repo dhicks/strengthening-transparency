@@ -1,7 +1,7 @@
 ---
 title: "The aims of science and an open science controversy at USEPA"
 authors:
-  - name: "Daniel J. Hicks"
+  - name: "D. J. Hicks"
     email: "dhicks4@ucmerced.edu"
     affiliations: 
       - id: ucm
@@ -68,16 +68,50 @@ out_dir = here('out')
 
 # Introduction
 
-*[todo]*
+*[
+- general science-and-values
+- aims approach
+- Strengthening Transparency
+]*
 
 
-# Methods overview
-
-*[todo]*
-Details of methods are discussed in @sec-methods. 
 
 
-# Results
+Text mining is an emerging method for empirical philosophy of science.  Broadly, text mining aims to identify patterns in the use of terms across a large collection of documents (called a *corpus*).  While initially developed by computer scientists, text mining methods have been widely adopted by social scientists [@NelsonComputationalGroundedTheory2020; @StoltzMappingTextsComputational2024] and (more contentiously) humanists, under the umbrella of "digital humanities" [@UnderwoodDistantHorizonsDigital2019].  
+
+One of the first applications of text mining to philosophy of science was an analysis of Charles Darwin's reading list [@MurdockExplorationExploitationVictorian2017], which used an information-theoretic measure of "surprise" to model Darwin's use of "exploration" and "exploitation" strategies in his reading.  Malaterre and collaborators have reflexively applied one prominent text mining method, topic modeling, to philosophy of science corpora — especially journal archives — to trace developments in the field over time [@MalaterreRevisitingThreeDecades2019; @MalaterreWhatThisThing2019; @MalaterreEightJournalsEight2020; @MalaterreEarlyDaysContemporary2022].  Their most recent work combines machine translation with topic modeling, expanding the scope of their analysis to incorporate multiple languages.  The text mining case studies in @DeBlockDynamicsScienceComputational2022 deploy a variety of methods, including named-entity recognition (NER) and network analysis [@PenceHowNotFight2022] and keyword search to facilitate deep reading [@GinammiBolzanoKantTraditional2022].  @VaesenPotentialSupervisedMachine2022 argues that supervised machine learning approach can incorporate philosophical expertise in ways that topic modeling cannot; we independently adopted a similar approach in part of the current study.  
+
+*[methods pieces by Charles?]*
+
+Almost all of these examples of text mining in philosophy of science use, as their corpus, formal publications by scientists (or other scholars, such as philosophers).  Such corpora are not just apt — we often want to understand how scientists think about, or at least present, their research practices and findings — but also convenient — at least to those of us who have access to a university research library.  However, for understanding public scientific controversies, we are often more interested in how publics — various interested groups of people — understand science and its relationship to the controversy.  
+
+We propose that public comments on high-profile governmental regulatory actions can be apt and convenient corpora for public scientific controversies.  In the United States, the Administrative Procedure Act requires federal government agencies to follow a "notice and comment" process before adopting new or modified regulations *[cite]*.  Agencies are required to publish a Notice of Proposed Rulemaking (NPR), including the draft text of the rule and background information to justify it, and then collect and respond to public comments before finalizing the rule.  Conveniently for our purposes, most comments are made freely and publicly available.  High-profile proposed rules can collect large numbers of comments, from a variety of different groups and perspectives on the issue at hand in the rule, making it apt for understanding how different groups might, for instance, deploy different views of the aims of science.  
+
+ST had an exceptionally high profile, with nearly one million comments.^[In the text mining results below, the corpus contains "only" about 22,000 comments.  Regulations.gov distinguishes between "comments posted" and "comments received"; a single comment for the "posted" count can include multiple comments for the "received" count.  For example, the longest comments in the ST corpus comprise tens of thousands of signed electronic form letters.  This aggregation would count as one "posted" comment but tens of thousands of "received" comments.]  We use this substantial corpus to examine how supporters and opponents talk about science and health, finding that opponents talk about health and the environment about as often as they talk about science; while supporters talk exclusively about science, with a distinctive emphasis on a cynical or skeptical framing of the epistemic reliability of the science utilized by USEPA.  We argue that these differences correspond to Hicks' [-@HicksWhenVirtuesAre2022] distinction between broad and narrow views of science.  
+
+The bulk of this paper gives a non-technical overview of our text mining methods (@sec-methods-overview) and results (@sec-results).  @sec-methods provides a more technical discussion of our methods, for readers who are familiar with text mining.  In @sec-discussion, we first argue that our empirical results can be fruitfully understood in terms of the two views of the aims of science.  We go on to suggest that, in the context of public discourse, deployment of philosophical ideas should be understood as somewhat opportunistic interpretive frames, rather than authentic expressions of beliefs or deep philosophical commitments.  Finally, we consider the role of advocacy organizations in shaping the content of public scientific controversies, and consider the applicability of a "participatory" model developed in misinformation studies to the case of ST.  
+
+
+# Methods overview {#sec-methods-overview}
+
+We provide technical details on our methods in @sec-methods.  This section provides a non-technical overview. 
+
+The US General Services Administration receives and publishes public comments on proposed rules using the website Regulations.gov (<https://www.regulations.gov>).  Commenters may submit comments by online form, email, or physical mail, and electronic formats allow commenters to include a number of attachments.  Attachments are typically detailed comments or to include journal articles, reports, etc., as supporting evidence.  
+
+All agency-published documents and public comments associated with a proposed rule are collected together in a docket, e.g., EPA-HQ-OA-2018-0259 for Strengthening Transparency, available at <https://www.regulations.gov/docket/EPA-HQ-OA-2018-0259>.  We collected all public comments from this docket in 2020 and 2021, with a final check several months after ST was finalized (in the last few weeks of the Trump administration) and vacated (a few weeks into the Biden administration).  
+
+Initial, undirected exploration of the corpus in 2020-2021 by [A1] indicated that (a) there was a qualitatively clear division between supporters and opponents of ST, (b) commenters offered substantive reasons for their position on ST, but (c) opposing comments were much, much more prevalent than supportive comments.  The first point meant that manual qualitative coding could be used to identify supporting and opposing comments; combined with the second point, this meant that the corpus was suitable for contrasting the arguments given on either side of the ST controversy.  But the third point meant that a simple random sample would include very few supporters.  @sec-sampling details the sampling procedure that we used for the manual coding step. 
+
+We used a natural language processing (NLP) package for part-of-speech tagging, specifically identifying nouns and adjectives in the comment and attachment text.  (From this point forward, attachments were treated as continuations of comment text, and in what follows references to "comments" include the attachments.)  This let us construct adjective-noun bigrams, such as "public health" or "regulatory science."  Focusing on bigrams based on the nouns "health" and "science" let us greatly reduce the size of the vocabulary — the distinct terms used in a text mining analysis — which in turn greatly reduced the computation time necessary for any individual step.  [A1] had also identified the relationship between science and health, and its potential correspondence to the aims approach, as the central research question of the project. *[also state this earlier]*  Operationalized using science-health bigrams, this difference might show up in differences in noun frequency within or between sides (for example, opponents might use science bigrams more than supporters) or in different adjectives used with the same noun (for example, supporters might use different adjectives to describe health).  
+
+[A1] had to set the project aside for a few years, but in January 2024 brought in the other authors.  Without informing the other authors of the research question, all authors independently coded each comment in the sample as supporting or opposing ST, or too ambiguous to classify.  Inter-rater reliability was good after one round of independent coding, and excellent after a round of discussion and separate review of discordant codes.  
+
+Manual coding was limited to about 800 out of 22,000 comments.  We used a machine learning model to scale up the manual codes (supporting/opposing), using them as training data and imputing or predicting codes for the remaining comments.  To account for ambiguous comments (neither clearly supporting nor clearly opposing) and the possibility of error by the model, we conducted all analyses in parallel across three "codings": the *manual*ly-coded comments, the *imputed* codings for all 22k comments, and a *filtered* subset of the imputed codings, those where the model is at least 80% confident in its coding assignment.  
+
+As we discuss below, it turned out that supporting comments were much less likely to use science-health bigrams than opposing comments, and so the bigram analysis omitted the majority of supporting comments.  We decided to cover the whole corpus using a keyword search.  But keyword searches are vulnerable to synonyms and actor-analyst conceptual mismatch.  We therefore used word embeddings, specific to this corpus, to identify potential synonyms and check conceptual alignment; see @sec-embeddings.  
+
+
+# Results {#sec-results}
 
 Table @tbl-n-docs shows the number of comments in the corpus, across the three coding methods and by support or opposition to ST; table @tbl-n-docs-1 shows counts for the whole corpus, while table @tbl-n-docs-2 shows counts for comments containing science or health bigrams.  In the whole corpus, opposing comments substantially outnumbered supporting comments, by a ratio of 3- or 4-to-1.  Also in the whole corpus, the ML classifier had a somewhat higher rate of supporting comments (~27%) than we identified with manual coding (19%).  In the filtered and imputed coding, most supporting comments did not use science or health bigrams.  
 
@@ -99,6 +133,8 @@ In the manual coding, the 33 "neither" comments were almost all procedural reque
 ## Bigram analysis
 
 Figure @fig-bigram-occurrence shows the 15 most common bigrams (both science and health) by ST support (rows of panels) across the three codings (columns of panels). Three bigrams occur in the majority of opposing comments, across all codings: "public health," "available science" (short for "best available science"), and "good science." Other common bigrams used by opponents include "human health," "environmental health," "reliable science," and "medical science."  
+
+*[set blue L to like 40]*
 
 ![15 most common adjective-noun bigrams, by support for ST (rows of panels) and codings (columns of panels). Science bigrams in blue, health bigrams in red.  Relative document frequency is based only on comments containing science/health bigrams.](../out/09_occurrence.png){#fig-bigram-occurrence} 
 
@@ -134,6 +170,8 @@ In the bigram analysis, both supporters and opponents almost always used at leas
 
 We were surprised that supporters were unlikely to use business or regulation keywords, since we expected that they might support ST on the grounds that it would reduce regulation and thereby promote economic growth or business development.  To get a better sense of how supporters of ST were commenting, we calculated the log likelihood ratio for supporters and opponents for all (cleaned and lemmatized) unigram tokens in the corpus; see figure @fig-token-llr.  This use of log likelihood ratio identifies distinctive or characteristic terms, which have a relatively high likelihood of appearing on one side and a relatively low likelihood on the other. 
 
+*[already using red/blue for health/science]*
+
 ![15 most distinctive terms (unigrams) for supporters and opponents, by coding. Terms in the top half are distinctive to opponents of ST; terms in the bottom half are distinctive to supporters.](../out/11_llr.png){#fig-token-llr} 
 
 The magnitude of log likelihood ratios here reinforces the finding, from the bigram analysis, that supporters are less consistent in their language than opponents.  The most distinctive terms among supporters appear to correspond to the phrase "please stop/end/show your secret science," variations of which were common in the manual coding.  The tokens "regulation" (manual), "burdensome" (filtered, imputed), "regulate" (imputed), and "small" (all three) might correspond to concerns that burdensome regulations harm small businesses.  For opponents, the most distinctive term in all three codings is "health," and "protect" is second or third.  
@@ -141,7 +179,7 @@ The magnitude of log likelihood ratios here reinforces the finding, from the big
 These distinctive terms indicate not just what each side is saying about ST, but also what the other side is *not* saying.  Opponents do not deploy the "secret science" framing used by supporters, and supporters do not talk about USEPA's mission to protect human health and the environment. 
 
 
-# Discussion
+# Discussion {#sec-discussion}
 
 ## Two views of the aims of science
 

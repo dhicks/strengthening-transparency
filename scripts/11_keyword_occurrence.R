@@ -14,6 +14,25 @@ source(here('R', 'extract_noun.R'))
 source(here('R', 'tab_out.R'))
 out_dir = here('out')
 
+load_text = function(coded_df) {
+    open_dataset(here('data', '03_text.parquet')) |>
+        inner_join(coded_df, by = 'comment_id') |> 
+        ## <https://github.com/apache/arrow/issues/40220>
+        collect()
+}
+
+count_tokens = function(coded_df) {
+    open_dataset(here('data', '03_annotations')) |>
+        inner_join(coded_df, by = 'comment_id') |> 
+        # filter(comment_id %in% coded_df$comment_id) |> 
+        group_by(comment_id) |> 
+        summarize(length = n()) |> 
+        inner_join(coded_df, by = 'comment_id') |> 
+        collect()
+}
+# count_tokens(coded$imputed)
+
+
 ## Load data ----
 data_dir = here('data')
 source(here('R', 'load_coding.R'))
@@ -22,12 +41,28 @@ coded = list(manual = load_manual_coding(filter_na = TRUE),
              filtered = load_imputed_fltd(), 
              imputed = load_imputed_full())
 
+## Doc length by support/opposition ----
+map(coded, count_tokens) |> 
+    bind_rows(.id = 'coding') |> 
+    ggplot(aes(length, group = support, color = support)) +
+    geom_freqpoly(bins = 80) +
+    scale_x_log10(labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+    # guides(x = guide_axis_logticks()) +
+    annotation_logticks(sides = 'b') +
+    scale_color_brewer(palette = 'Set1') +
+    facet_wrap(vars(coding), 
+               ncol = 1, 
+               scales = 'free_y', 
+               axes = 'all_x')
+
+ggsave(here(out_dir, '11_len.png'), 
+       height = 3, width = 4, bg = 'white', scale = 2)
+
+
 ## Analyze keyword occurrence ----
 kword_occurence = function(coded_df) {
-    open_dataset(here('data', '03_text.parquet')) |>
-        inner_join(coded_df, by = 'comment_id') |> 
-        ## <https://github.com/apache/arrow/issues/40220>
-        collect() |>
+    coded_df |> 
+        load_text() |>
         mutate(science = str_detect(text, 
                                     regex('(?!(?-i)Regulatory Science)(scien)', 
                                           ignore_case = TRUE)), 

@@ -1,10 +1,10 @@
 ---
 title: "The aims of science and an open science controversy at USEPA"
 authors:
-  - name: "D. J. Hicks"
+  - name: "D.J. Hicks"
     email: "dhicks4@ucmerced.edu"
     affiliations: 
-      - id: ucm
+      - id: a
         name: "University of California, Merced"
         city: "Merced"
         country: "CA, USA"
@@ -12,14 +12,14 @@ authors:
     corresponding: true
   - name: "Emilio J. C. Lobato"
     affiliations:
-      - ref: ucm
-    orcid: "*[todo]*"
+      - ref: a
+    orcid: "0000-0002-3066-2932"
   - name: "Cosmo Campbell"
     affiliations:
-      - ref: ucm
+      - ref: a
   - name: "Joseph Dad"
     affiliations:
-      - ref: ucm
+      - ref: a
   
 abstract: "abstract"
 
@@ -30,15 +30,25 @@ format:
     toc: true
     number-sections: true
   pdf:
-    toc: true
+    toc: false
     number-sections: true
     link-citations: true
     pdf-engine: "lualatex"
     mainfont: "Times New Roman"
     fontsize: "12pt"
     geometry: 
-      - "margin = 1in"
-    linestretch: 1.5
+      - "margin = 1.25in"
+    linestretch: 2
+  aft-pdf:
+    keep-tex: true
+    link-citations: true
+    mathspec: true
+    fig.env: "figure*"
+    include-in-header:
+        - text: |
+            \usepackage{pdflscape}
+    number-sections: true
+    cite-method: citeproc
 
 crossref:
   fig-prefix: ""
@@ -68,28 +78,41 @@ out_dir = here('out')
 
 # Introduction
 
+In this paper, we argue that the aims approach to values in science can provide a useful framework for identifying certain kinds of deep disagreements in public scientific controversies. Specifically, by applying text mining methods to a large collection of public comments on an open data rule at the US Environmental Protection Agency (USEPA), we argue that supporters and opponents of the rule exemplify the two rival views of the aims of science identified by Hicks [-@HicksScientificPracticesTheir2012; -@HicksWhenVirtuesAre2022]. 
+
 *[
-- general science-and-values
-- aims approach
-- Strengthening Transparency
+- aims approach in general
+- Hicks' two views
 ]*
 
 
+## *Strengthening Transparency in Regulatory Science*
+
+*Strengthening Transparency in Regulatory Science* (henceforth Strengthening Transparency or ST) was a rule proposed^[Technically, the rule was finalized and adopted in January 2021, just a few weeks before Trump's first administration ended. The rule was never enforced, and formally vacated in February 2021 by a federal judge on procedural grounds and without objection from the Biden administration. The final title of the rule was *Strengthening Transparency in Pivotal Science Underlying Significant Regulatory Actions and Influential Scientific Information*. For simplicity, I usually refer to it by the original title, and I characterize its effects counterfactually.] by USEPA during the first Trump administration [@USEPAStrengtheningTransparencyRegulatory2018; @USEPAStrengtheningTransparencyPivotal2021]. Strengthening Transparency would have imposed a strong open data and code requirement on any "regulatory science" utilized by USEPA to develop new regulations, generally prohibiting the agency from utilizing any research where the data and analysis code were not publicly available [@HicksWhenVirtuesAre2022; @HicksOpenScienceReplication2023]. 
+
+At least in the initial public notice, Strengthening Transparency was rationalized by an appeal to the open science movement and as a necessary response to the "replication crisis," a purportedly widespread crisis in which influential and high-profile scientific results often could not be replicated [@USEPAStrengtheningTransparencyRegulatory2018 18769-70].  @HicksOpenScienceReplication2023 argued that, at the time ST was proposed, there was limited evidence that the replication crisis extended beyond a handful of scientific fields, and specifically there was no evidence that the crisis covered environmental epidemiology. 
+
+Strengthening Transparency was the culmination of a campaign against "secret science" at USEPA. At least since the 1990s [@LernerRepublicansAreUsing2017], regulated industries have leveled complaints against certain highly influential environmental epidemiological studies [such as @DockeryAssociationAirPollution1993 and @RauhImpactPrenatalChlorpyrifos2006], alleging nonspecific data and analysis problems and demanding access to the "raw data" [@HicksWhenVirtuesAre2022 §2.2]. *[secret science act]*
+
+Strengthening Transparency received a relatively high degree of mainstream news coverage [@HakimPesticideStudiesWon2018; @AchenbachScientistsDecryNew2018; @MufsonEPAExcludedTop2018; @FriedmanEPALimitScience2019; @DennisEPAPushesAhead2019] and was publicly opposed by a number of scientific organizations and environmental advocacy organizations *[cites]*.  Notably, some of the public opponents included prominent advocates of open science *[cites]*. Perhaps the most common argument against ST, as reported in news coverage or made by public figures, was that environmental epidemiological studies are often based on medical records and other sensitive information that legally cannot be made publicly available. Another common concern was that, if the rule was applied retroactively, for studies conducted decades ago the "raw data" might no longer exist [again, such as @DockeryAssociationAirPollution1993 and @RauhImpactPrenatalChlorpyrifos2006]. 
 
 
-Text mining is an emerging method for empirical philosophy of science.  Broadly, text mining aims to identify patterns in the use of terms across a large collection of documents (called a *corpus*).  While initially developed by computer scientists, text mining methods have been widely adopted by social scientists [@NelsonComputationalGroundedTheory2020; @StoltzMappingTextsComputational2024] and (more contentiously) humanists, under the umbrella of "digital humanities" [@UnderwoodDistantHorizonsDigital2019].  
 
-One of the first applications of text mining to philosophy of science was an analysis of Charles Darwin's reading list [@MurdockExplorationExploitationVictorian2017], which used an information-theoretic measure of "surprise" to model Darwin's use of "exploration" and "exploitation" strategies in his reading.  Malaterre and collaborators have reflexively applied one prominent text mining method, topic modeling, to philosophy of science corpora — especially journal archives — to trace developments in the field over time [@MalaterreRevisitingThreeDecades2019; @MalaterreWhatThisThing2019; @MalaterreEightJournalsEight2020; @MalaterreEarlyDaysContemporary2022].  Their most recent work combines machine translation with topic modeling, expanding the scope of their analysis to incorporate multiple languages.  The text mining case studies in @DeBlockDynamicsScienceComputational2022 deploy a variety of methods, including named-entity recognition (NER) and network analysis [@PenceHowNotFight2022] and keyword search to facilitate deep reading [@GinammiBolzanoKantTraditional2022].  @VaesenPotentialSupervisedMachine2022 argues that supervised machine learning approach can incorporate philosophical expertise in ways that topic modeling cannot; we independently adopted a similar approach in part of the current study.  
+## Text mining
 
-*[methods pieces by Charles?]*
+Text mining is an emerging method for empirical philosophy of science.  Broadly, text mining aims to identify patterns in the use of terms across a large collection of documents (called a *corpus*).  While initially developed by computer scientists, text mining methods have been widely adopted by both social scientists [@NelsonComputationalGroundedTheory2020; @StoltzMappingTextsComputational2024] and — under the umbrella of "digital humanities" — humanists [@UnderwoodDistantHorizonsDigital2019].  
+
+One of the first applications of text mining to philosophy of science was an analysis of Charles Darwin's reading list [@MurdockExplorationExploitationVictorian2017], which used an information-theoretic measure of "surprise" to model Darwin's use of "exploration" and "exploitation" strategies in his reading.  Malaterre and collaborators have reflexively applied one prominent text mining method, topic modeling, to philosophy of science corpora — especially journal archives — to trace developments in the field over time [@MalaterreRevisitingThreeDecades2019; @MalaterreWhatThisThing2019; @MalaterreEightJournalsEight2020; @MalaterreEarlyDaysContemporary2022].  Their most recent work combines machine translation with topic modeling, expanding the scope of their analysis to incorporate multiple languages.  @HicksRaceScienceMainstream2024 use agnotology as a theoretical framework for a text mining analysis of race science in mainstream psychology. The text mining case studies in @DeBlockDynamicsScienceComputational2022 deploy a variety of methods, including named-entity recognition (NER) and network analysis [@PenceHowNotFight2022] and keyword search to facilitate deep reading [@GinammiBolzanoKantTraditional2022].  @VaesenPotentialSupervisedMachine2022 argues that supervised machine learning approach can incorporate philosophical expertise in ways that topic modeling cannot; we independently adopted a similar approach in part of the current study.  
 
 Almost all of these examples of text mining in philosophy of science use, as their corpus, formal publications by scientists (or other scholars, such as philosophers).  Such corpora are not just apt — we often want to understand how scientists think about, or at least present, their research practices and findings — but also convenient — at least to those of us who have access to a university research library.  However, for understanding public scientific controversies, we are often more interested in how publics — various interested groups of people — understand science and its relationship to the controversy.  
 
-We propose that public comments on high-profile governmental regulatory actions can be apt and convenient corpora for public scientific controversies.  In the United States, the Administrative Procedure Act requires federal government agencies to follow a "notice and comment" process before adopting new or modified regulations *[cite]*.  Agencies are required to publish a Notice of Proposed Rulemaking (NPR), including the draft text of the rule and background information to justify it, and then collect and respond to public comments before finalizing the rule.  Conveniently for our purposes, most comments are made freely and publicly available.  High-profile proposed rules can collect large numbers of comments, from a variety of different groups and perspectives on the issue at hand in the rule, making it apt for understanding how different groups might, for instance, deploy different views of the aims of science.  
+We propose that public comments on high-profile governmental regulatory actions such as Strengthening Transparency can be apt and convenient corpora for understanding the publics involved in public scientific controversies.  In the United States, the Administrative Procedure Act requires federal government agencies to follow a "notice and comment" process before adopting new or modified regulations *[cite]*.  Agencies are required to publish a Notice of Proposed Rulemaking (NPR), including the draft text of the rule and background information to justify it, and then collect and respond to public comments before finalizing the rule.  Conveniently for our purposes, most comments are made freely and publicly available.  High-profile proposed rules can collect large numbers of comments, from a variety of different groups and perspectives on the issue at hand in the rule, making it apt for understanding how different groups might, for instance, deploy different views of the aims of science.  
 
-ST had an exceptionally high profile, with nearly one million comments.^[In the text mining results below, the corpus contains "only" about 22,000 comments.  Regulations.gov distinguishes between "comments posted" and "comments received"; a single comment for the "posted" count can include multiple comments for the "received" count.  For example, the longest comments in the ST corpus comprise tens of thousands of signed electronic form letters.  This aggregation would count as one "posted" comment but tens of thousands of "received" comments.]  We use this substantial corpus to examine how supporters and opponents talk about science and health, finding that opponents talk about health and the environment about as often as they talk about science; while supporters talk exclusively about science, with a distinctive emphasis on a cynical or skeptical framing of the epistemic reliability of the science utilized by USEPA.  We argue that these differences correspond to Hicks' [-@HicksWhenVirtuesAre2022] distinction between broad and narrow views of science.  
+Most likely due to the mainstream news coverage, ST had an exceptionally high profile, with nearly one million comments submitted.^[In the text mining results below, the corpus contains "only" about 22,000 comments.  Regulations.gov distinguishes between "comments posted" and "comments received"; a single comment for the "posted" count can include multiple comments for the "received" count.  For example, the longest comments in the ST corpus comprise tens of thousands of signed electronic form letters.  This aggregation would count as one "posted" comment but tens of thousands of "received" comments.]  We use this substantial corpus to examine how supporters and opponents talk about science and health, finding that opponents talk about health and the environment about as often as they talk about science; while supporters talk exclusively about science, with a distinctive emphasis on a cynical or skeptical framing of the epistemic reliability of the science utilized by USEPA.  
 
-The bulk of this paper gives a non-technical overview of our text mining methods (@sec-methods-overview) and results (@sec-results).  @sec-methods provides a more technical discussion of our methods, for readers who are familiar with text mining.  In @sec-discussion, we first argue that our empirical results can be fruitfully understood in terms of the two views of the aims of science.  We go on to suggest that, in the context of public discourse, deployment of philosophical ideas should be understood as somewhat opportunistic interpretive frames, rather than authentic expressions of beliefs or deep philosophical commitments.  Finally, we consider the role of advocacy organizations in shaping the content of public scientific controversies, and consider the applicability of a "participatory" model developed in misinformation studies to the case of ST.  
+We argue that these differences between opponents and supporters correspond to Hicks' [-@HicksWhenVirtuesAre2022] distinction between broad and narrow views of science.  *[more]* 
+
+@sec-methods-overview gives a non-technical overview of our text mining methods; @sec-methods provides a more technical discussion, for readers who are familiar with text mining.  @sec-results reports the empirical results of the analysis. In @sec-discussion, we first argue that our empirical results can be fruitfully understood in terms of the two views of the aims of science.  We go on to suggest that, in the context of public discourse, deployment of philosophical ideas should be understood as somewhat opportunistic interpretive frames, rather than authentic expressions of beliefs or deep philosophical commitments.  Finally, we consider the role of advocacy organizations in shaping the content of public scientific controversies, and consider the applicability of a "participatory" model developed in misinformation studies to the case of ST.  
 
 
 # Methods overview {#sec-methods-overview}
@@ -98,11 +121,11 @@ We provide technical details on our methods in @sec-methods.  This section provi
 
 The US General Services Administration receives and publishes public comments on proposed rules using the website Regulations.gov (<https://www.regulations.gov>).  Commenters may submit comments by online form, email, or physical mail, and electronic formats allow commenters to include a number of attachments.  Attachments are typically detailed comments or to include journal articles, reports, etc., as supporting evidence.  
 
-All agency-published documents and public comments associated with a proposed rule are collected together in a docket, e.g., EPA-HQ-OA-2018-0259 for Strengthening Transparency, available at <https://www.regulations.gov/docket/EPA-HQ-OA-2018-0259>.  We collected all public comments from this docket in 2020 and 2021, with a final check several months after ST was finalized (in the last few weeks of the Trump administration) and vacated (a few weeks into the Biden administration).  
+All agency-published documents and public comments associated with a proposed rule are collected together in a docket, e.g., EPA-HQ-OA-2018-0259 for Strengthening Transparency, available at <https://www.regulations.gov/docket/EPA-HQ-OA-2018-0259>.  [A1] collected all public comments from this docket in 2020 and 2021, with a final check several months after ST was finalized (in the last few weeks of the Trump administration) and vacated (a few weeks into the Biden administration).  
 
-Initial, undirected exploration of the corpus in 2020-2021 by [A1] indicated that (a) there was a qualitatively clear division between supporters and opponents of ST, (b) commenters offered substantive reasons for their position on ST, but (c) opposing comments were much, much more prevalent than supportive comments.  The first point meant that manual qualitative coding could be used to identify supporting and opposing comments; combined with the second point, this meant that the corpus was suitable for contrasting the arguments given on either side of the ST controversy.  But the third point meant that a simple random sample would include very few supporters.  @sec-sampling details the sampling procedure that we used for the manual coding step. 
+Initial, undirected exploration of the corpus in 2020-2021 by [A1] indicated that (a) there was a qualitatively clear division between supporters and opponents of ST, (b) commenters offered substantive reasons for their position on ST, (c) these reasons often connected science to public health, but (d) opposing comments were much, much more prevalent than supportive comments.  The point (a) meant that manual qualitative coding could be used to identify supporting and opposing comments; combined with points (b) and (c), this meant that the corpus was likely apt for contrasting the arguments given on either side of the ST controversy, and especially the way they connected (or not) epistemic and pragmatic aims.  But the third point meant that a simple random sample would include very few supporters.  @sec-sampling details the sampling procedure that we used for the manual coding step. 
 
-We used a natural language processing (NLP) package for part-of-speech tagging, specifically identifying nouns and adjectives in the comment and attachment text.  (From this point forward, attachments were treated as continuations of comment text, and in what follows references to "comments" include the attachments.)  This let us construct adjective-noun bigrams, such as "public health" or "regulatory science."  Focusing on bigrams based on the nouns "health" and "science" let us greatly reduce the size of the vocabulary — the distinct terms used in a text mining analysis — which in turn greatly reduced the computation time necessary for any individual step.  [A1] had also identified the relationship between science and health, and its potential correspondence to the aims approach, as the central research question of the project. *[also state this earlier]*  Operationalized using science-health bigrams, this difference might show up in differences in noun frequency within or between sides (for example, opponents might use science bigrams more than supporters) or in different adjectives used with the same noun (for example, supporters might use different adjectives to describe health).  
+We used a natural language processing (NLP) package for part-of-speech tagging, specifically identifying nouns and adjectives in the comment and attachment text.  (From this point forward, attachments were treated as continuations of comment text, and in what follows references to "comments" include the attachments.)  This let us construct adjective-noun bigrams, such as "public health" or "regulatory science."  Focusing on bigrams based on the nouns "health" and "science" let us greatly reduce the size of the vocabulary — the distinct terms used in a text mining analysis — which in turn greatly reduced the computation time necessary for any individual step.  [A1] had also identified the relationship between science and health, and its potential correspondence to the aims approach, as the central research question of the project.  Operationalized using science-health bigrams, this difference might show up in differences in noun frequency within or between sides (for example, opponents might use science bigrams more than supporters) or in different adjectives used with the same noun (for example, supporters might use different adjectives to describe health).  
 
 [A1] had to set the project aside for a few years, but in January 2024 brought in the other authors.  Without informing the other authors of the research question, all authors independently coded each comment in the sample as supporting or opposing ST, or too ambiguous to classify.  Inter-rater reliability was good after one round of independent coding, and excellent after a round of discussion and separate review of discordant codes.  
 
@@ -124,10 +147,10 @@ Table @tbl-n-docs shows the number of comments in the corpus, across the three c
 #|   - "Comments with science/health bigrams"
 #| layout-cols: 2
 read_rds(here(out_dir, '09_n_docs.Rds'))
-read_rds(here(out_dir, '09_n_docs_bigrams.Rds'))
+# read_rds(here(out_dir, '09_n_docs_bigrams.Rds'))
 ```
 
-In the manual coding, the 33 "neither" comments were almost all procedural requests to extend the public comment period, with a few comments discussing an issue that was brought up as an example in the first NPR (the linear no-threshold model for radiation hazard) that we did not consider relevant to our analysis.  Because the ML classifier was not trained on these 33 "neither" comments, it forced all such comments into either the "support" or the "oppose" category.  Notably, the comments that were dropped by the "low confidence" filter (the "filtered" coding) are generally procedural requests to extend the public comment period.  
+In the manual coding, the 33 "neither" comments were almost all procedural requests to extend the public comment period, with a few comments discussing an issue that was mentioned as an example in the first NPR (the linear no-threshold model for radiation hazard) that we did not consider relevant to our analysis.  Because the ML classifier was not trained on these 33 "neither" comments, it forced all such comments into either the "support" or the "oppose" category.  Notably, the comments that were dropped by the "low confidence" filter (the "filtered" coding) are generally procedural requests to extend the public comment period.  
 
 
 ## Bigram analysis
@@ -140,7 +163,7 @@ Figure @fig-bigram-occurrence shows the 15 most common bigrams (both science and
 
 Among supporting comments that use bigrams, they are less consistent in which bigrams they use:  no bigrams appear in the majority of comments.  The most common bigram is "secret science," followed by "regulatory science," "good science," and "public health"; though these three occur in fewer than 25% of comments.  
 
-There are also notable differences in the overall tone of the adjectives in supporters' and opponents' top bigrams.  Supporters seem to express skepticism or cynicism about the quality of scientific research: science is described as secret, secretive, phony, false, fake, shady, or deceptive.  In the context of these skeptical assessments, seemingly-positive valence bigrams — such as real, true, verifiable, and sound science — might be used as privatives, that is, expressing the idea that actually-existing science is *not* real, true, verifiable, or sound.  A skeptical or cynical assessment of science would provide support for ST insofar as open data would make science less secretive and phony and more verifiable and true, etc.  @HicksOpenScienceReplication2023 argued that there is no empirical evidence of a replication crisis in environmental epidemiology [though see @BagiletEstimatingSmallEffects], and that ST's open data requirements would not mitigate widespread irreplicability even if it were a problem in that field. 
+There are also notable differences in the overall tone of the adjectives in supporters' and opponents' top bigrams.  Supporters seem to express skepticism or cynicism about the quality of scientific research: science is described as secret, secretive, phony, false, fake, shady, or deceptive.  In the context of these skeptical assessments, seemingly-positive valence bigrams — such as real, true, verifiable, and sound science — might be used as privatives, that is, expressing the idea that actually-existing science is *not* real, true, verifiable, or sound.  A skeptical or cynical assessment of science would provide support for ST insofar as open data would make science less secretive and phony and more verifiable and true, etc.  @HicksOpenScienceReplication2023 argued that there is no empirical evidence of a replication crisis in environmental epidemiology [though see @BagiletEstimatingSmallEffects *[cite as well in intro]*], and that ST's open data requirements would not mitigate widespread irreplicability even if it were a problem in that field. @HicksDevelopingMeasuresPublic2024 report preliminary evidence that cynicism is a better predictor of generalized trust in science than the value-free ideal. 
 
 Table @tbl-noun-occ and figure @fig-noun-occ examine the occurrence of bigrams, aggregated by noun, for supporters and opponents.  For both supporters and opponents, almost all comments (~90% or more) that use bigrams use at least one science bigram.  For health bigrams and opponents, this is similar: almost all opponents use at least one health bigram.  But health bigrams are rare among supporters, with at most 26% of supportive comments (that use bigrams) using at least one health bigram.  
 
@@ -159,12 +182,20 @@ This analysis indicates that supporters put much more emphasis on science than h
 
 The bigram analysis is limited to documents that contain adjective-noun bigrams, as identified by the NLP parser.  To expand this analysis, we switch to a keyword search of the entire corpus.  Table @tbl-keyword shows the occurrence of hits for five keyword searches, corresponding to science, health/medicine, the environment and ecology, business and the economy, and regulation. 
 
+```{=latex}
+\begin{landscape}
+```
 ```{r}
 #| eval: true
 #| label: "tbl-keyword"
 #| tbl-cap: "Keyword occurrence, by coding method and support. Footnotes indicate regular expressions used for search."
+#| tbl-align: center
 read_rds(here(out_dir, '11_keyword_tab.Rds'))
 ```
+```{=latex}
+\end{landscape}
+```
+
 
 In the bigram analysis, both supporters and opponents almost always used at least one science bigram.  This is still the case in the manually coding; but the rate is somewhat lower for supporters in the two imputed codings, ~65%.  Opponents are also likely to use health (~95%), environment (77% or more), and regulation (~70%) keywords.  By contrast, supporters are unlikely to use any keywords except science (and a slight majority for regulation keywords in the manual coding).  
 
@@ -183,11 +214,13 @@ These distinctive terms indicate not just what each side is saying about ST, but
 
 ## Two views of the aims of science
 
-We argue that the results above can be fruitfully understood in terms of *[Hicks']* account of two views of the aims of science.  Specifically, we claim that supporters deployed the narrow view, while opponents deployed the broad view.  On the narrow view of supporters of ST, science has only epistemic aims.  The practical applications of science are at best irrelevant to the standards for good scientific research, and allowing such applications to shape things like data collection and analysis is comparable to — indeed, *is* — research misconduct.  The narrow view's exclusive focus on epistemic aims provides argumentative support for truth-promoting practices, such as those promoted by the open science movement, wherever it is feasible to do so.  Deployment of the narrow view explains why supporters said a great deal about science, but almost nothing about public health and the environment, and even very little about business and the economy.  All of these aspects of environmental policy are irrelevant to the standards for good scientific research. 
+We argue that the results above can be fruitfully understood in terms of @HicksWhenVirtuesAre2022 account of two views of the aims of science.  Specifically, we claim that supporters deployed the narrow view, while opponents deployed the broad view.  
 
-By contrast, opponents deployed the broad view, on which science has both epistemic and practical aims.  Specifically, they appealed to the practical aims of protecting human health and the environment, raising concerns that ST's open data requirements would frustrate the pursuit of these aims, and was therefore "anti-science" *[Hicks]*.  In this way, the broad view provides an argumentative challenge to ST.  Deployment of the broad view explains why opponents talked about public health and the environment almost as frequently as science itself.  
+On the narrow view of supporters of ST, science has only epistemic aims.  The practical applications of science are at best irrelevant to the standards for good scientific research, and allowing such applications to shape things like data collection and analysis is comparable to — indeed, *is* — research misconduct.  The narrow view's exclusive focus on epistemic aims provides argumentative support for truth-promoting practices, such as those promoted by the open science movement, wherever it is feasible to do so.  Deployment of the narrow view explains why supporters said a great deal about science, but almost nothing about public health and the environment, and even very little about business and the economy.  All of these aspects of environmental policy are irrelevant to the standards for good scientific research. 
 
-Deployment of the broad view might also explain why opponents said relatively little about business and the economy.  On Hicks' theory of value, protecting human health and the environment are aims of environmental public health, but the impacts of regulation on the economy are still accidents, and thus irrelevant to the standards of good scientific research.  @HicksValuesDisclosuresTrust2022 provide survey evidence that, in the context of chemical regulation, members of the public put more trust in a scientist who discloses public health values than one who does not disclose values or discloses economic values. 
+By contrast, opponents of ST deployed the broad view, on which science has both epistemic and practical aims.  Specifically, they appealed to the practical aims of protecting human health and the environment, raising concerns that ST's open data requirements would frustrate the pursuit of these aims, and was therefore "anti-science" [a primary goal of @HicksWhenVirtuesAre2022 is to develop a robust version of this argument].  In this way, the broad view provides an argumentative challenge to ST.  Deployment of the broad view explains why opponents talked about public health and the environment almost as frequently as science itself.  
+
+Deployment of the broad view might also explain why opponents said relatively little about business and the economy.  On Hicks' theory of value, protecting human health and the environment are aims of environmental public health, but the impacts of regulation on the economy are still accidents, and thus irrelevant to the standards of good scientific research.  @HicksValuesDisclosuresTrust2022 provide survey evidence that, in the context of chemical regulation, members of the public — including political conservatives — put more trust in a scientist who discloses public health values than one who does not disclose values or discloses economic values. 
 
 As an alternative to the aims approach, our findings might be interpreted in terms of inductive risk, and specifically differences between supporters and opponents in the relative importance of over- vs. under-regulation *[cites]*.  That is, supporters of ST might put more weight on over-regulation and preventable economic harms; while opponents of ST might put more weight on under-regulation and preventable disease and loss of life due to pollution.  
 
@@ -204,7 +237,21 @@ An inductive risk framing might work well for opponents, who are very likely to 
 *[Starbird: participatory disinformation]*
 
 
+# References 
+
+::: {#refs}
+:::
+
+
 \appendix
+\clearpage
+\pagenumbering{arabic}
+\renewcommand*{\thepage}{S\arabic{page}}
+\renewcommand\thefigure{S\arabic{figure}}    
+\setcounter{figure}{0} 
+\renewcommand\thetable{S\arabic{table}}    
+\setcounter{table}{0}
+\renewcommand*{\thesection}{S\arabic{section}}
 
 # Methods {#sec-methods}
 

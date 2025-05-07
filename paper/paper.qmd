@@ -80,10 +80,25 @@ out_dir = here('out')
 
 In this paper, we argue that the aims approach to values in science can provide a useful framework for identifying certain kinds of deep disagreements in public scientific controversies. Specifically, by applying text mining methods to a large collection of public comments on an open data rule at the US Environmental Protection Agency (USEPA), we argue that supporters and opponents of the rule exemplify the two rival views of the aims of science identified by Hicks [-@HicksScientificPracticesTheir2012; -@HicksWhenVirtuesAre2022]. 
 
-*[
-- aims approach in general
-- Hicks' two views
-]*
+## The aims approach
+
+While not as influential as the argument from inductive risk *[Douglas]*, the aims approach to values in science provides a distinct challenge to the value-free ideal. Proponents of the approach argue that science typically has not only epistemic aims but also practical or pragmatic ones, and that at any stage of inquiry decisions should be made so as to promote those aims. So, specifically, in the "core" of inquiry decisions should be made so as to promote pragmatic aims, and in this way non-epistemic values can play a legitimate role in the "core" of inquiry. *[cites]*  For example, *[Elliott and McKaughan]* argue that the pragmatic aim of quick and protective regulatory review supports using *[high-throughput]* methods and a potentially greater false positive rate in chemical safety testing. 
+Note that this argument does not necessarily deny that science has epistemic aims, as may be done by approaches inspired by John Dewey *[Anderson; Brown]* or Donald Davidson *[Clough]*. This argument is also independent of questions about the definition of epistemic values or a sharp demarcation of values into "epistemic" vs. "social" *[Longino; Rooney; McMullin; Steel]*. Instead, the key assumption of this argument is that science does not have only epistemic aims. 
+
+Proponents of the aims approach often argue for pluralism about aims of science *[Elliott and McKaughan; Potochnik]*, with *[Lusk and Elliott]* explicitly rejecting "the view
+that science has global aims that constrain the influence of local aims on scientific
+practice" (1). Both epistemic and pragmatic aims are often presented as specific to a discipline, field, or research program *[Tapestry ch. 4; examples]*. *[Intemann's]* early statement of the approach argues for "democratically endorsed" aims. *[more?]*
+
+A distinctive aspect of *[Hicks']* version of the aims approach is an analysis of two general "views" of the aims of science, and a claim that an unrecognized disagreement between the two views is a recurrent feature of debates, not only among scientists and the public but also among philosophers.  For Hicks, the "broad view" corresponds to the aims approach argument sketched above — science has both epistemic and pragmatic aims — while the "narrow view" denies the "key assumption" of that argument, taking science to have only epistemic aims *[cites]*. On the narrow view, applications of scientific research are seen as happy accidents but not the primary function or purpose of research. Allowing pragmatic considerations (read: non-epistemic values) to influence inquiry is a corrupting influence, morally on a par with the epistemic distortions introduced by industrial funding *[Bennett and Holman; Fernandez Pinto]* or *[Wansink]*. 
+
+Something like Hicks' two views appears in philosophical debates over the argument from inductive risk. *[acceptance vs. belief]*
+
+
+
+
+
+
+
 
 
 ## *Strengthening Transparency in Regulatory Science*
@@ -224,12 +239,31 @@ Deployment of the broad view might also explain why opponents said relatively li
 
 As an alternative to the aims approach, our findings might be interpreted in terms of inductive risk, and specifically differences between supporters and opponents in the relative importance of over- vs. under-regulation *[cites]*.  That is, supporters of ST might put more weight on over-regulation and preventable economic harms; while opponents of ST might put more weight on under-regulation and preventable disease and loss of life due to pollution.  
 
-An inductive risk framing might work well for opponents, who are very likely to talk about public health, the environment, and ecology.  But it does not seem to fit supporters, who talk about the economy about as often as they talk about the environment, and are less likely than not to talk about regulation.  We therefore take the aims approach to be a better fit for analyzing this particular controversy.  
+An inductive risk framing might work well for opponents, who are very likely to talk about public health, the environment, ecology, and other downstream social implications of ST.  But it does not seem to fit supporters, who talk about the economy about as often as they talk about the environment — that is, very little — and are less likely than not to talk about regulation.  We therefore take the aims approach to be a better fit for analyzing this particular controversy.  
 
 
 ## The views as interpretive frames, not beliefs
 
+When we use text mining methods to study public comments like this, what are we studying? In particular, when we attribute one view of the aim of science to members of the public, are we saying that they *believe* this view, in anything like the way philosophers typically use that term? 
 
+First, consider the many "form letter" comments. We labeled these comments in this way because we believe they were generated using an online form, which provided editable letter text and fields for a prospective commentator to enter their name, city and state, etc. These comments comprise 98% of the comments on Strengthening Transparency (counted granularly: 1 - 22k / 1M). While the text of these letters was editable, almost all prospective commentators made no changes. It is plausible that the vast majority of form letter commentators did not carefully read the letter they were "writing." 
+
+Second, belief is often understood by philosophers as either a felt commitment to the truth of a claim or proposition, or as a behavioral disposition (with certain cognitive aspects) *[Schwitzgebel]*. In either conceptualization, beliefs are expected to be more-or-less stable across contexts (keeping fixed available evidence, belief in logically relevant claims, etc.). But there is circumstantial evidence^[By this we mean that the evidence below does not show that any identifiable individual endorsed different views of the aims of science in two different contexts. Instead our argument is that two incompatible views appear to be widely endorsed in the same group in different contexts, and thus it is highly probably that many individual members of this group have or would endorse both views in an unstable or logically inconsistent way.] that the views of aims of science we identified here are not stable. 
+
+Consider opponents of ST, who we take to generally be environmentalists and political liberals or progressives ("liberals" for short). While liberals utilized the broad view in the ST controversy, in 2021 liberals also supported the development of scientific integrity plans across the Biden administration *[cites]*. The Biden administration's framework for these plans utilized the narrow view and the value-free ideal, portraying non-epistemic considerations exclusively as political interference or inappropriate influence (and without defining either of these terms):  
+
+> Scientific findings and products must not be suppressed, delayed, or altered for political purposes and must not be subjected to inappropriate influence. 
+> 
+> Science, and public trust in science, thrives in an environment that shields scientific data and analyses and their use in policymaking from political interference or inappropriate influence. [@OSTPReleasesFramework2023 29-30]
+
+On the other hand, as discussed above, we considered the possibility that supporters of ST — who we take to generally be political conservatives — appealed to pragmatic aims such as promoting economic growth, supporting small businesses, or reducing excessive regulation on industry. This would have amounted to utilizing the broad view, just with a different set of pragmatic aims from the liberal version. We found no evidence of a conservative broad view in the ST controversy; but of course conservatives appeal to such pragmatic aims in many other contexts *[cites]*. 
+
+For these reasons, we do not interpret the comments on ST as expressing beliefs of the public on the aims of science. As an alternative, we suggest that the narrow and broad views can be understood as interpretive frames [@KleinDataFrameTheory2007]. Based on studies of the ways professionals make decisions in complex situations (primarily military intelligence analysts), @KleinDataFrameTheory2007 proposed that decisionmakers engage in "sensemaking," a form of inquiry [compare @BrownScienceMoralImagination2020 ch. 1] aimed at understanding rather than empirical accuracy [@KleinDataFrameTheory2007], and specifically understanding to support effective decisionmaking in the face of practical uncertainty. A "frame" is any "explanatory structure[] that account[s] for the data," including but not limited to stories, scripts, and maps [@KleinDataFrameTheory2007 120]. @KleinDataFrameTheory2007 emphasize that there is an iterative relationship between data and frame: "The data identify the relevant frame, and the frame determines which data are noticed. Neither of these comes first" [118; compare *[Hanson, Chang]*]. Because individuals operate with different "repertoires of frames," and data-gathering is informed by frames, "Different people viewing the same events can perceive and recall different things depending on their goals and experiences" [@KleinDataFrameTheory2007 121]. Extending this thought, we suggest that an individual's repertoire might include incompatible frames, and so similar events might be perceived and interpreted in very different ways by the same individual. 
+
+Applied to the ST controversy, we suggest that both liberals and conservatives have both narrow and broad views of the aims of science among their repertoire of frames for interpreting public scientific controversies. *[narrow view is depoliticizing; broad view is politicizing?]*
+
+
+Reading the public comments as expressions of interpretive frames rather than beliefs can also help us understand what the "authors" of form letter comments were doing when they submitted a comment without modifying or even carefully reading the suggested text. For the low-stakes action of submitting a comment, details of argument and wording were less important than the general sentiment of the text — its vibes. So a few seconds to skim the suggested text would be sufficient for most commentators. 
 
 
 ## The role of advocacy organizations

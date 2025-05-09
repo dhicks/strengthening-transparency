@@ -8,4 +8,4 @@ paper.html: paper.qmd methods.qmd
 .PHONY: pdf
 pdf: paper.pdf
 paper.pdf: paper.qmd methods.qmd
-	quarto render paper.qmd --to pdf
+	quarto render paper.qmd --to aft-pdf

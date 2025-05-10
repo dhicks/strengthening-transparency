@@ -1,0 +1,1290 @@
+---
+references:
+- id: AchenbachScientistsDecryNew2018
+  accessed:
+    - year: 2025
+      month: 4
+      day: 28
+  author:
+    - family: Achenbach
+      given: Joel
+  citation-key: AchenbachScientistsDecryNew2018
+  container-title: The Washington Post
+  contributor:
+    - family: Pruitt
+      given: Scott
+  event-place: Washington, D.C., United States
+  ISSN: '01908286'
+  issued:
+    - year: 2018
+      month: 5
+      day: 8
+  language: English
+  license: Copyright WP Company LLC d/b/a The Washington Post May 8, 2018
+  number-of-pages: E.6
+  page: E.6
+  publisher: WP Company LLC d/b/a The Washington Post
+  publisher-place: Washington, D.C., United States
+  section: HEALTH
+  source: ProQuest
+  title: Scientists decry new EPA proposal as a way of supressing solid science
+  type: article-newspaper
+  URL: https://www.proquest.com/docview/2035555540/citation/1EAE69387154781PQ/3
+
+- id: BagiletEstimatingSmallEffects
+  abstract: >-
+    This paper evaluates the ability of various research designs in measuring
+    small effects, that of air pollution on health in the short-term. Analyzing
+    the epidemiology and economics literature, we ﬁrst show that a portion of
+    these estimates are likely inaccurate. In the presence of publication bias,
+    relatively small eﬀects are not only diﬃcult to detect, but resulting
+    estimates also exaggerate true eﬀect sizes. We identify the design
+    parameters causing this issue using real data simulations replicating most
+    prevailing methods. Finally, we propose a principled workﬂow to evaluate and
+    avoid the risk of exaggeration when conducting an observational study.
+  author:
+    - family: Bagilet
+      given: Vincent
+  citation-key: BagiletEstimatingSmallEffects
+  language: en
+  source: Zotero
+  title: 'Estimating Small Eﬀects: Short-term Health Eﬀects of Air Pollution'
+  type: article-journal
+
+- id: BrownScienceMoralImagination2020
+  abstract: >-
+    The idea that science is or should be value-free, and that values are or
+    should be formed independently of science, has been under fire by
+    philosophers of science for decades. Science and Moral Imagination directly
+    challenges the idea that science and values cannot and should not influence
+    each other. Matthew J. Brown argues that science and values mutually
+    influence and implicate one another, that the influence of values on science
+    is pervasive and must be responsibly managed, and that science can and
+    should have an influence on our values. This interplay, he explains, must be
+    guided by accounts of scientific inquiry and value judgment that are
+    sensitive to the complexities of their interactions. Brown presents
+    scientific inquiry and value judgment as types of problem-solving practices
+    and provides a new framework for thinking about how we might ethically
+    evaluate episodes and decisions in science, while offering guidance for
+    scientific practitioners and institutions about how they can incorporate
+    value judgments into their work. His framework, dubbed "the ideal of moral
+    imagination," emphasizes the role of imagination in value judgment and the
+    positive role that value judgment plays in science.
+  author:
+    - family: Brown
+      given: Matthew
+  citation-key: BrownScienceMoralImagination2020
+  ISBN: 978-0-8229-4626-7
+  issued:
+    - year: 2020
+      month: 10
+      day: 27
+  language: en
+  number-of-pages: '296'
+  publisher: University of Pittsburgh Press
+  source: Google Books
+  title: 'Science and Moral Imagination: A New Ideal for Values in Science'
+  title-short: Science and Moral Imagination
+  type: book
+
+- id: CerdaAmericansFeelFavorably2024
+  abstract: >-
+    Democrats hold consistently favorable views of all 16 agencies asked about,
+    while Republicans express more unfavorable than favorable views for 11
+    agencies.
+  accessed:
+    - year: 2025
+      month: 5
+      day: 8
+  author:
+    - family: Cerda
+      given: Andy
+  citation-key: CerdaAmericansFeelFavorably2024
+  container-title: Pew Research Center
+  issued:
+    - year: 2024
+      month: 8
+      day: 12
+  language: en-US
+  title: >-
+    Americans feel favorably about many federal agencies, especially the Park
+    Service, Postal Service and NASA
+  type: post-weblog
+  URL: >-
+    https://www.pewresearch.org/short-reads/2024/08/12/americans-see-many-federal-agencies-favorably-but-republicans-grow-more-critical-of-justice-department/
+
+- id: DeBlockDynamicsScienceComputational2022
+  abstract: >-
+    Millions of scientific articles are published each year, making it difficult
+    to stay abreast of advances within even the smallest subdisciplines.
+    Traditional approaches to the study of science, such as the history and
+    philosophy of science, involve closely reading a relatively small set of
+    journal articles. And yet many questions benefit from casting a wider net:
+    Is most scientific change gradual or revolutionary? What are the key sources
+    of scientific novelty? Over the past several decades, a massive effort to
+    digitize the academic literature and equip computers with algorithms that
+    can distantly read and analyze a digital database has taken us one step
+    closer to answering these questions. The Dynamics of Science brings together
+    a diverse array of contributors to examine the largely unexplored
+    computational frontiers of history and philosophy of science. Together, they
+    reveal how tools and data from automated textual analysis, or machine
+    “reading,” combined with methods and models from game theory and cultural
+    evolutionary theory, can begin to answer fundamental questions about the
+    nature and history of science.
+  accessed:
+    - year: 2024
+      month: 5
+      day: 17
+  citation-key: DeBlockDynamicsScienceComputational2022
+  editor:
+    - family: De Block
+      given: Andreas
+    - family: Ramsey
+      given: Grant
+  event-place: Pittsburgh
+  ISBN: 978-0-8229-8909-7
+  issued:
+    - year: 2022
+  publisher: University of Pittsburgh Press
+  publisher-place: Pittsburgh
+  source: Project MUSE
+  title: >-
+    The Dynamics of Science: Computational Frontiers in History and Philosophy
+    of Science
+  title-short: The Dynamics of Science
+  type: book
+  URL: https://muse.jhu.edu/pub/49/edited_volume/book/103926
+
+- id: DennisEPAPushesAhead2019
+  accessed:
+    - year: 2025
+      month: 4
+      day: 28
+  author:
+    - family: Dennis
+      given: Brady
+  citation-key: DennisEPAPushesAhead2019
+  container-title: The Washington Post
+  contributor:
+    - family: Trump
+      given: Donald J.
+    - family: Wheeler
+      given: Andrew
+    - family: Pruitt
+      given: Scott
+  event-place: Washington, D.C., United States
+  ISSN: '01908286'
+  issued:
+    - year: 2019
+      month: 11
+      day: 13
+  language: English
+  license: Copyright WP Company LLC d/b/a The Washington Post Nov 13, 2019
+  number-of-pages: A.19
+  page: A.19
+  publisher: WP Company LLC d/b/a The Washington Post
+  publisher-place: Washington, D.C., United States
+  section: A-Section
+  source: ProQuest
+  title: >-
+    EPA pushes ahead with effort to restrict the science it uses to craft
+    regulations
+  type: article-newspaper
+  URL: https://www.proquest.com/docview/2313811480/citation/1EAE69387154781PQ/2
+
+- id: DockeryAssociationAirPollution1993
+  abstract: >-
+    Several cross-sectional investigations have found associations between
+    mortality rates and particulate air pollution in U.S. metropolitan areas1–3.
+    A recent study reported associations between infant mortality and
+    particulate air pollution in the Czech Republic4. These studies have often
+    been criticized because they did not control directly for cigarette smoking
+    or other covariates. Recent daily time-series studies, which are likely to
+    be free of confounding by individual characteristics, have reported
+    associations between daily mortality rates and changes in air pollution,
+    specifically particulate pollution, in London5 and in several cities in the
+    United States6–12. Particulate air pollution is . . .
+  accessed:
+    - year: 2018
+      month: 8
+      day: 8
+  author:
+    - family: Dockery
+      given: Douglas W.
+    - family: Pope
+      given: C. Arden
+    - family: Xu
+      given: Xiping
+    - family: Spengler
+      given: John D.
+    - family: Ware
+      given: James H.
+    - family: Fay
+      given: Martha E.
+    - family: Ferris
+      given: Benjamin G.
+    - family: Speizer
+      given: Frank E.
+  citation-key: DockeryAssociationAirPollution1993
+  container-title: New England Journal of Medicine
+  DOI: 10.1056/NEJM199312093292401
+  ISSN: 0028-4793
+  issue: '24'
+  issued:
+    - year: 1993
+      month: 12
+      day: 9
+  page: 1753-1759
+  PMID: '8179653'
+  source: Taylor and Francis+NEJM
+  title: An Association between Air Pollution and Mortality in Six U.S. Cities
+  type: article-journal
+  URL: https://doi.org/10.1056/NEJM199312093292401
+  volume: '329'
+
+- id: FriedmanEPALimitScience2019
+  abstract: >-
+    A new agency rule would restrict the science that can be used in drafting
+    health regulations by requiring researchers to turn over confidential health
+    data.
+  accessed:
+    - year: 2019
+      month: 11
+      day: 12
+  author:
+    - family: Friedman
+      given: Lisa
+  citation-key: FriedmanEPALimitScience2019
+  container-title: The New York Times
+  ISSN: 0362-4331
+  issued:
+    - year: 2019
+      month: 11
+      day: 11
+  language: en-US
+  section: Climate
+  source: NYTimes.com
+  title: E.P.A. to Limit Science Used to Write Public Health Rules
+  type: article-newspaper
+  URL: https://www.nytimes.com/2019/11/11/climate/epa-science-trump.html
+
+- id: GinammiBolzanoKantTraditional2022
+  accessed:
+    - year: 2024
+      month: 5
+      day: 17
+  author:
+    - family: Ginammi
+      given: Annapaola
+    - family: Koopman
+      given: Rob
+    - family: Wang
+      given: Shenghui
+    - family: Bloem
+      given: Jelke
+    - family: Betti
+      given: Arianna
+  citation-key: GinammiBolzanoKantTraditional2022
+  container-title: >-
+    The Dynamics of Science: Computational Frontiers in History and Philosophy
+    of Science
+  editor:
+    - family: De Block
+      given: Andreas
+    - family: Ramsey
+      given: Grant
+  event-place: Pittsburgh
+  ISBN: 978-0-8229-8909-7
+  issued:
+    - year: 2022
+  publisher: University of Pittsburgh Press
+  publisher-place: Pittsburgh
+  source: Project MUSE
+  title: >-
+    Bolzano, Kant, and the Traditional Theory of Concepts: A Computational
+    Investigation
+  type: chapter
+  URL: https://muse.jhu.edu/pub/49/edited_volume/book/103926
+
+- id: HakimPesticideStudiesWon2018
+  abstract: >-
+    Backed by agrochemical companies, the current administration and Congress
+    are moving to curb the role of human health studies in regulation.
+  accessed:
+    - year: 2018
+      month: 8
+      day: 24
+  author:
+    - family: Hakim
+      given: Danny
+    - family: Lipton
+      given: Eric
+  citation-key: HakimPesticideStudiesWon2018
+  container-title: The New York Times
+  ISSN: 0362-4331
+  issued:
+    - year: 2018
+      month: 8
+      day: 24
+  language: en-US
+  section: Business Day
+  source: NYTimes.com
+  title: >-
+    Pesticide Studies Won E.P.A.’s Trust, Until Trump’s Team Scorned ‘Secret
+    Science’
+  type: article-newspaper
+  URL: >-
+    https://www.nytimes.com/2018/08/24/business/epa-pesticides-studies-epidemiology.html
+
+- id: HicksDevelopingMeasuresPublic2024
+  abstract: >-
+    Scholars in the history, philosophy, and social studies of science often
+    explain public scientific controversies by appealing to views of the general
+    public on appropriate roles for values in science. However, evidence that
+    members of the public actually hold these views is limited. This paper
+    presents the Values in Science Scale (VISS), a quantitative survey
+    instrument designed to measure these views. Qualitative methods were used to
+    ensure construct validity among US adults (Study 2). In one notable initial
+    finding using VISS, the value-free ideal (VFI) — a traditional conception of
+    objectivity — is not correlated with generalized trust in science.
+  accessed:
+    - year: 2024
+      month: 11
+      day: 1
+  author:
+    - family: Hicks
+      given: Dan
+    - family: Lobato
+      given: Emilio
+    - family: Campbell
+      given: Cosmo E.
+    - family: Dad
+      given: Joseph
+  citation-key: HicksDevelopingMeasuresPublic2024
+  DOI: 10.31235/osf.io/ks2ta
+  issued:
+    - year: 2024
+      month: 11
+      day: 1
+  language: en-us
+  publisher: OSF
+  source: OSF Preprints
+  title: Developing Measures of Public Perceptions of Values in Science
+  type: article
+  URL: https://osf.io/ks2ta
+
+- id: HicksOpenScienceReplication2023
+  abstract: >-
+    Concerns about a crisis of mass irreplicability across scientific fields
+    (“the replication crisis”) have stimulated a movement for open science,
+    encouraging or even requiring researchers to publish their raw data and
+    analysis code. Recently, a rule at the US Environmental Protection Agency
+    (US EPA) would have imposed a strong open data requirement. The rule
+    prompted significant public discussion about whether open science practices
+    are appropriate for fields of environmental public health. The aims of this
+    paper are to assess (1) whether the replication crisis extends to fields of
+    environmental public health; and (2) in general whether open science
+    requirements can address the replication crisis. There is little empirical
+    evidence for or against mass irreplicability in environmental public health
+    specifically. Without such evidence, strong claims about whether the
+    replication crisis extends to environmental public health — or not — seem
+    premature. By distinguishing three concepts — reproducibility,
+    replicability, and robustness — it is clear that open data initiatives can
+    promote reproducibility and robustness but do little to promote
+    replicability. I conclude by reviewing some of the other benefits of open
+    science, and offer some suggestions for funding streams to mitigate the
+    costs of adoption of open science practices in environmental public health.
+  accessed:
+    - year: 2021
+      month: 7
+      day: 31
+  author:
+    - family: Hicks
+      given: Daniel J.
+  citation-key: HicksOpenScienceReplication2023
+  container-title: Accountability in Research
+  DOI: 10.1080/08989621.2021.1962713
+  ISSN: 0898-9621
+  issue: '1'
+  issued:
+    - year: 2023
+  license: All rights reserved
+  page: 34-62
+  PMID: '34330172'
+  publisher: Taylor & Francis
+  source: Taylor and Francis+NEJM
+  title: Open science, the replication crisis, and environmental public health
+  type: article-journal
+  URL: https://doi.org/10.1080/08989621.2021.1962713
+  volume: '30'
+
+- id: HicksRaceScienceMainstream2024
+  abstract: >-
+    Anthropologists and human geneticists have long rejected race science,
+    research that can be utilized to purportedly justify racial inequality and
+    colonialism.  But race science has persisted, at the very least on the
+    margins of the mainstream scientific community.  In this study,
+    scientometric and text mining methods were used to trace the appearance of
+    race science discourse in both mainstream behavioral science journals and
+    the parascholarly journal *Mankind Quarterly* from 1960 to 2010.  Our
+    analysis found two distinguishable lines of race science discourse.  One is
+    strongly associated with *Mankind Quarterly*, while the other — emphasizing
+    race and intelligence — is more prevalent with mainstream psychology
+    journals, especially *Intelligence* and *Personality and Individual
+    Differences*.  We compare psychology's response to race science to those of
+    other fields, and discuss the social responsibility of scientists with
+    respect to race science.
+  accessed:
+    - year: 2024
+      month: 8
+      day: 8
+  author:
+    - family: Hicks
+      given: Daniel
+    - family: Lobato
+      given: Emilio Jon Christopher
+  citation-key: HicksRaceScienceMainstream2024
+  container-title: Quantitative Science Studies
+  DOI: 10.31234/osf.io/y8hr3
+  issued:
+    - year: 2024
+      month: 8
+      day: 8
+  language: en-us
+  license: All rights reserved
+  source: OSF Preprints
+  title: Race Science in Mainstream Psychology, 1960-2010
+  type: article-journal
+  URL: https://osf.io/y8hr3
+  volume: forthcoming
+
+- id: HicksScientificControversiesProxy2017
+  accessed:
+    - year: 2017
+      month: 3
+      day: 20
+  author:
+    - family: Hicks
+      given: Daniel J.
+  citation-key: HicksScientificControversiesProxy2017
+  container-title: Issues in Science and Technology
+  issue: Winter 2017
+  issued:
+    - year: 2017
+      month: 1
+  page: 67-72
+  title: Scientific Controversies as Proxy Politics
+  type: article-magazine
+  URL: https://www.jstor.org/stable/24891967
+  volume: '33'
+
+- id: HicksScientificPracticesTheir2012
+  author:
+    - family: Hicks
+      given: Daniel J.
+  citation-key: HicksScientificPracticesTheir2012
+  issued:
+    - year: 2012
+  publisher: U. of Notre Dame
+  source: PhilPapers
+  title: Scientific Practices and Their Social Context
+  type: thesis
+
+- id: HicksValuesDisclosuresTrust2022
+  abstract: >-
+    While philosophers of science generally agree that social, political, and
+    ethical values can play legitimate roles in science, there is active debate
+    over whether scientists should disclosure such values in their public
+    communications. This debate depends, in part, on empirical claims about
+    whether values disclosures might undermine public trust in science. In a
+    previous study, Elliott et al. used an online experiment to test this
+    empirical claim. The current paper reports a replication attempt of their
+    experiment. Comparing results of the original study and our replication, we
+    do not find evidence for a transparency penalty or “shared values” effect,
+    but do find evidence that the content of scientific conclusions (whether or
+    not a chemical is found to cause harm) might effect perceived
+    trustworthiness and that scientists who value public health and disclose
+    this value might be perceived as more trustworthy.
+  accessed:
+    - year: 2022
+      month: 11
+      day: 7
+  author:
+    - family: Hicks
+      given: Daniel J.
+    - family: Lobato
+      given: Emilio Jon Christopher
+  citation-key: HicksValuesDisclosuresTrust2022
+  container-title: Frontiers in Communication
+  DOI: 10.3389/fcomm.2022.1017362
+  ISSN: 2297-900X
+  issued:
+    - year: 2022
+  license: All rights reserved
+  source: Frontiers
+  title: 'Values disclosures and trust in science: A replication study'
+  title-short: Values disclosures and trust in science
+  type: article-journal
+  URL: https://www.frontiersin.org/articles/10.3389/fcomm.2022.1017362
+  volume: '7'
+
+- id: HicksWhenVirtuesAre2022
+  abstract: >-
+    <p>Since at least the mid-2000s, political commentators, environmental
+    advocates, and scientists have raised concerns about an “anti-science”
+    approach to environmental policymaking in conservative governments in the US
+    and Canada. This paper explores and resolves a paradox surrounding at least
+    some uses of the “anti-science” epithet. I examine two cases of such
+    “anti-science” environmental policy, both of which involve appeals to
+    epistemic values that are widely endorsed by both scientists and
+    philosophers of science. It seems paradoxical to call an appeal to epistemic
+    values “anti-science.” I develop an analysis that, I argue, can resolve this
+    paradox. This analysis is a version of the “aims approach” to science and
+    values, drawing on ideas from axiology and virtue ethics. I characterize the
+    paradox in terms of conflicts or tensions between epistemic and pragmatic
+    aims, and argue that there is a key asymmetry between them: epistemic aims
+    are valuable, in part, because they are useful for pursuing pragmatic aims.
+    Thus, when epistemic and pragmatic aims conflict, epistemic aims need to be
+    reconceptualized in order to reconcile them to pragmatic aims. When this is
+    done, in the “anti-science” cases, the epistemic values are scientific vices
+    rather than virtues. Thus the “anti-science” epithet is apt.</p>
+  accessed:
+    - year: 2022
+      month: 4
+      day: 28
+  author:
+    - family: Hicks
+      given: Daniel J.
+  citation-key: HicksWhenVirtuesAre2022
+  container-title: Philosophy, Theory, and Practice in Biology
+  DOI: 10.3998/.2629
+  ISSN: 2475-3025
+  issue: '0'
+  issued:
+    - year: 2022
+      month: 4
+      day: 28
+  language: eng
+  license: All rights reserved
+  number: '0'
+  publisher: Michigan Publishing
+  source: journals.publishing.umich.edu
+  title: >-
+    When Virtues are Vices: 'Anti-Science' Epistemic Values in Environmental
+    Politics
+  title-short: When Virtues are Vices
+  type: article-journal
+  URL: https://journals.publishing.umich.edu/ptpbio/article/id/2629/
+  volume: '14'
+
+- id: KleinDataFrameTheory2007
+  author:
+    - family: Klein
+      given: Gary
+    - family: Phillips
+      given: Jennifer K.
+    - family: Rall
+      given: Erica L.
+    - family: Peluso
+      given: Deborah A.
+  citation-key: KleinDataFrameTheory2007
+  container-title: >-
+    Expertise Out of Context: Proceedings of the Sixth International Conference
+    on Naturalistic Decision Making
+  editor:
+    - family: Hoffman
+      given: Robert R.
+  ISBN: 978-1-136-67963-6
+  issued:
+    - year: 2007
+      month: 5
+      day: 22
+  language: en
+  publisher: Psychology Press
+  source: Google Books
+  title: A Data–Frame Theory of Sensemaking
+  type: chapter
+
+- id: LernerRepublicansAreUsing2017
+  abstract: >-
+    The House Committee on Science wants to undermine health regulations using a
+    strategy cooked up by tobacco industry strategists two decades ago.
+  accessed:
+    - year: 2021
+      month: 1
+      day: 6
+  author:
+    - family: Lerner
+      given: Sharon
+  citation-key: LernerRepublicansAreUsing2017
+  container-title: The Intercept
+  issued:
+    - year: 2017
+      month: 2
+      day: 5
+  language: en
+  title: >-
+    Republicans Are Using Big Tobacco’s Secret Science Playbook to Gut Health
+    Rules
+  type: webpage
+  URL: >-
+    https://theintercept.com/2017/02/05/republicans-want-to-make-the-epa-great-again-by-gutting-health-regulations/
+
+- id: MalaterreEarlyDaysContemporary2022
+  abstract: >-
+    Topic model is a well proven tool to investigate the semantic content of
+    textual corpora. Yet corpora sometimes include texts in several languages,
+    making it impossible to apply language-specific computational approaches
+    over their entire content. This is the problem we encountered when setting
+    to analyze a philosophy of science corpus spanning over eight decades and
+    including original articles in Dutch, German and French, on top of a large
+    majority of articles in English. To circumvent this multilingual problem, we
+    use machine-translation tools to bulk translate non-English documents into
+    English. Though largely imperfect, especially syntactically, these
+    translations nevertheless provide correctly translated terms and preserve
+    the semantic proximity of documents with respect to one another. To assess
+    the quality of this translation step, we develop a “semantic topology
+    preservation test” that relies on estimating the extent to which
+    document-to-document distances have been preserved during translation. We
+    then conduct an LDA topic-model analysis over the entire corpus of
+    translated and English original texts, and compare it to a topic-model done
+    over the English original texts only. We thereby identify the specific
+    contribution of the translated texts. These studies reveal a more complete
+    picture of main topics that can found in the philosophy of science
+    literature, especially during the early days of the discipline when numerous
+    articles were published in languages other than English.
+  accessed:
+    - year: 2022
+      month: 6
+      day: 1
+  author:
+    - family: Malaterre
+      given: Christophe
+    - family: Lareau
+      given: Francis
+  citation-key: MalaterreEarlyDaysContemporary2022
+  container-title: Synthese
+  container-title-short: Synthese
+  DOI: 10.1007/s11229-022-03722-x
+  ISSN: 1573-0964
+  issue: '3'
+  issued:
+    - year: 2022
+      month: 5
+      day: 31
+  language: en
+  page: '242'
+  source: Springer Link
+  title: >-
+    The early days of contemporary philosophy of science: novel insights from
+    machine translation and topic-modeling of non-parallel multilingual corpora
+  title-short: The early days of contemporary philosophy of science
+  type: article-journal
+  URL: https://doi.org/10.1007/s11229-022-03722-x
+  volume: '200'
+
+- id: MalaterreEightJournalsEight2020
+  abstract: >-
+    As a discipline of its own, the philosophy of science can be traced back to
+    the founding of its academic journals, some of which go back to the first
+    half of the twentieth century. While the discipline has been the object of
+    many historical studies, notably focusing on specific schools (e.g., logical
+    empiricism) or major figures of the field (e.g., Carnap, Kuhn), little work
+    has focused on the journals themselves. Here, we investigate contemporary
+    philosophy of science by means of computational text-mining approaches: we
+    apply topic-modeling algorithms to eight major philosophy of science
+    journals, from the 1930s up until 2017. Based on the full-text content of
+    some 15,897 articles, we identified 25 research themes and 8 thematic
+    clusters that show how the research agenda of the philosophy of science has
+    changed in its content over the course of the last eight decades, up to the
+    philosophy of science we now know. We also show how each one of the journals
+    contributed in its own way to this thematic evolution.
+  accessed:
+    - year: 2020
+      month: 12
+      day: 17
+  author:
+    - family: Malaterre
+      given: Christophe
+    - family: Lareau
+      given: Francis
+    - family: Pulizzotto
+      given: Davide
+    - family: St-Onge
+      given: Jonathan
+  citation-key: MalaterreEightJournalsEight2020
+  container-title: Synthese
+  container-title-short: Synthese
+  DOI: 10.1007/s11229-020-02915-6
+  ISSN: 1573-0964
+  issued:
+    - year: 2020
+      month: 12
+      day: 17
+  language: en
+  source: Springer Link
+  title: >-
+    Eight journals over eight decades: a computational topic-modeling approach
+    to contemporary philosophy of science
+  title-short: Eight journals over eight decades
+  type: article-journal
+  URL: https://doi.org/10.1007/s11229-020-02915-6
+
+- id: MalaterreRevisitingThreeDecades2019
+  abstract: >-
+    Though only established as a discipline since the 1970s, philosophy of
+    biology has already triggered investigations about its own history (e.g.,
+    Grene and Depew in The philosophy of biology: an episodic history, Cambridge
+    University Press, Cambridge, 2004. https://doi.org/10.1017/CBO9780511819018;
+    Hull, in: Ruse (ed) The Oxford handbook of philosophy of biology, Oxford
+    University Press, New York, pp 11–33, 2008). When it comes to assessing the
+    road since travelled—the research questions that have been pursued—manuals
+    and ontologies also offer specific viewpoints, highlighting dedicated
+    domains of inquiry and select work. In this article, we propose to approach
+    the history of the philosophy of biology with a complementary data-driven
+    perspective that makes use of statistical algorithms applied to the complete
+    full-text corpus of one major journal of the field—Biology and
+    Philosophy—from its launch in 1986 up until 2017. By running text-mining and
+    topic-modeling algorithms, we identified 67 key research topics that span
+    across these 32 years. We also investigated the evolution of these topics
+    over time and their fluctuating significance in the journal articles. Our
+    results concur with known episodes or traits of the discipline—for instance,
+    the significance of evolution-related topics or the decrease of articles
+    with a marked historical dimension—but also highlight a diversity of topics
+    that is much richer than what is usually acknowledged.
+  accessed:
+    - year: 2019
+      month: 12
+      day: 20
+  author:
+    - family: Malaterre
+      given: Christophe
+    - family: Pulizzotto
+      given: Davide
+    - family: Lareau
+      given: Francis
+  citation-key: MalaterreRevisitingThreeDecades2019
+  container-title: Biology & Philosophy
+  container-title-short: Biol Philos
+  DOI: 10.1007/s10539-019-9729-4
+  ISSN: 1572-8404
+  issue: '1'
+  issued:
+    - year: 2019
+      month: 12
+      day: 19
+  language: en
+  page: '5'
+  source: Springer Link
+  title: "Revisiting three\_decades of Biology and Philosophy: a computational topic-modeling perspective"
+  title-short: "Revisiting three\_decades of Biology and Philosophy"
+  type: article-journal
+  URL: https://doi.org/10.1007/s10539-019-9729-4
+  volume: '35'
+
+- id: MalaterreWhatThisThing2019
+  accessed:
+    - year: 2020
+      month: 9
+      day: 18
+  author:
+    - family: Malaterre
+      given: Christophe
+    - family: Chartier
+      given: Jean-François
+    - family: Pulizzotto
+      given: Davide
+  citation-key: MalaterreWhatThisThing2019
+  container-title: >-
+    HOPOS: The Journal of the International Society for the History of
+    Philosophy of Science
+  container-title-short: >-
+    HOPOS: The Journal of the International Society for the History of
+    Philosophy of Science
+  DOI: 10.1086/704372
+  ISSN: 2152-5188, 2156-6240
+  issue: '2'
+  issued:
+    - year: 2019
+      month: 9
+  language: en
+  page: 215-249
+  source: DOI.org (Crossref)
+  title: >-
+    What Is This Thing Called *Philosophy of Science* ? A Computational
+    Topic-Modeling Perspective, 1934–2015
+  title-short: What Is This Thing Called *Philosophy of Science* ?
+  type: article-journal
+  URL: https://www.journals.uchicago.edu/doi/10.1086/704372
+  volume: '9'
+
+- id: MufsonEPAExcludedTop2018
+  accessed:
+    - year: 2025
+      month: 4
+      day: 28
+  author:
+    - family: Mufson
+      given: Steven
+    - family: Mooney
+      given: Chris
+  citation-key: MufsonEPAExcludedTop2018
+  container-title: The Washington Post
+  contributor:
+    - family: Wheeler
+      given: Andrew
+    - family: Mooney
+      given: Chris
+    - family: Pruitt
+      given: Scott
+  event-place: Washington, D.C., United States
+  ISSN: '01908286'
+  issued:
+    - year: 2018
+      month: 10
+      day: 4
+  language: English
+  license: Copyright WP Company LLC d/b/a The Washington Post Oct 4, 2018
+  number-of-pages: A.3
+  page: A.3
+  publisher: WP Company LLC d/b/a The Washington Post
+  publisher-place: Washington, D.C., United States
+  section: A-SECTION
+  source: ProQuest
+  title: EPA excluded top science officials when limiting use of studies
+  type: article-newspaper
+  URL: https://www.proquest.com/docview/2115962876/citation/1EAE69387154781PQ/1
+
+- id: MurdockExplorationExploitationVictorian2017
+  abstract: >-
+    Search in an environment with an uncertain distribution of resources
+    involves a trade-off between exploitation of past discoveries and further
+    exploration. This extends to information foraging, where a knowledge-seeker
+    shifts between reading in depth and studying new domains. To study this
+    decision-making process, we examine the reading choices made by one of the
+    most celebrated scientists of the modern era: Charles Darwin. From the
+    full-text of books listed in his chronologically-organized reading journals,
+    we generate topic models to quantify his local (text-to-text) and global
+    (text-to-past) reading decisions using Kullback-Liebler Divergence, a
+    cognitively-validated, information-theoretic measure of relative surprise.
+    Rather than a pattern of surprise-minimization, corresponding to a pure
+    exploitation strategy, Darwin’s behavior shifts from early exploitation to
+    later exploration, seeking unusually high levels of cognitive surprise
+    relative to previous eras. These shifts, detected by an unsupervised
+    Bayesian model, correlate with major intellectual epochs of his career as
+    identified both by qualitative scholarship and Darwin’s own self-commentary.
+    Our methods allow us to compare his consumption of texts with their
+    publication order. We find Darwin’s consumption more exploratory than the
+    culture’s production, suggesting that underneath gradual societal changes
+    are the explorations of individual synthesis and discovery. Our quantitative
+    methods advance the study of cognitive search through a framework for
+    testing interactions between individual and collective behavior and between
+    short- and long-term consumption choices. This novel application of topic
+    modeling to characterize individual reading complements widespread studies
+    of collective scientific behavior.
+  accessed:
+    - year: 2018
+      month: 8
+      day: 26
+  author:
+    - family: Murdock
+      given: Jaimie
+    - family: Allen
+      given: Colin
+    - family: DeDeo
+      given: Simon
+  citation-key: MurdockExplorationExploitationVictorian2017
+  container-title: Cognition
+  container-title-short: Cognition
+  DOI: 10.1016/j.cognition.2016.11.012
+  ISSN: 0010-0277
+  issued:
+    - year: 2017
+      month: 2
+      day: 1
+  page: 117-126
+  source: ScienceDirect
+  title: >-
+    Exploration and exploitation of Victorian science in Darwin’s reading
+    notebooks
+  type: article-journal
+  URL: http://www.sciencedirect.com/science/article/pii/S0010027716302840
+  volume: '159'
+
+- id: NelsonComputationalGroundedTheory2020
+  abstract: >-
+    This article proposes a three-step methodological framework called
+    computational grounded theory, which combines expert human knowledge and
+    hermeneutic skills with the processing power and pattern recognition of
+    computers, producing a more methodologically rigorous but interpretive
+    approach to content analysis. The first, pattern detection step, involves
+    inductive computational exploration of text, using techniques such as
+    unsupervised machine learning and word scores to help researchers to see
+    novel patterns in their data. The second, pattern refinement step, returns
+    to an interpretive engagement with the data through qualitative deep reading
+    or further exploration of the data. The third, pattern confirmation step,
+    assesses the inductively identified patterns using further computational and
+    natural language processing techniques. The result is an efficient,
+    rigorous, and fully reproducible computational grounded theory. This
+    framework can be applied to any qualitative text as data, including
+    transcribed speeches, interviews, open-ended survey data, or ethnographic
+    field notes, and can address many potential research questions.
+  accessed:
+    - year: 2023
+      month: 10
+      day: 20
+  author:
+    - family: Nelson
+      given: Laura K.
+  citation-key: NelsonComputationalGroundedTheory2020
+  container-title: Sociological Methods & Research
+  DOI: 10.1177/0049124117729703
+  ISSN: 0049-1241
+  issue: '1'
+  issued:
+    - year: 2020
+      month: 2
+      day: 1
+  language: en
+  page: 3-42
+  publisher: SAGE Publications Inc
+  source: SAGE Journals
+  title: 'Computational Grounded Theory: A Methodological Framework'
+  title-short: Computational Grounded Theory
+  type: article-journal
+  URL: https://doi.org/10.1177/0049124117729703
+  volume: '49'
+
+- id: OSTPReleasesFramework2023
+  abstract: >-
+    Today, the White House Office of Science and Technology Policy (OSTP)
+    released A Framework for Federal Scientific Integrity Policy and Practice, a
+    roadmap that will help strengthen scientific integrity policies and
+    practices across the federal government. This framework builds on the
+    assessment of federal scientific integrity policies and practices described
+    in the January 2022 report,…
+  accessed:
+    - year: 2023
+      month: 8
+      day: 29
+  citation-key: OSTPReleasesFramework2023
+  container-title: The White House
+  issued:
+    - year: 2023
+      month: 1
+      day: 12
+  language: en-US
+  title: >-
+    OSTP Releases Framework for Strengthening Federal Scientific Integrity
+    Policies and Practices | OSTP
+  type: webpage
+  URL: >-
+    https://www.whitehouse.gov/ostp/news-updates/2023/01/12/ostp-releases-framework-for-strengthening-federal-scientific-integrity-policies-and-practices/
+
+- id: PenceHowNotFight2022
+  author:
+    - family: Pence
+      given: Charles
+  citation-key: PenceHowNotFight2022
+  container-title: >-
+    The Dynamics of Science: Computational Frontiers in History and Philosophy
+    of Science
+  editor:
+    - family: Ramsey
+      given: G
+    - family: De Block
+      given: A
+  event-place: Pittsburgh
+  issued:
+    - year: 2022
+  publisher: Pittsburgh University Press
+  publisher-place: Pittsburgh
+  title: >-
+    How Not to Fight About Theory: The Debate Between Biometry and Mendelism in
+    Nature, 1890–1915
+  type: chapter
+  URL: http://philsci-archive.pitt.edu/16287/
+
+- id: RauhImpactPrenatalChlorpyrifos2006
+  abstract: >-
+    OBJECTIVE. The purpose of this study was to investigate the impact of
+    prenatal exposure to chlorpyrifos on 3-year neurodevelopment and behavior in
+    a sample of inner-city minority children.
+
+    METHODS. As part of an ongoing prospective cohort study in an inner-city
+    minority population, neurotoxicant effects of prenatal exposure to
+    chlorpyrifos were evaluated in 254 children through the first 3 years of
+    life. This report examined cognitive and motor development at 12, 24, and 36
+    months (measured with the Bayley Scales of Infant Development II) and child
+    behavior at 36 months (measured with the Child Behavior Checklist) as a
+    function of chlorpyrifos levels in umbilical cord plasma.
+
+    RESULTS. Highly exposed children (chlorpyrifos levels of >6.17 pg/g plasma)
+    scored, on average, 6.5 points lower on the Bayley Psychomotor Development
+    Index and 3.3 points lower on the Bayley Mental Development Index at 3 years
+    of age compared with those with lower levels of exposure. Children exposed
+    to higher, compared with lower, chlorpyrifos levels were also significantly
+    more likely to experience Psychomotor Development Index and Mental
+    Development Index delays, attention problems,
+    attention-deficit/hyperactivity disorder problems, and pervasive
+    developmental disorder problems at 3 years of age.
+
+    CONCLUSIONS. The adjusted mean 36-month Psychomotor Development Index and
+    Mental Development Index scores of the highly and lower exposed groups
+    differed by only 7.1 and 3.0 points, respectively, but the proportion of
+    delayed children in the high-exposure group, compared with the low-exposure
+    group, was 5 times greater for the Psychomotor Development Index and 2.4
+    times greater for the Mental Development Index, increasing the number of
+    children possibly needing early intervention services.
+  accessed:
+    - year: 2018
+      month: 6
+      day: 9
+  author:
+    - family: Rauh
+      given: Virginia A.
+    - family: Garfinkel
+      given: Robin
+    - family: Perera
+      given: Frederica P.
+    - family: Andrews
+      given: Howard F.
+    - family: Hoepner
+      given: Lori
+    - family: Barr
+      given: Dana B.
+    - family: Whitehead
+      given: Ralph
+    - family: Tang
+      given: Deliang
+    - family: Whyatt
+      given: Robin W.
+  citation-key: RauhImpactPrenatalChlorpyrifos2006
+  container-title: Pediatrics
+  DOI: 10.1542/peds.2006-0338
+  ISSN: 0031-4005, 1098-4275
+  issue: '6'
+  issued:
+    - year: 2006
+      month: 12
+      day: 1
+  language: en
+  license: Copyright © 2006 by the American Academy of Pediatrics
+  page: e1845-e1859
+  PMID: '17116700'
+  source: pediatrics.aappublications.org
+  title: >-
+    Impact of Prenatal Chlorpyrifos Exposure on Neurodevelopment in the First 3
+    Years of Life Among Inner-City Children
+  type: article-journal
+  URL: http://pediatrics.aappublications.org/content/118/6/e1845
+  volume: '118'
+
+- id: SarewitzHowScienceMakes2004
+  author:
+    - family: Sarewitz
+      given: Daniel
+  citation-key: SarewitzHowScienceMakes2004
+  container-title: Environmental Science and Policy
+  container-title-short: Environmental Science and Policy
+  DOI: 10.1016/j.envsci.2004.06.001
+  issue: '5'
+  issued:
+    - year: 2004
+  page: 385-403
+  title: How science makes environmental controversies worse
+  type: article-journal
+  volume: '7'
+
+- id: StoltzMappingTextsComputational2024
+  abstract: >-
+    Learn how to conduct a robust text analysis project from start to
+    finish--and then do it again. Mining is the dominant metaphor in
+    computational text analysis. When mining texts, the implied assumption is
+    that analysts can find kernels of truth--they just have to sift through the
+    rubbish first. In this book, Dustin Stoltz and Marshall Taylor encourage
+    text analysts to work with a different metaphor in mind: mapping. When
+    mapping texts, the goal is not necessarily to find meaningful needles in the
+    haystack, but instead to create reductions of the text to document patterns.
+    Just like with cartographic maps, though, the type and nature of the textual
+    map is dependent on a range of decisions on the part of the researcher.
+    Creating reproducible workflows is therefore critical for the text
+    analyst.Mapping Texts offers a practical introduction to computational text
+    analysis with step-by-step guides on how to conduct actual text analysis
+    workflows in the R statistical computing environment. The focus is on social
+    science questions and applications, with data ranging from fake news and
+    presidential campaigns to Star Trek and pop stars. The book walks the reader
+    through all facets of a text analysis workflow--from understanding the
+    theories of language embedded in text analysis, all the way to more advanced
+    and cutting-edge techniques.The book will prove useful not only to social
+    scientists, but anyone interested in conducting text analysis projects. 
+                ,  
+                 Learn how to conduct a robust text analysis project from start to finish--and then do it again. Mining is the dominant metaphor in computational text analysis. When mining texts, the implied assumption is that analysts can find kernels of truth--they just have to sift through the rubbish first. In this book, Dustin Stoltz and Marshall Taylor encourage text analysts to work with a different metaphor in mind: mapping. When mapping texts, the goal is not necessarily to find meaningful needles in the haystack, but instead to create reductions of the text to document patterns. Just like with cartographic maps, though, the type and nature of the textual map is dependent on a range of decisions on the part of the researcher. Creating reproducible workflows is therefore critical for the text analyst.Mapping Texts offers a practical introduction to computational text analysis with step-by-step guides on how to conduct actual text analysis workflows in the R statistical computing environment. The focus is on social science questions and applications, with data ranging from fake news and presidential campaigns to Star Trek and pop stars. The book walks the reader through all facets of a text analysis workflow--from understanding the theories of language embedded in text analysis, all the way to more advanced and cutting-edge techniques.The book will prove useful not only to social scientists, but anyone interested in conducting text analysis projects.
+  author:
+    - family: Stoltz
+      given: Dustin S.
+    - family: Taylor
+      given: Marshall A.
+  citation-key: StoltzMappingTextsComputational2024
+  collection-title: Computational Social Science
+  event-place: Oxford, New York
+  ISBN: 978-0-19-775688-1
+  issued:
+    - year: 2024
+      month: 2
+      day: 15
+  number-of-pages: '328'
+  publisher: Oxford University Press
+  publisher-place: Oxford, New York
+  source: Oxford University Press
+  title: 'Mapping Texts: Computational Text Analysis for the Social Sciences'
+  title-short: Mapping Texts
+  type: book
+
+- id: UnderwoodDistantHorizonsDigital2019
+  abstract: >-
+    Just as a traveler crossing a continent won’t sense the curvature of the
+    earth, one lifetime of reading can’t grasp the largest patterns organizing
+    literary history. This is the guiding premise behind Distant Horizons, which
+    uses the scope of data newly available to us through digital libraries to
+    tackle previously elusive questions about literature. Ted Underwood shows
+    how digital archives and statistical tools, rather than reducing words to
+    numbers (as is often feared), can deepen our understanding of issues that
+    have always been central to humanistic inquiry. Without denying the
+    usefulness of time-honored approaches like close reading, narratology, or
+    genre studies, Underwood argues that we also need to read the larger arcs of
+    literary change that have remained hidden from us by their sheer scale.
+    Using both close and distant reading to trace the differentiation of genres,
+    transformation of gender roles, and surprising persistence of aesthetic
+    judgment, Underwood shows how digital methods can bring into focus the
+    larger landscape of literary history and add to the beauty and complexity we
+    value in literature.
+  author:
+    - family: Underwood
+      given: Ted
+  citation-key: UnderwoodDistantHorizonsDigital2019
+  ISBN: 978-0-226-61297-3
+  issued:
+    - year: 2019
+      month: 2
+      day: 14
+  language: en
+  number-of-pages: '229'
+  publisher: University of Chicago Press
+  source: Google Books
+  title: 'Distant Horizons: Digital Evidence and Literary Change'
+  title-short: Distant Horizons
+  type: book
+
+- id: USEPAStrengtheningTransparencyPivotal2021
+  abstract: >-
+    This action establishes how the Environmental Protection Agency (EPA) will
+    consider the availability of dose-response data underlying pivotal science
+    used in its significant regulatory actions and influential scientific
+    information. When promulgating significant regulatory actions or
+    developing...
+  accessed:
+    - year: 2021
+      month: 1
+      day: 6
+  author:
+    - literal: US EPA
+  citation-key: USEPAStrengtheningTransparencyPivotal2021
+  container-title: Federal Register
+  issued:
+    - year: 2021
+      month: 1
+      day: 6
+  note: EPA-HQ-OA-2018-0259
+  page: 469-493
+  title: >-
+    Strengthening Transparency in Pivotal Science Underlying Significant
+    Regulatory Actions and Influential Scientific Information
+  type: article-journal
+  URL: >-
+    https://www.federalregister.gov/documents/2021/01/06/2020-29179/strengthening-transparency-in-pivotal-science-underlying-significant-regulatory-actions-and
+  volume: '86'
+
+- id: USEPAStrengtheningTransparencyRegulatory2018
+  abstract: >-
+    This document proposes a regulation intended to strengthen the transparency
+    of EPA regulatory science. The proposed regulation provides that when EPA
+    develops regulations, including regulations for which the public is likely
+    to bear the cost of compliance, with regard to those scientific studies...
+  accessed:
+    - year: 2018
+      month: 5
+      day: 4
+  author:
+    - literal: US EPA
+  citation-key: USEPAStrengtheningTransparencyRegulatory2018
+  container-title: Federal Register
+  issued:
+    - year: 2018
+      month: 4
+      day: 30
+  note: EPA–HQ–OA–2018–0259
+  page: 18768-18774
+  title: Strengthening Transparency in Regulatory Science
+  type: article-journal
+  URL: >-
+    https://www.federalregister.gov/documents/2018/04/30/2018-09078/strengthening-transparency-in-regulatory-science
+  volume: '83'
+
+- id: USEPAStrengtheningTransparencyRegulatory2020a
+  abstract: >-
+    This supplemental notice of proposed rulemaking (SNPRM) includes
+    clarifications, modifications and additions to certain provisions in the
+    Strengthening Transparency in Regulatory Science Proposed Rulemaking (``2018
+    proposed rulemaking,'' Ref. 1), published on April 30, 2018. This SNPRM
+    proposes...
+  accessed:
+    - year: 2020
+      month: 3
+      day: 19
+  author:
+    - literal: US EPA
+  citation-key: USEPAStrengtheningTransparencyRegulatory2020a
+  container-title: Federal Register
+  issued:
+    - year: 2020
+      month: 3
+      day: 18
+  note: EPA-HQ-OA-2018-0259.  Supplemental notice of proposed rulemaking, SNPR
+  page: 15396-15406
+  title: Strengthening Transparency in Regulatory Science
+  type: article-journal
+  URL: >-
+    https://www.federalregister.gov/documents/2020/03/18/2020-05012/strengthening-transparency-in-regulatory-science
+  volume: '85'
+
+- id: VaesenPotentialSupervisedMachine2022
+  accessed:
+    - year: 2024
+      month: 5
+      day: 17
+  author:
+    - family: Vaesen
+      given: Krist
+  citation-key: VaesenPotentialSupervisedMachine2022
+  container-title: >-
+    The Dynamics of Science: Computational Frontiers in History and Philosophy
+    of Science
+  editor:
+    - family: De Block
+      given: Andreas
+    - family: Ramsey
+      given: Grant
+  event-place: Pittsburgh
+  ISBN: 978-0-8229-8909-7
+  issued:
+    - year: 2022
+  publisher: University of Pittsburgh Press
+  publisher-place: Pittsburgh
+  source: Project MUSE
+  title: >-
+    The Potential of Supervised Machine Learning for the Study of the Evolution
+    of Science
+  type: chapter
+  URL: https://muse.jhu.edu/pub/49/edited_volume/book/103926
+...

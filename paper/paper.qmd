@@ -25,6 +25,8 @@ abstract: "abstract"
 
 acknowledgments: "acknowledgments"
 
+bibliography: "st_text_mining.yaml"
+
 format:
   html:
     toc: true
@@ -53,6 +55,12 @@ execute:
 ---
 
 <!-- 
+PHOS submission guidelines: 
+<https://www.cambridge.org/core/journals/philosophy-of-science/information/author-instructions>
+
+Articles are limited to 9000 words, inclusive of abstract, footnotes, in-text citations, and appendices intended to appear with the manuscript.  Reference sections and online-only appendices are not included in the word count.
+
+
 BJPS submission guidelines: 
 <https://www.journals.uchicago.edu/journals/bjps/instruct> 
 

@@ -31,6 +31,39 @@ references:
   type: article-newspaper
   URL: https://www.proquest.com/docview/2035555540/citation/1EAE69387154781PQ/3
 
+- id: AndersonUsesValueJudgments2004
+  abstract: >-
+    The underdetermination argument establishes that scientists may use
+    political values to guide inquiry, without providing criteria for
+    distinguishing legitimate from illegitimate guidance. This paper supplies
+    such criteria. Analysis of the confused arguments against value-laden
+    science reveals the fundamental criterion of illegitimate guidance: when
+    value judgments operate to drive inquiry to a predetermined conclusion. A
+    case study of feminist research on divorce reveals numerous legitimate ways
+    that values can guide science without violating this standard.
+  author:
+    - family: Anderson
+      given: Elizabeth S
+  citation-key: AndersonUsesValueJudgments2004
+  container-title: 'Hypatia: A Journal of Feminist Philosophy'
+  container-title-short: Hypatia
+  DOI: 10.1111/j.1527-2001.2004.tb01266.x
+  ISSN: 1527-2001
+  issue: '1'
+  issued:
+    - year: 2004
+  language: en
+  license: 2004 by Hypatia, Inc.
+  page: 1-24
+  source: Wiley Online Library
+  title: >-
+    Uses of Value Judgments in Science: A General Argument, with Lessons from a
+    Case Study of Feminist Research on Divorce
+  title-short: Uses of Value Judgments in Science
+  type: article-journal
+  URL: https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1527-2001.2004.tb01266.x
+  volume: '19'
+
 - id: BagiletEstimatingSmallEffects
   abstract: >-
     This paper evaluates the ability of various research designs in measuring
@@ -50,6 +83,59 @@ references:
   source: Zotero
   title: 'Estimating Small Eﬀects: Short-term Health Eﬀects of Air Pollution'
   type: article-journal
+
+- id: BrightWhyScientistsLie2021
+  abstract: >-
+    It's natural to think of scientists as truth seekers, people driven by an
+    intense curiosity to understand the natural world. Yet this picture of
+    scientists and scientific inquiry sits uncomfortably with the reality and
+    prevalence of scientific fraud. If one wants to get at the truth about
+    nature, why lie? Won't that just set inquiry back, as people pursue false
+    leads? To understand why this occurs – and what can be done about it – we
+    need to understand the social structures scientists work within, and how
+    some of the institutions which enable science to be such a successful
+    endeavour all things considered, also abet and encourage fraud.
+  accessed:
+    - year: 2021
+      month: 8
+      day: 5
+  author:
+    - family: Bright
+      given: Liam Kofi
+  citation-key: BrightWhyScientistsLie2021
+  container-title: Royal Institute of Philosophy Supplements
+  DOI: 10.1017/S1358246121000102
+  ISSN: 1358-2461, 1755-3555
+  issued:
+    - year: 2021
+      month: 5
+  language: en
+  page: 117-129
+  publisher: Cambridge University Press
+  source: Cambridge University Press
+  title: Why Do Scientists Lie?
+  type: article-journal
+  URL: >-
+    https://www.cambridge.org/core/journals/royal-institute-of-philosophy-supplements/article/abs/why-do-scientists-lie/7873B4DFB81C33C7556CF22465B4B224
+  volume: '89'
+
+- id: BrownScienceDemocracyExpertise2009
+  author:
+    - family: Brown
+      given: Mark B.
+  call-number: Q175.5 .B759 2009
+  citation-key: BrownScienceDemocracyExpertise2009
+  event-place: Cambridge, Mass
+  ISBN: 978-0-262-01324-6
+  issued:
+    - year: 2009
+  number-of-pages: '354'
+  publisher: MIT Press
+  publisher-place: Cambridge, Mass
+  source: Library of Congress ISBN
+  title: 'Science in democracy: expertise, institutions, and representation'
+  title-short: Science in democracy
+  type: book
 
 - id: BrownScienceMoralImagination2020
   abstract: >-
@@ -112,6 +198,100 @@ references:
   type: post-weblog
   URL: >-
     https://www.pewresearch.org/short-reads/2024/08/12/americans-see-many-federal-agencies-favorably-but-republicans-grow-more-critical-of-justice-department/
+
+- id: ChangInventingTemperatureMeasurement2004
+  author:
+    - family: Chang
+      given: Hasok
+  call-number: QC271.6 .C46 2004
+  citation-key: ChangInventingTemperatureMeasurement2004
+  collection-title: Oxford studies in philosophy of science
+  event-place: Oxford ; New York
+  ISBN: 978-0-19-517127-3
+  issued:
+    - year: 2004
+  number-of-pages: '286'
+  publisher: Oxford University Press
+  publisher-place: Oxford ; New York
+  source: Library of Congress ISBN
+  title: 'Inventing temperature: measurement and scientific progress'
+  title-short: Inventing temperature
+  type: book
+
+- id: CloughRacistValueJudgments2008
+  accessed:
+    - year: 2019
+      month: 4
+      day: 25
+  author:
+    - family: Clough
+      given: Sharyn
+    - family: Loges
+      given: William E.
+  citation-key: CloughRacistValueJudgments2008
+  container-title: Journal of Social Philosophy
+  DOI: 10.1111/j.1467-9833.2007.00412.x
+  ISSN: 1467-9833
+  issue: '1'
+  issued:
+    - year: 2008
+  language: en
+  license: 2008 Blackwell Publishing, Inc.
+  page: 77-95
+  source: Wiley Online Library
+  title: >-
+    Racist Value Judgments as Objectively False Beliefs: A Philosophical and
+    Social-Psychological Analysis
+  title-short: Racist Value Judgments as Objectively False Beliefs
+  type: article-journal
+  URL: https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9833.2007.00412.x
+  volume: '39'
+
+- id: CloughUsingValuesEvidence2020
+  abstract: >-
+    I have argued that political values are beliefs informed, more or less well,
+    by the evidence of experience and that, where relevant and well-supported by
+    evidence, the inclusion of political values in scientific theorizing can
+    increase the objectivity of research (e.g., Clough 2003, 2004, 2011). The
+    position I endorse has been called the “values-as-evidence” approach
+    (Goldenberg 2013). In this essay I respond to three kinds of resistance to
+    this approach, using examples of feminist political values. Solomon (2012)
+    questions whether values are beliefs that can be tested, Alcoff (2006)
+    argues that even if our values are beliefs that can be tested, testing them
+    might not be desirable because doing so assigns these important values a
+    contingency that weakens their normative force, and Yap (2016) argues that
+    the approach is too idealistic in its articulation of the role of evidence
+    in our political deliberations. In response, I discuss the ways that values
+    can be tested, I analyze the evidential strength of feminist values in
+    science, and I argue that the evidence-based nature of these values is
+    neither a weakness nor an idealization. Problems with political values
+    affecting science properly concern the dogmatic ways that evaluative beliefs
+    are sometimes held—a problem that arises with dogmatism toward descriptive
+    beliefs as well. I conclude that scientists, as with the rest of us, ought
+    to adopt a pragmatically-inclined appreciation of the fallible, inductive
+    process by which we gather evidence in support of any of our beliefs,
+    whether they are described as evaluative or descriptive.
+  accessed:
+    - year: 2021
+      month: 3
+      day: 2
+  author:
+    - family: Clough
+      given: Sharyn
+  citation-key: CloughUsingValuesEvidence2020
+  container-title: Philosophy in the Contemporary World
+  DOI: 10.5840/pcw2020261/21
+  ISSN: 1077-1999
+  issue: '1'
+  issued:
+    - year: 2020
+  page: 5-37
+  source: DOI.org (Crossref)
+  title: Using Values as Evidence When There’s Evidence for Your Values
+  type: article-journal
+  URL: >-
+    http://www.pdcnet.org/oom/service?url_ver=Z39.88-2004&rft_val_fmt=&rft.imuse_id=pcw_2020_0026_0001_0005_0037&svc_id=info:www.pdcnet.org/collection
+  volume: '26'
 
 - id: DeBlockDynamicsScienceComputational2022
   abstract: >-
@@ -242,6 +422,130 @@ references:
   URL: https://doi.org/10.1056/NEJM199312093292401
   volume: '329'
 
+- id: DouglasDifferentiatingScientificInquiry2023
+  abstract: >-
+    Protecting science from politicization is an ongoing concern in contemporary
+    society. Yet some political influences on science (e.g., setting public
+    funding amounts) are fully legitimate. We need to have a clear account of
+    when a political influence is politicization (an illegitimate political
+    influence) in order to properly detect and address the problem. I argue in
+    this paper that understanding how the space of scientific inquiry is
+    distinctive from democratic politics can be the basis for defining
+    politicization. Similarities between inquiry and democratic politics have
+    long been noted, but there are important differences as well. I describe
+    four norms that are importantly distinct for inquiry when compared with
+    democratic politics, even if they can be seen as roughly similar. Although
+    there are parallels between democratic political norms and norms for
+    scientific inquiry, there are crucial differences as well. Eliding these
+    differences creates politicization of inquiry. Even as we understand
+    scientific inquiry as pursued within society and responsible to society, we
+    pursue it in a distinctive space, guided by distinctive norms and practices.
+  accessed:
+    - year: 2023
+      month: 6
+      day: 1
+  author:
+    - family: Douglas
+      given: Heather E.
+  citation-key: DouglasDifferentiatingScientificInquiry2023
+  container-title: Philosophy
+  DOI: 10.1017/S0031819122000432
+  ISSN: 0031-8191, 1469-817X
+  issue: '2'
+  issued:
+    - year: 2023
+      month: 4
+  language: en
+  page: 123-146
+  publisher: Cambridge University Press
+  source: Cambridge University Press
+  title: Differentiating Scientific Inquiry and Politics
+  type: article-journal
+  URL: >-
+    https://www.cambridge.org/core/journals/philosophy/article/differentiating-scientific-inquiry-and-politics/2876A8C325C1EBC02E81F7F831A6DD52
+  volume: '98'
+
+- id: DouglasInductiveRiskValues2000
+  abstract: >-
+    Although epistemic values have become widely accepted as part of scientific
+    reasoning, non-epistemic values have been largely relegated to the
+    "external" parts of science (the selection of hypotheses, restrictions on
+    methodologies, and the use of scientific technologies). I argue that because
+    of inductive risk, or the risk of error, non-epistemic values are required
+    in science wherever non-epistemic consequences of error should be
+    considered. I use examples from dioxin studies to illustrate how
+    non-epistemic consequences of error can and should be considered in the
+    internal stages of science: choice of methodology, characterization of data,
+    and interpretation of results.
+  author:
+    - family: Douglas
+      given: Heather
+  citation-key: DouglasInductiveRiskValues2000
+  issued:
+    - year: 2000
+  title: Inductive Risk and Values in Science
+  type: article-journal
+  URL: http://www.journals.uchicago.edu/doi/abs/10.1086/392855
+
+- id: ElliottNonepistemicValuesMultiple2014
+  author:
+    - family: Elliott
+      given: Kevin C.
+    - family: McKaughan
+      given: "Daniel\_J."
+  citation-key: ElliottNonepistemicValuesMultiple2014
+  container-title: Philosophy of Science
+  container-title-short: Phil Sci
+  DOI: 10.1086/674345
+  issue: '1'
+  issued:
+    - year: 2014
+  page: 1-21
+  title: Nonepistemic Values and the Multiple Goals of Science
+  type: article-journal
+  URL: http://www.jstor.org/stable/info/10.1086/674345
+  volume: '81'
+
+- id: ElliottTapestryValuesIntroduction2017
+  abstract: >-
+    The role of values in scientific research has become an important topic of
+    discussion in both scholarly and popular debates. Pundits across the
+    political spectrum worry that research on topics like climate change,
+    evolutionary theory, vaccine safety, and genetically modified foods has
+    become overly politicized. At the same time, it is clear that values play an
+    important role in science by limiting unethical forms of research and by
+    deciding what areas of research have the greatest relevance for society.
+    Deciding how to distinguish legitimate and illegitimate influences of values
+    in scientific research is a matter of vital importance. Recently,
+    philosophers of science have written a great deal on this topic, but most of
+    their work has been directed toward a scholarly audience. This book makes
+    the contemporary philosophical literature on science and values accessible
+    to a wide readership. It examines case studies from a variety of research
+    areas, including climate science, anthropology, chemical risk assessment,
+    ecology, neurobiology, biomedical research, and agriculture. These cases
+    show that values have necessary roles to play in identifying research
+    topics, choosing research questions, determining the aims of inquiry,
+    responding to uncertainty, and deciding how to communicate information.
+    Kevin Elliott focuses not just on describing roles for values but also on
+    determining when their influences are actually appropriate. He emphasizes
+    several conditions for incorporating values in a legitimate fashion, and
+    highlights multiple strategies for fostering engagement between stakeholders
+    so that value influences can be subjected to careful and critical scrutiny.
+  author:
+    - family: Elliott
+      given: Kevin C.
+  citation-key: ElliottTapestryValuesIntroduction2017
+  ISBN: 978-0-19-026081-1
+  issued:
+    - year: 2017
+  language: en
+  number-of-pages: '225'
+  publisher: Oxford University Press
+  source: Google Books
+  title: 'A Tapestry of Values: An Introduction to Values in Science'
+  title-short: A Tapestry of Values
+  type: book
+
 - id: FriedmanEPALimitScience2019
   abstract: >-
     A new agency rule would restrict the science that can be used in drafting
@@ -335,6 +639,63 @@ references:
   type: article-newspaper
   URL: >-
     https://www.nytimes.com/2018/08/24/business/epa-pesticides-studies-epidemiology.html
+
+- id: HansonPatternsDiscoveryInquiry1958
+  author:
+    - family: Hanson
+      given: Norwood Russell
+  citation-key: HansonPatternsDiscoveryInquiry1958
+  ISBN: 978-0-521-05197-2
+  issued:
+    - year: 1958
+  language: en
+  number-of-pages: '268'
+  publisher: University Press
+  source: Google Books
+  title: 'Patterns of Discovery: An Inquiry Into the Conceptual Foundations of Science'
+  title-short: Patterns of Discovery
+  type: book
+
+- id: HavstadSensationalScienceArchaic2021
+  abstract: >-
+    More than a decade of exacting scientific research involving paleontological
+    fragments and ancient DNA has lately produced a series of pronouncements
+    about a purportedly novel population of archaic hominins dubbed “the
+    Denisova.” The science involved in these matters is both technically
+    stunning and, socially, at times a bit reckless. Here I discuss the
+    responsibilities which scientists incur when they make inductively risky
+    pronouncements about the different relative contributions by Denisovans to
+    genomes of members of apparent subpopulations of current humans (i.e., the
+    so-called “races”). This science is sensational: it is science which
+    empirically speculates, to the public delight’s and entertainment, about
+    scintillating topics such as when humans evolved, where we came from, and
+    who else we were having sex with during our early hominin history. An
+    initial characterization of sensational science emerges from my discussion
+    of the case, as well as a diagnosis of an interactive phenomenon termed
+    amplified inductive risk.
+  accessed:
+    - year: 2022
+      month: 3
+      day: 12
+  author:
+    - family: Havstad
+      given: Joyce C.
+  citation-key: HavstadSensationalScienceArchaic2021
+  container-title: Canadian Journal of Philosophy
+  DOI: 10.1017/can.2021.15
+  ISSN: 0045-5091, 1911-0820
+  issued:
+    - year: 2021
+      month: 7
+      day: 22
+  language: en
+  page: 1-26
+  publisher: Cambridge University Press
+  source: Cambridge University Press
+  title: Sensational Science, Archaic Hominin Genetics, and Amplified Inductive Risk
+  type: article-journal
+  URL: >-
+    https://www.cambridge.org/core/journals/canadian-journal-of-philosophy/article/sensational-science-archaic-hominin-genetics-and-amplified-inductive-risk/80675A1A574D9BD78A6B7ECA045DC2AC
 
 - id: HicksDevelopingMeasuresPublic2024
   abstract: >-
@@ -577,6 +938,70 @@ references:
   URL: https://journals.publishing.umich.edu/ptpbio/article/id/2629/
   volume: '14'
 
+- id: HolmanExperimentationIndustrialSelection2017
+  author:
+    - family: Holman
+      given: Bennett
+    - family: Bruner
+      given: Justin
+  citation-key: HolmanExperimentationIndustrialSelection2017
+  container-title: Philosophy of Science
+  issue: '5'
+  issued:
+    - year: 2017
+  page: 1008–1019
+  source: Google Scholar
+  title: Experimentation by industrial selection
+  type: article-journal
+  URL: http://www.journals.uchicago.edu/doi/abs/10.1086/694037?af=R
+  volume: '84'
+
+- id: IntemannDistinguishingLegitimateIllegitimate2015
+  abstract: >-
+    While it is widely acknowledged that science is not “free” of non-epistemic
+    values, there is disagreement about the roles that values can appropriately
+    play. Several have argued that non-epistemic values can play important roles
+    in modeling decisions, particularly in addressing uncertainties (Moss and
+    Schneider 2000; Kandlikar et al. (C.R. Geoscience 337:443-455, 2005); Risbey
+    2007; Biddle and Winsberg 2010; Winsberg (Kennedy Institute of Ethics
+    Journal 22(2): 111-137, 2012); van der Sluijs (Climatic Change 75 (3)
+    359-389, 2012). On the other hand, such values can (even unconsciously) lead
+    to bias (Pielke 2007; Oppenhiemer et al. (Science 317:1505-1506, 2007); Bray
+    (Environmental Science & Policy 13:340-350, 2010); Oreskes and Conway 2010).
+    Thus, it is important to identify when it is legitimate to appeal to
+    non-epistemic values in modeling decisions. An approach is defended here
+    whereby such value judgments are legitimate when they promote democratically
+    endorsed epistemological and social aims of research. This framework
+    accounts for why it is legitimate to appeal to non-epistemic values in a
+    range of modeling decisions, while addressing concerns that the presence of
+    such values will lead to bias or give scientists disproportionate power in
+    deciding what values ought to be endorsed.
+  accessed:
+    - year: 2015
+      month: 1
+      day: 31
+  author:
+    - family: Intemann
+      given: Kristen
+  citation-key: IntemannDistinguishingLegitimateIllegitimate2015
+  container-title: European Journal for Philosophy of Science
+  container-title-short: Euro Jnl Phil Sci
+  DOI: 10.1007/s13194-014-0105-6
+  ISSN: 1879-4912, 1879-4920
+  issue: '2'
+  issued:
+    - year: 2015
+      month: 5
+  language: en
+  page: 217-32
+  source: link.springer.com
+  title: >-
+    Distinguishing between legitimate and illegitimate values in climate
+    modeling
+  type: article-journal
+  URL: http://link.springer.com/article/10.1007/s13194-014-0105-6
+  volume: '5'
+
 - id: KleinDataFrameTheory2007
   author:
     - family: Klein
@@ -629,6 +1054,81 @@ references:
   type: webpage
   URL: >-
     https://theintercept.com/2017/02/05/republicans-want-to-make-the-epa-great-again-by-gutting-health-regulations/
+
+- id: LonginoGenderPoliticsTheoretical1995
+  abstract: >-
+    In the 1970's Thomas Kuhn responded to critics of The Structure of Sci-
+    entific Revolutions who claimed that Kuhn's analysis made theory choice
+    entirely subjective. In his essay 'Objectivity, Values, and Theory Choice',
+    Kuhn
+  author:
+    - family: Longino
+      given: Helen E.
+  citation-key: LonginoGenderPoliticsTheoretical1995
+  container-title: Synthese
+  container-title-short: Synthese
+  issue: '3'
+  issued:
+    - year: 1995
+  page: 383-397
+  title: Gender, politics, and the theoretical virtues
+  type: article-journal
+  URL: http://www.springerlink.com/index/K3502Q5Q18236217.pdf
+  volume: '104'
+
+- id: LuskGlobalAimsScience2024
+  abstract: >-
+    Philosophers commonly make claims about the aims of science, and these
+    claims have played a significant role in debates about topics like
+    scientific realism, modeling, and idealization. Nevertheless, there has been
+    little discussion about the basis for those aims or the source of
+    justification for claims about those aims. We use recent debates about the
+    appropriate roles for values in science to bring this lack of discussion to
+    the fore. These debates raise the question of whether there are global aims
+    that apply to all areas of science. In response to this question, we examine
+    a variety of different ways of conceptualizing the aims of science and
+    conclude that no matter how one conceptualizes them, there do not appear to
+    be convincing arguments for the view that science has global aims that
+    constrain the influence of local aims on scientific practice. Thus, we place
+    the burden of proof on those who claim that science has one or more global
+    aims of this sort to show how those aims can be justified. Furthermore, we
+    develop an account of scientific normativity that relies solely on local
+    aims. When applied to debates about values in science, this view vindicates
+    the cogency of what we call an “equal aims” approach to managing roles for
+    values in science. Abandoning global aims might seem to raise the potential
+    for epistemic corruption in science, but we argue that this concern is not
+    compelling. We conclude that a local conception of scientific aims provides
+    the foundation for a highly naturalized and engaged approach to the
+    philosophy of science.
+  accessed:
+    - year: 2024
+      month: 8
+      day: 15
+  author:
+    - family: Lusk
+      given: Greg
+    - family: Elliott
+      given: Kevin C.
+  citation-key: LuskGlobalAimsScience2024
+  container-title: Synthese
+  container-title-short: Synthese
+  DOI: 10.1007/s11229-024-04633-9
+  ISSN: 1573-0964
+  issue: '2'
+  issued:
+    - year: 2024
+      month: 7
+      day: 18
+  language: en
+  page: '47'
+  source: Springer Link
+  title: >-
+    Against global aims for science: values, epistemic priority, and a local
+    aims approach
+  title-short: Against global aims for science
+  type: article-journal
+  URL: https://doi.org/10.1007/s11229-024-04633-9
+  volume: '204'
 
 - id: MalaterreEarlyDaysContemporary2022
   abstract: >-
@@ -818,6 +1318,69 @@ references:
   URL: https://www.journals.uchicago.edu/doi/10.1086/704372
   volume: '9'
 
+- id: McCrightPoliticalPolarizationSupport2014
+  abstract: >-
+    Since the early 1990s, the American conservative movement has become
+    increasingly hostile toward environmental protection and Congressional
+    Republicans have become increasingly anti-environmental in their voting
+    records. Party sorting theory holds that such political polarization among
+    elites will likely extend to the general public. Analyzing General Social
+    Survey data from 1974 to 2012, we examine whether political polarization has
+    occurred on support for government spending on environmental protection over
+    this time period in the US general public. We find that there has been
+    significant partisan and ideological polarization on support for
+    environmental spending since 1992—consistent with the expectations of party
+    sorting theory. This political polarization on environmental concern in the
+    general public will likely endure save for political convergence on
+    environmental concern among elites in the near future. Such polarization
+    likely will inhibit the further development and implementation of
+    environmental policy and the diffusion of environmentally friendly
+    behaviors.
+  author:
+    - family: McCright
+      given: Aaron M.
+    - family: Xiao
+      given: Chenyang
+    - family: Dunlap
+      given: Riley E.
+  citation-key: McCrightPoliticalPolarizationSupport2014
+  container-title: Social Science Research
+  container-title-short: Social Science Research
+  DOI: 10.1016/j.ssresearch.2014.06.008
+  ISSN: 0049-089X
+  issue: Supplement C
+  issued:
+    - year: 2014
+      month: 11
+      day: 1
+  page: 251-260
+  source: ScienceDirect
+  title: >-
+    Political polarization on support for government spending on environmental
+    protection in the USA, 1974–2012
+  type: article-journal
+  URL: http://www.sciencedirect.com/science/article/pii/S0049089X1400132X
+  volume: '48'
+
+- id: McMullinValuesScience1982
+  author:
+    - family: McMullin
+      given: Ernan
+  citation-key: McMullinValuesScience1982
+  container-title: >-
+    PSA: Proceedings of the Biennial Meeting of the Philosophy of Science
+    Association
+  container-title-short: >-
+    PSA: Proceedings of the Biennial Meeting of the Philosophy of Science
+    Association
+  issued:
+    - year: 1982
+  page: 3-28
+  title: Values in Science
+  type: article-journal
+  URL: http://www.jstor.org/stable/192409
+  volume: 1982 IS -
+
 - id: MufsonEPAExcludedTop2018
   accessed:
     - year: 2025
@@ -1005,6 +1568,80 @@ references:
   type: chapter
   URL: http://philsci-archive.pitt.edu/16287/
 
+- id: PotochnikDiverseAimsScience2015
+  abstract: >-
+    There is increasing attention to the centrality of idealization in science.
+    One common view is that models and other idealized representations are
+    important to science, but that they fall short in one or more ways. On this
+    view, there must be an intermediary step between idealized representation
+    and the traditional aims of science, including truth, explanation, and
+    prediction. Here I develop an alternative interpretation of the relationship
+    between idealized representation and the aims of science. I suggest that
+    continuing, widespread idealization calls into question the idea that
+    science aims for truth. If instead science aims to produce understanding,
+    this would enable idealizations to directly contribute to science's
+    epistemic success. I also use the fact of widespread idealization to
+    motivate the idea that science's wide variety aims, epistemic and
+    non-epistemic, are best served by different kinds of scientific products.
+    Finally, I show how these diverse aims—most rather distant from truth—result
+    in the expanded influence of social values on science.
+  accessed:
+    - year: 2015
+      month: 6
+      day: 12
+  author:
+    - family: Potochnik
+      given: Angela
+  citation-key: PotochnikDiverseAimsScience2015
+  container-title: Studies in History and Philosophy of Science Part A
+  container-title-short: Studies in History and Philosophy of Science Part A
+  DOI: 10.1016/j.shpsa.2015.05.008
+  ISSN: 0039-3681
+  issued:
+    - year: 2015
+      month: 10
+  page: 71-80
+  source: ScienceDirect
+  title: The diverse aims of science
+  type: article-journal
+  URL: http://www.sciencedirect.com/science/article/pii/S0039368115000680
+  volume: '53'
+
+- id: PotochnikIdealizationAimsScience2017
+  abstract: >-
+    Science is the study of our world, as it is in its messy reality.
+    Nonetheless, science requires idealization to function—if we are to attempt
+    to understand the world, we have to find ways to reduce its complexity. 
+    Idealization and the Aims of Science shows just how crucial idealization is
+    to science and why it matters. Beginning with the acknowledgment of our
+    status as limited human agents trying to make sense of an exceedingly
+    complex world, Angela Potochnik moves on to explain how science aims to
+    depict and make use of causal patterns—a project that makes essential use of
+    idealization. She offers case studies from a number of branches of science
+    to demonstrate the ubiquity of idealization, shows how causal patterns are
+    used to develop scientific explanations, and describes how the necessarily
+    imperfect connection between science and truth leads to researchers’ values
+    influencing their findings. The resulting book is a tour de force, a
+    synthesis of the study of idealization that also offers countless new
+    insights and avenues for future exploration.
+  author:
+    - family: Potochnik
+      given: Angela
+  citation-key: PotochnikIdealizationAimsScience2017
+  event-place: Chicago and London
+  ISBN: 978-0-226-50719-4
+  issued:
+    - year: 2017
+      month: 11
+      day: 17
+  language: en
+  number-of-pages: '263'
+  publisher: University of Chicago Press
+  publisher-place: Chicago and London
+  source: Google Books
+  title: Idealization and the Aims of Science
+  type: book
+
 - id: RauhImpactPrenatalChlorpyrifos2006
   abstract: >-
     OBJECTIVE. The purpose of this study was to investigate the impact of
@@ -1080,6 +1717,35 @@ references:
   URL: http://pediatrics.aappublications.org/content/118/6/e1845
   volume: '118'
 
+- id: RooneyValuesScienceEpistemic1992
+  abstract: >-
+    The debate about the rational and the social in science has sometimes been
+    developed in the context of a distinction between epistemic and
+    non-epistemic values. Paying particular attention to two important
+    discussion in the last decade, by Longino and by McMullin, I argue that a
+    fuller understanding of values in science ultimately requires abandoning the
+    distinction itself. This is argued directly in terms of an analysis of the
+    lack of clarity concerning what epistemic values are. I also argue that the
+    philosophical import of much of the feminist work in philosophy of science
+    is restricted by any kind of strict adherence to the distinction.
+  author:
+    - family: Rooney
+      given: Phyllis
+  citation-key: RooneyValuesScienceEpistemic1992
+  container-title: >-
+    PSA: Proceedings of the Biennial Meeting of the Philosophy of Science
+    Association
+  container-title-short: >-
+    PSA: Proceedings of the Biennial Meeting of the Philosophy of Science
+    Association
+  issued:
+    - year: 1992
+  page: 13-22
+  title: 'On Values in Science: Is the Epistemic/Non-Epistemic Distinction Useful?'
+  type: article-journal
+  URL: http://www.jstor.org/stable/192740
+  volume: 1992 IS -
+
 - id: SarewitzHowScienceMakes2004
   author:
     - family: Sarewitz
@@ -1095,6 +1761,74 @@ references:
   title: How science makes environmental controversies worse
   type: article-journal
   volume: '7'
+
+- id: SchwitzgebelBelief2024
+  abstract: >-
+    Anglophone philosophers of mind generally use the term“belief” to refer to
+    the attitude we have, roughly,whenever we take something to be the case or
+    regard it as true. Tobelieve something, in this sense, needn’t involve
+    activelyreflecting on it: Of the vast number of things ordinary
+    adultsbelieve, only a few can be at the fore of the mind at any single
+    time.Nor does the term “belief”, in standard philosophicalusage, imply any
+    uncertainty or any extended reflection about thematter in question (as it
+    sometimes does in ordinary English usage).Many of the things we believe, in
+    the relevant sense, are quitemundane: that we have heads, that it’s the 21st
+    century, that acoffee mug is on the desk. Forming beliefs is thus one of the
+    mostbasic and important features of the mind, and the concept of beliefplays
+    a crucial role in both philosophy of mind and epistemology. The“mind-body
+    problem”, for example, so central to philosophyof mind, is in part the
+    question of whether and how a purely physicalorganism can have beliefs. Much
+    of epistemology revolves aroundquestions about when and how our beliefs are
+    justified or qualify asknowledge.
+  accessed:
+    - year: 2025
+      month: 4
+      day: 27
+  author:
+    - family: Schwitzgebel
+      given: Eric
+  citation-key: SchwitzgebelBelief2024
+  container-title: The Stanford Encyclopedia of Philosophy
+  edition: Spring 2024
+  editor:
+    - family: Zalta
+      given: Edward N.
+    - family: Nodelman
+      given: Uri
+  issued:
+    - year: 2024
+  publisher: Metaphysics Research Lab, Stanford University
+  source: Stanford Encyclopedia of Philosophy
+  title: Belief
+  type: chapter
+  URL: https://plato.stanford.edu/archives/spr2024/entries/belief/
+
+- id: SteelEpistemicValuesArgument2010
+  abstract: >-
+    Critics of the ideal of value‐free science often assume that they must
+    reject the distinction between epistemic and nonepistemic values. I argue
+    that this assumption is mistaken and that the distinction can be used to
+    clarify and defend the argument from inductive risk, which challenges the
+    value‐free ideal. I develop the idea that the characteristic feature of
+    epistemic values is that they promote, either intrinsically or
+    extrinsically, the attainment of truths. This proposal is shown to answer
+    common objections to the distinction and provide a principled basis for
+    separating legitimate from illegitimate influences of nonepistemic values in
+    scientific inference.
+  author:
+    - family: Steel
+      given: Daniel
+  citation-key: SteelEpistemicValuesArgument2010
+  container-title: Philosophy of Science
+  container-title-short: Phil Sci
+  issue: '1'
+  issued:
+    - year: 2010
+  page: 14-34
+  title: Epistemic Values and the Argument from Inductive Risk
+  type: article-journal
+  URL: http://www.jstor.org/stable/10.1086/650206
+  volume: '77'
 
 - id: StoltzMappingTextsComputational2024
   abstract: >-

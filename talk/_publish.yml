@@ -1,0 +1,4 @@
+- source: talk.qmd
+  netlify:
+    - id: 094f227c-daaa-4bca-ae7e-2a4d3dea0d19
+      url: https://sparkling-hummingbird-17d240.netlify.app

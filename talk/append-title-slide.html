@@ -1,0 +1,29 @@
+<script>
+  function move_titleSlide() {
+      var titleSlide = document.querySelector('section#title-slide');
+      var titleSlideClone = titleSlide.cloneNode(true);
+      titleSlideClone.id = 'title-slide-cloned';
+      var placeholder = document.querySelector('section.placeholder-for-titleSlide');
+      var visibility = placeholder.getAttribute('data-visibility');
+      if (visibility !== null) {
+        titleSlideClone.setAttribute('data-visibility', visibility);
+      }
+      placeholder.replaceWith(titleSlideClone);
+      Reveal.sync();
+  }
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    move_titleSlide();
+  });
+</script>
+
+
+<style>
+  #title-slide-cloned {
+    text-align: center
+  }
+
+  #title-slide-cloned .subtitle {
+    margin-bottom: 2.5rem
+  }
+</style>

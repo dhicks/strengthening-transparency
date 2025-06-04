@@ -1,0 +1,51 @@
+/*-- scss:defaults --*/
+
+$presentation-font-size-root: 50px;
+
+/*-- scss:rules --*/
+.smallish {
+  font-size: 80%!important;
+}
+
+.smallish h2 {
+  font-size: 80px;
+}
+
+.smaller {
+  font-size: 65%!important;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.purple {
+  color: purple;
+}
+
+.center {
+  text-align: center;
+}
+
+
+.v-center {
+  display: flex!important;
+  flex-direction: column;
+  justify-content: center;
+  height: 75%;
+}
+
+.caption {
+  text-align: right;
+  font-size: 50%!important;
+}
+
+figcaption {
+  text-align: right;
+  font-size: 50%!important;
+}
+

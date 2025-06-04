@@ -1,0 +1,206 @@
+---
+title: "The aims of science and an open science controversy at US EPA"
+authors: "**D. J. Hicks** (they/them), Emilio Lobato, Cosmo Campbell, and Joseph Dad"
+institute: |
+  | University of California, Merced
+  | ![](qr_code.png)
+  | [tinyurl.com/25y8hn8h](https://tinyurl.com/25y8hn8h)
+
+format: 
+    revealjs:
+        width: 1.1*1440
+        height: 1080
+        toc: true
+        toc-depth: 1
+        toc-title: Outline
+        slide-number: true
+        self-contained: true
+        theme: [default, custom.scss]
+        center: false
+        footnotes-hover: true
+        reference-location: document
+        include-in-header: append-title-slide.html
+        auto-stretch: false
+link-citations: true
+bibliography: ['/Users/danhicks/Google Drive/Writing/viss/paper/VISS.yaml']
+---
+
+# *Strengthening Transparency in Regulatory Science*
+
+## *Strengthening Transparency in Regulatory Science*
+
+- Strong open science rule at USEPA
+- First Trump administration
+- Proposed in 2018, briefly adopted in January 2021
+- Based on Secret Science Act, industry complaints about public health studies
+
+
+## Public comments on ST
+
+- Notice and Comment process
+    - Required under Administrative Procedure Act (1946)
+    - Submitted by mail, email, or web form
+    - Almost always made available on [regulations.gov](https://www.regulations.gov/) →\
+        Easy to retrieve for text mining
+
+- Public comments on ST
+    - ~1M counting very granularly
+    - ~21k as grouped on regulations.gov
+    - Opponents generally political liberals
+    - Supporters generally political conservatives
+    
+## Example comment: Opponent
+
+Im writing to speak out AGAINST your proposed regulations to assault the EPAs use of [science]{.blue} in the middle of [a global public health crisis]{.red}.</br></br>
+
+[Peer-reviewed studies]{.blue} assessing the effects of pollution exposure on humans, based on actual personal [health]{.red} [data]{.blue} which by law must be kept confidential are among [the best science available]{.blue} to the Agency. The misguided proposal would direct EPA to [ignore these data]{.blue} unless those confidential personal [health]{.red} [data]{.blue} were made publicly available.</br></br>
+
+This is both unnecessary and impractical. As a retired [scientist]{.blue}, I urge you to abandon this reckless plan, for the sake of our [childrens health]{.red}. To do otherwise is unconscionable.</br></br>
+
+<https://www.regulations.gov/comment/EPA-HQ-OA-2018-0259-19410>
+
+## Example comment: Supporter {.smallish}
+
+I sincerely hope that you can distance the EPA agency from [politically correct science]{.blue}. The only way to do this is to adopt the following [methodology]{.blue}.</br></br>
+
+::: {.blue}
+The scientific method demands that researchers' work be fully transparent.
+
+Data must be made available for examination.
+
+Theories must be open to challenge.
+
+Disproven theories must be altered or set aside.
+
+Barriers must be removed that would prevent valid conclusions from rising to the top.
+:::
+</br>
+
+I for one am tired of hearing about how bad technologies are for the planet, [without any scientific proof]{.blue} that things today are different. Don't tell me that glarciers are melting and the ocean is rising a foot every 10 years. Remove yourselves from such statements and [give facts]{.blue} about such a change: volume of water, [how will it be measured, what could be causing it]{.blue}, [what can be done that is both environmentally and economically sound]{.red}.</br></br>
+
+<https://www.regulations.gov/comment/EPA-HQ-OA-2018-0259-12305>
+
+## Text mining methods
+
+::: {.v-center}
+- 21k comments is too many to analyze using traditional close reading
+</br></br>
+
+- 800 comments categorized as supporting/opposing by humans 
+- remaining comments categorized using machine learning model
+- natural language processing (NLP) to extract adjective-noun pairs
+- keyword searches that account for synonyms and related concepts
+:::
+
+
+# Aims of science 
+
+## Rival views of the aims of science
+
+@HicksScientificPracticesTheir2012; @HicksWhenVirtuesAre2022
+
+- Two views of the aims of science
+- Differ over relationship between epistemic and pragmatic aims
+
+narrow view
+  ~ Science has only epistemic aims; \
+    practical applications are at best nice side effects, \
+    must not override epistemic considerations
+    </br></br>
+  
+broad view
+  ~ Science has both epistemic and pragmatic aims; \
+    relationship between the two is complex, context-dependent; \
+    pragmatic considerations can take priority in some cases
+    
+
+## Rival views in ST public comments
+
+![ \ ](../out/09_llr_top_filtered.png){}
+
+## Rival views in ST public comments
+
+::::: {.v-center}
+:::: {.columns .center}
+::: {.column}
+[Opponents (liberals) use broad view]{.blue}
+:::
+::: {.column}
+[Supporters (conservatives) use narrow view]{.red}
+:::
+::::
+
+:::: {.columns}
+::: {.column}
+- Both epistemic & pragmatic aims</br></br>
+- Public health as a primary aim of EPA/regulatory science
+- ST would frustrate that aim
+:::
+::: {.column}
+- Epistemic aims only; almost no discussion of practical concerns
+- EPA/regulatory science as currently failing to achieve its epistemic aims
+- ST would promote them
+:::
+::::
+:::::
+
+
+# Upshots
+
+## Rival views as deep disagreement
+
+::: {.v-center}
+In the ST controversy, disagreement over the aims of science is **deep** in two senses: 
+
+axiomatic; self-evident
+  ~ Each side treats their view as not in need of justification or defense
+  
+latent
+  ~ Neither side seems to recognize the existence of disagreement
+
+<br><br>
+
+Just like [shared]{.blue} background assumptions can underpin consensus, \
+[unshared]{.red} background assumptions can underpin disagreement
+:::
+
+## Cynicism and "Gold Standard Science"
+
+:::: {.columns}
+::: {.column}
+For supporters of ST, science is
+
+- secretive
+- false
+- phony
+- deceptive
+- shady
+- bogus
+- hidden
+- fraudulent
+
+:::
+::: {.column}
+
+[Cynical]{.red} frame for interpreting science
+
+- Also shared by the mainstream science reform movement! 
+- ST weaponized the rhetoric of this movement [@HicksOpenScienceReplication2023]
+- Continued in the May 23, 2025, EO calling for a "return" to "Gold Standard Science" [@TollefsonTrumpsCallGold2025]
+
+:::
+::::
+
+
+
+# {.placeholder-for-titleSlide visibility='uncounted'}
+
+
+
+# References # {.unlisted visibility='uncounted' style="font-size:50%"}
+
+
+
+
+
+

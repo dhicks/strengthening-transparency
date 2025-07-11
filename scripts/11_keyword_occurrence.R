@@ -49,11 +49,11 @@ map(coded, count_tokens) |>
     scale_x_log10(labels = scales::trans_format("log10", scales::math_format(10^.x))) +
     # guides(x = guide_axis_logticks()) +
     annotation_logticks(sides = 'b') +
-    scale_color_brewer(palette = 'Set1') +
     facet_wrap(vars(coding), 
                ncol = 1, 
                scales = 'free_y', 
-               axes = 'all_x')
+               axes = 'all_x') +
+    scale_color_brewer(palette = 'Dark2')
 
 ggsave(here(out_dir, '11_len.png'), 
        height = 3, width = 4, bg = 'white', scale = 2)
@@ -168,7 +168,8 @@ llr_df |>
     geom_point(aes(y = llr)) +
     scale_x_reordered() +
     coord_flip() +
-    facet_wrap(vars(coding), ncol = 3, scales = 'free_y')
+    facet_wrap(vars(coding), ncol = 3, scales = 'free_y') +
+    scale_color_brewer(palette = 'Dark2')
 
 ggsave(here(out_dir, '11_llr.png'), 
        height = 3, width = 4, bg = 'white', scale = 2)

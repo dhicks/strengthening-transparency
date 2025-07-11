@@ -1,6 +1,6 @@
 all: pdf wc
 
-split = 17
+split = 18
 
 .PHONY: html
 html: paper.html
